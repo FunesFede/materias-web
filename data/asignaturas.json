@@ -151,16 +151,6 @@
             },
             {
                 "anio": 2,
-                "nombre": "Análisis de Sistemas de Información",
-                "area": "",
-                "acronimo": "ASI",
-                "tipo": "Obligatoria",
-                "duracion": "Anual",
-                "regularizadas": ["AED", "SPN"],
-                "aprobadas": []
-            },
-            {
-                "anio": 2,
                 "nombre": "Sistemas Operativos",
                 "area": "",
                 "acronimo": "SOP",
