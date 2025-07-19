@@ -116,8 +116,8 @@ export default function AsignaturaInfo() {
 						</li>
 					</ul>
 					<div className='card-body'>
-						<button href='#' className='btn btn-primary me-3 mb-3' onClick={() => navigate(-1)}>
-							Volver
+						<button className='btn btn-primary me-3 mb-3' onClick={() => navigate(-1)}>
+							<i className='bi bi-arrow-left'></i> Volver
 						</button>
 						<select
 							name=''

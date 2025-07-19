@@ -74,35 +74,36 @@ export default function Asignatura({ asignatura }) {
 				className={
 					esHecha()
 						? asigUtils.esAprobada(asignatura.acronimo)
-							? "card bg-success text-white"
-							: "card bg-warning text-white"
+							? "card bg-success-dark text-white"
+							: "card bg-warning-dark text-white"
 						: esCursable()
 						? "card bg-secondary text-white"
-						: "card bg-danger text-white"
+						: "card bg-danger-dark text-white"
 				}
 			>
 				<div className='card-body'>
 					<h5 className='card-title'>
 						{handleIcono()}
-						<span className={esHecha() ? "text-decoration-line-through" : ""}>{asignatura.nombre}</span>
+						<span className={esHecha() ? "text-decoration-line-through" : ""}>{asignatura.nombre}</span>{" "}
+						{asignatura.tipo == "Electiva" && <span class='badge text-bg-success'>Electiva</span>}
 					</h5>
 
 					<div className='botones-container'>
 						<button
-							title='Regularizar Asignatura'
-							disabled={!esCursable() || esHecha()}
-							className='btn btn-primary btn-sm me-2'
-							onClick={() => asigUtils.regularizar(asignatura.acronimo)}
+							title='Aprobar Asignatura'
+							disabled={!esCursable() || asigUtils.esAprobada(asignatura.acronimo)}
+							className='btn btn-success btn-sm me-2 text-white'
+							onClick={() => asigUtils.aprobar(asignatura.acronimo)}
 						>
 							<i className='bi bi-check-lg'></i>
 						</button>
 						<button
-							title='Aprobar Asignatura'
-							disabled={!esCursable() || asigUtils.esAprobada(asignatura.acronimo)}
-							className='btn btn-primary btn-sm me-2'
-							onClick={() => asigUtils.aprobar(asignatura.acronimo)}
+							title='Regularizar Asignatura'
+							disabled={!esCursable() || esHecha()}
+							className='btn btn-warning btn-sm me-2 text-white'
+							onClick={() => asigUtils.regularizar(asignatura.acronimo)}
 						>
-							<i className='bi bi-check-all'></i>
+							<i className='bi bi-hourglass-bottom'></i>
 						</button>
 						<button title='Información' className='btn btn-primary btn-sm me-2' onClick={() => navigate(`/materias-web/${asignatura.acronimo}`)}>
 							<i className='bi bi-info'></i>

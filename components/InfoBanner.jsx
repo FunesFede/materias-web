@@ -2,28 +2,28 @@ import React from "react";
 
 export default function InfoBanner() {
 	return (
-		<div className='container-fluid bg-dark2 rounded my-4 text-white'>
+		<div className='container-fluid bg-dark2 rounded my-4 py-2 text-white'>
 			<div className='row'>
 				<div className='col'>
-					<h4>Botones</h4>
+					<h4>Guía de Botones</h4>
 					<div className='text-warning'>
-						<i className='bi bi-check-lg text-warning'></i> Regularizar Materia (cursada pero final no rendido)
+						<i className='bi bi-hourglass text-warning'></i> Regularizar Asignatura (cursada pero final no rendido)
 					</div>
 					<div className='text-success'>
-						<i className='bi bi-check-all'></i> Aprobar Materia (final rendido o aprobación directa)
+						<i className='bi bi-check-lg'></i> Aprobar Asignatura (final rendido o aprobación directa)
 					</div>
 					<div className='text-primary'>
 						<i className='bi bi-info'></i> Ver Información Detallada
 					</div>
 					<div className='text-primary'>
-						<i className='bi bi-arrow-left-right'></i> Ver Correlatividades
+						<i className='bi bi-arrow-left-right'></i> Ver Correlativas
 					</div>
 					<div className='text-danger'>
-						<i className='bi bi-x-lg'></i> Eliminar Materia (correlatividades se caen)
+						<i className='bi bi-x-lg'></i> Eliminar Asignatura (correlativas se caen)
 					</div>
 				</div>
 				<div className='col'>
-					<h4>Íconos</h4>
+					<h4>Guía de Íconos</h4>
 					<div className='text-danger'>
 						<i className='bi bi-lock-fill'></i> Materia No Cursable
 					</div>

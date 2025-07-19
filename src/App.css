@@ -42,6 +42,18 @@
   width: 100%;
 }
 
+.bg-success-dark {
+  background-color: rgb(36, 111, 76);
+}
+
+.bg-warning-dark {
+  background-color: rgb(109, 90, 6);
+}
+
+.bg-danger-dark {
+  background-color: rgb(173, 44, 44);
+}
+
 .asignatura-vertical .card {
   transition: transform 0.2s ease-in-out;
   border: 1px solid rgba(255, 255, 255, 0.2);
