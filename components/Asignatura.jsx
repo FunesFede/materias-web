@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { toast, Flip } from "react-toastify";
 import asigUtils from "../utils/asignaturas.js";
+import { useNavigate } from "react-router";
 
 export default function Asignatura({ asignatura }) {
 	const [refreshKey, setRefreshKey] = useState(0);
+	const navigate = useNavigate();
 
 	let mensaje = asignatura.regularizadas.length > 0 ? `Regularizadas (o aprobadas): ${asignatura.regularizadas.join(", ")}` : "No requiere asignaturas regularizadas";
 
@@ -57,16 +59,13 @@ export default function Asignatura({ asignatura }) {
 		return true;
 	};
 
-	const handleRegularizar = () => {
-		asigUtils.regularizar(asignatura.acronimo);
-		// Trigger custom event for same-tab updates
-		window.dispatchEvent(new Event("localStorageUpdate"));
-	};
-
-	const handleAprobar = () => {
-		asigUtils.aprobar(asignatura.acronimo);
-		// Trigger custom event for same-tab updates
-		window.dispatchEvent(new Event("localStorageUpdate"));
+	const handleIcono = () => {
+		if (esCursable()) {
+			if (esHecha()) {
+				if (asigUtils.esAprobada(asignatura.acronimo)) return <i className='bi bi-check-lg'></i>;
+				else return <i className='bi bi-hourglass'></i>;
+			} else return <i className='bi bi-unlock-fill'></i>;
+		} else return <i className='bi bi-lock-fill'></i>;
 	};
 
 	return (
@@ -84,24 +83,32 @@ export default function Asignatura({ asignatura }) {
 			>
 				<div className='card-body'>
 					<h5 className='card-title'>
-						{esCursable() ? <i className='bi bi-unlock-fill'></i> : <i className='bi bi-lock-fill'></i>}{" "}
+						{handleIcono()}
 						<span className={esHecha() ? "text-decoration-line-through" : ""}>{asignatura.nombre}</span>
 					</h5>
 
 					<div className='botones-container'>
-						<button title='Regularizar Asignatura' disabled={!esCursable() || esHecha()} className='btn btn-primary btn-sm me-2' onClick={handleRegularizar}>
-							<i className='bi bi-check'></i>
+						<button
+							title='Regularizar Asignatura'
+							disabled={!esCursable() || esHecha()}
+							className='btn btn-primary btn-sm me-2'
+							onClick={() => asigUtils.regularizar(asignatura.acronimo)}
+						>
+							<i className='bi bi-check-lg'></i>
 						</button>
 						<button
 							title='Aprobar Asignatura'
 							disabled={!esCursable() || asigUtils.esAprobada(asignatura.acronimo)}
 							className='btn btn-primary btn-sm me-2'
-							onClick={handleAprobar}
+							onClick={() => asigUtils.aprobar(asignatura.acronimo)}
 						>
 							<i className='bi bi-check-all'></i>
 						</button>
-						<button title='Correlatividades' className='btn btn-primary btn-sm me-2' onClick={() => notify()}>
+						<button title='Información' className='btn btn-primary btn-sm me-2' onClick={() => navigate(`/materias-web/${asignatura.acronimo}`)}>
 							<i className='bi bi-info'></i>
+						</button>
+						<button title='Correlatividades' className='btn btn-primary btn-sm me-2' onClick={() => notify()}>
+							<i className='bi bi-arrow-left-right'></i>
 						</button>
 						<button title='Borrar' disabled={!esHecha()} className='btn btn-danger btn-sm' onClick={() => asigUtils.borrar(asignatura.acronimo)}>
 							<i className='bi bi-x-lg'></i>

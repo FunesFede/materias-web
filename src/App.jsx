@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import { ToastContainer, Flip } from "react-toastify";
 
 import Main from "../pages/Main.jsx";
+import AsignaturaInfo from "../pages/AsignaturaInfo.jsx";
 
 function App() {
 	return (
@@ -10,6 +11,7 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route path='/materias-web' element={<Main />} />
+					<Route path='/materias-web/:acrom' element={<AsignaturaInfo />} />
 				</Routes>
 				<ToastContainer
 					position='bottom-right'
