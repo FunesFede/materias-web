@@ -1,0 +1,105 @@
+#root {
+  text-align: center;
+}
+
+/* Sistema de columnas verticales */
+.columnas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.columna {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.titulo-columna {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  font-weight: bold;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+}
+
+.asignaturas-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.asignatura-vertical {
+  width: 100%;
+}
+
+.asignatura-vertical .card {
+  transition: transform 0.2s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.asignatura-vertical .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.botones-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* Estilos para componente ColumnaAsignaturas */
+.columna-asignaturas {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  height: fit-content;
+  min-height: 300px;
+}
+
+.lista-asignaturas {
+  display: flex;
+  flex-direction: column;
+}
+
+.asignatura-item .card {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.asignatura-item .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+}
+
+.asignatura-item .card-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #2c3e50;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .columnas-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .titulo-columna {
+    font-size: 1.2rem;
+  }
+
+  .columna-asignaturas {
+    margin-bottom: 1rem;
+  }
+}
