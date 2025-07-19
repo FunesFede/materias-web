@@ -9,7 +9,7 @@ function App() {
 		<>
 			<BrowserRouter>
 				<Routes>
-					<Route path='/' element={<Main />} />
+					<Route path='/materias-web' element={<Main />} />
 				</Routes>
 				<ToastContainer
 					position='bottom-right'
