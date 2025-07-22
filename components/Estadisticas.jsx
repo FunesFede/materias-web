@@ -31,7 +31,7 @@ export default function Estadisticas() {
 				</h4>
 			</div>
 			<div className='row justify-content-center'>
-				<div className='col-3'>
+				<div className='col-4'>
 					<h5>
 						<i className='bi bi-hourglass'></i> Regularizadas: {regularizadas.length}
 					</h5>
@@ -45,7 +45,7 @@ export default function Estadisticas() {
 						<i className='bi bi-arrow-left-right'></i> A cursar: {asignaturas.filter((a) => a.tipo == "Obligatoria").length + 6 - regularizadasYAprobadas.size}
 					</h5>
 				</div>
-				<div className='col-3'>
+				<div className='col-4'>
 					<h5>
 						<i className='bi bi-compass'></i> Total Electivas: {asignaturas.filter((a) => a.tipo == "Electiva").length}
 					</h5>

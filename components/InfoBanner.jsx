@@ -3,8 +3,10 @@ import React from "react";
 export default function InfoBanner() {
 	return (
 		<div className='container-fluid bg-dark2 rounded my-4 py-2 text-white'>
-			<div className='row mb-2'>
+			<div className='row'>
 				<h5 className='col'>Guía de Botones</h5>
+			</div>
+			<div className='row mb-2'>
 				<div className='text-warning col'>
 					<i className='bi bi-hourglass text-warning'></i> Regularizar Asignatura <br /> (cursada pero final no rendido)
 				</div>
@@ -22,7 +24,11 @@ export default function InfoBanner() {
 				</div>
 			</div>
 			<div className='row'>
-				<h5 className='col'>Guía de Íconos</h5>
+				<div className='col'>
+					<h5>Guia de Iconos</h5>
+				</div>
+			</div>
+			<div className='row'>
 				<div className='text-danger col'>
 					<i className='bi bi-lock-fill'></i> Asignatura No Cursable
 				</div>
