@@ -1,6 +1,8 @@
 import React from "react";
+
 import Asignatura from "../components/Asignatura.jsx";
 import InfoBanner from "../components/InfoBanner.jsx";
+import Estadisticas from "../components/Estadisticas.jsx";
 
 import asignaturas from "../data/asignaturas.json";
 
@@ -15,6 +17,7 @@ export default function Main() {
 		<>
 			<div className='container-fluid my-2 min-vh-100 bg-dark text-white'>
 				<InfoBanner />
+				<Estadisticas />
 				<div className='container-fluid'>
 					{/* Sistema de columnas usando CSS Grid */}
 					<div className='columnas-grid'>
@@ -27,7 +30,7 @@ export default function Main() {
 							</div>
 						</div>
 
-						<div key={1} className='columna'>
+						<div key={2} className='columna'>
 							<h3 className='titulo-columna'>Segundo Año</h3>
 							<div className='asignaturas-container'>
 								{segundoAnio.map((asig, index) => (
@@ -36,7 +39,7 @@ export default function Main() {
 							</div>
 						</div>
 
-						<div key={1} className='columna'>
+						<div key={3} className='columna'>
 							<h3 className='titulo-columna'>Tercer Año</h3>
 							<div className='asignaturas-container'>
 								{tercerAnio.map((asig, index) => (
@@ -45,7 +48,7 @@ export default function Main() {
 							</div>
 						</div>
 
-						<div key={1} className='columna'>
+						<div key={4} className='columna'>
 							<h3 className='titulo-columna'>Cuarto Año</h3>
 							<div className='asignaturas-container'>
 								{cuartoAnio.map((asig, index) => (
@@ -54,7 +57,7 @@ export default function Main() {
 							</div>
 						</div>
 
-						<div key={1} className='columna'>
+						<div key={5} className='columna'>
 							<h3 className='titulo-columna'>Quinto Año</h3>
 							<div className='asignaturas-container'>
 								{quintoAnio.map((asig, index) => (
