@@ -31,23 +31,16 @@ function esAprobada(acronimo) {
 }
 
 function borrar(acronimo, visited = new Set(), regularizadas = null, aprobadas = null, isRoot = true) {
-	console.log("Borrando:", acronimo);
-
 	// Prevenir recursión infinita
 	if (visited.has(acronimo)) {
-		console.log("Ya visitado:", acronimo);
 		return { regularizadas, aprobadas };
 	}
 	visited.add(acronimo);
 
 	// Solo leer de localStorage en la llamada inicial
 	if (regularizadas === null || aprobadas === null) {
-		console.log("Leyendo de localStorage...");
 		let regStr = localStorage.getItem("regularizadas");
 		let aprStr = localStorage.getItem("aprobadas");
-
-		console.log("localStorage regularizadas:", regStr);
-		console.log("localStorage aprobadas:", aprStr);
 
 		if (!regStr) {
 			regularizadas = [];
@@ -61,14 +54,11 @@ function borrar(acronimo, visited = new Set(), regularizadas = null, aprobadas =
 		}
 	}
 
-	console.log("Arrays antes de borrar:", { regularizadas, aprobadas });
-
 	// Remover la asignatura actual de las listas
 	if (regularizadas.includes(acronimo)) {
 		const index = regularizadas.indexOf(acronimo);
 		if (index > -1) {
 			regularizadas.splice(index, 1);
-			console.log("Removido de regularizadas:", acronimo);
 		}
 	}
 
@@ -76,19 +66,11 @@ function borrar(acronimo, visited = new Set(), regularizadas = null, aprobadas =
 		const index = aprobadas.indexOf(acronimo);
 		if (index > -1) {
 			aprobadas.splice(index, 1);
-			console.log("Removido de aprobadas:", acronimo);
 		}
 	}
 
-	console.log("Arrays después de borrar:", { regularizadas, aprobadas });
-
 	// Buscar asignaturas que dependan de la que se está borrando
 	const asignaturasAfectadas = asignaturas.filter((asignatura) => asignatura.regularizadas.includes(acronimo) || asignatura.aprobadas.includes(acronimo));
-
-	console.log(
-		"Asignaturas afectadas:",
-		asignaturasAfectadas.map((a) => a.acronimo)
-	);
 
 	// Borrar recursivamente las asignaturas que dependían de esta
 	for (const asignatura of asignaturasAfectadas) {
@@ -99,7 +81,6 @@ function borrar(acronimo, visited = new Set(), regularizadas = null, aprobadas =
 
 	// Guardar solo si es la llamada inicial
 	if (isRoot) {
-		console.log("Guardando en localStorage:", { regularizadas, aprobadas });
 		localStorage.setItem("regularizadas", regularizadas.join(","));
 		localStorage.setItem("aprobadas", aprobadas.join(","));
 

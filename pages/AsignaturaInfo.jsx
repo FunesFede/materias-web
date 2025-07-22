@@ -126,7 +126,9 @@ export default function AsignaturaInfo() {
 							onChange={(e) => (e.target.value != "-1" ? navigate(`/materias-web/${e.target.value}`) : "")}
 							disabled={asignAprobadas.length == 0 && asignRegularizadas.length == 0}
 						>
-							<option value='-1'>Visitar Correlativa</option>
+							<option value='-1' selected>
+								Visitar Correlativa
+							</option>
 							{asignRegularizadas.map((asign, index) => (
 								<option key={index} value={asign.acronimo}>
 									{asign.nombre}

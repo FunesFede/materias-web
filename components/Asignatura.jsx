@@ -105,13 +105,13 @@ export default function Asignatura({ asignatura }) {
 						>
 							<i className='bi bi-hourglass-bottom'></i>
 						</button>
-						<button title='Información' className='btn btn-primary btn-sm me-2' onClick={() => navigate(`/materias-web/${asignatura.acronimo}`)}>
+						<button title='Ver Información' className='btn btn-primary btn-sm me-2' onClick={() => navigate(`/materias-web/${asignatura.acronimo}`)}>
 							<i className='bi bi-info'></i>
 						</button>
-						<button title='Correlatividades' className='btn btn-primary btn-sm me-2' onClick={() => notify()}>
+						<button title='Ver Correlativas' className='btn btn-primary btn-sm me-2' onClick={() => notify()}>
 							<i className='bi bi-arrow-left-right'></i>
 						</button>
-						<button title='Borrar' disabled={!esHecha()} className='btn btn-danger btn-sm' onClick={() => asigUtils.borrar(asignatura.acronimo)}>
+						<button title='Eliminar Cursado' disabled={!esHecha()} className='btn btn-danger btn-sm' onClick={() => asigUtils.borrar(asignatura.acronimo)}>
 							<i className='bi bi-x-lg'></i>
 						</button>
 					</div>
