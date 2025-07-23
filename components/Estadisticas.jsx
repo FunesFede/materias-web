@@ -3,8 +3,14 @@ import asignaturas from "../data/asignaturas.json";
 
 export default function Estadisticas() {
 	const [refreshKey, setRefreshKey] = useState(0);
-	const regularizadas = localStorage.getItem("regularizadas").split(",");
-	const aprobadas = localStorage.getItem("aprobadas").split(",");
+	let regularizadas = localStorage.getItem("regularizadas");
+	let aprobadas = localStorage.getItem("aprobadas");
+
+	if (!regularizadas) regularizadas = [];
+	else regularizadas = regularizadas.split(",");
+	if (!aprobadas) aprobadas = [];
+	else aprobadas = aprobadas.split(",");
+
 	const regularizadasYAprobadas = new Set([...regularizadas, ...aprobadas]);
 
 	useEffect(() => {
