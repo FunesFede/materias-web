@@ -386,7 +386,7 @@
                 "acronimo": "DEC",
                 "tipo": "Electiva",
                 "duracion": "Cuatrimestral",
-                "regularizadas": ["IO"],
+                "regularizadas": ["IOP"],
                 "aprobadas": ["BDD"]
             },
             {
@@ -476,7 +476,7 @@
                 "acronimo": "SG",
                 "tipo": "Obligatoria",
                 "duracion": "Cuatrimestral",
-                "regularizadas": ["ECO", "IO"],
+                "regularizadas": ["ECO", "IOP"],
                 "aprobadas": ["DSI"]
             }
 ]
