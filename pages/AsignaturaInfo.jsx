@@ -21,6 +21,9 @@ export default function AsignaturaInfo() {
 
 	const asignRegularizadas = asignaturas.filter((asign) => asignatura.regularizadas.includes(asign.acronimo));
 	const asignAprobadas = asignaturas.filter((asign) => asignatura.aprobadas.includes(asign.acronimo));
+	const correlativaFuturaRegular = asignaturas.filter((asign) => asign.regularizadas.includes(asignatura.acronimo));
+	const correlativaFuturaAprobada = asignaturas.filter((asign) => asign.aprobadas.includes(asignatura.acronimo));
+	const correlativaFutura = [...correlativaFuturaAprobada, ...correlativaFuturaRegular].sort((a, b) => a.nombre.localeCompare(b.nombre));
 
 	const esHecha = (a) => {
 		return asigUtils.esRegularizada(a) || asigUtils.esAprobada(a);
@@ -93,32 +96,65 @@ export default function AsignaturaInfo() {
 							<span className='fw-bold'>Estado:</span> {handleEstado()}
 						</li>
 						<li key='2' className='list-group-item'>
-							<span className='fw-bold'>Regularizadas:</span>{" "}
-							{asignatura.regularizadas.length > 0
-								? asignRegularizadas.map((a, idx) => (
-										<React.Fragment key={a.acronimo}>
-											<span className={handleColor(a)}>{a.nombre}</span>
-											{idx < asignRegularizadas.length - 1 ? ", " : ""}
-										</React.Fragment>
-								  ))
-								: "No requiere asignaturas regularizadas"}
+							<div className='fw-bold'>
+								<span>
+									<i class='bi bi-arrow-left-right'></i> Correlativas
+								</span>
+							</div>
+							<div>
+								<span className='fw-semibold'>Regularizadas:</span>{" "}
+								{asignatura.regularizadas.length > 0
+									? asignRegularizadas.map((a, idx) => (
+											<React.Fragment key={a.acronimo}>
+												<span className={handleColor(a)}>{a.nombre}</span>
+												{idx < asignRegularizadas.length - 1 ? ", " : ""}
+											</React.Fragment>
+									  ))
+									: "No requiere asignaturas regularizadas"}
+							</div>
+							<div>
+								<span className='fw-semibold'>Aprobadas:</span>{" "}
+								{asignatura.aprobadas.length > 0
+									? asignAprobadas.map((a, idx) => (
+											<React.Fragment key={a.acronimo}>
+												<span className={handleColor(a)}>{a.nombre}</span>
+												{idx < asignAprobadas.length - 1 ? ", " : ""}
+											</React.Fragment>
+									  ))
+									: "No requiere asignaturas aprobadas"}
+							</div>
 						</li>
-						<li key='3' className='list-group-item'>
-							<span className='fw-bold'>Aprobadas:</span>{" "}
-							{asignatura.aprobadas.length > 0
-								? asignAprobadas.map((a, idx) => (
-										<React.Fragment key={a.acronimo}>
-											<span className={handleColor(a)}>{a.nombre}</span>
-											{idx < asignAprobadas.length - 1 ? ", " : ""}
-										</React.Fragment>
-								  ))
-								: "No requiere asignaturas aprobadas"}
+						<li key='4' className='list-group-item'>
+							<div className='fw-bold'>
+								<span>
+									<i class='bi bi-link-45deg'></i> Dependiente En:
+								</span>
+							</div>
+							<div>
+								<span className='fw-semibold'>Como regularizada:</span>{" "}
+								{correlativaFuturaRegular.length > 0
+									? correlativaFuturaRegular.map((a, idx) => (
+											<React.Fragment key={a.acronimo}>
+												<span className={handleColor(a)}>{a.nombre}</span>
+												{idx < correlativaFuturaRegular.length - 1 ? ", " : ""}
+											</React.Fragment>
+									  ))
+									: "No es dependiente como regular"}
+							</div>
+							<div>
+								<span className='fw-semibold'>Como aprobada:</span>{" "}
+								{correlativaFuturaAprobada.length > 0
+									? correlativaFuturaAprobada.map((a, idx) => (
+											<React.Fragment key={a.acronimo}>
+												<span className={handleColor(a)}>{a.nombre}</span>
+												{idx < correlativaFuturaAprobada.length - 1 ? ", " : ""}
+											</React.Fragment>
+									  ))
+									: "No es dependiente como aprobada"}
+							</div>
 						</li>
 					</ul>
 					<div className='card-body'>
-						<button className='btn btn-primary me-3 mb-3' onClick={() => navigate(-1)}>
-							<i className='bi bi-arrow-left'></i> Volver
-						</button>
 						<select
 							name=''
 							id=''
@@ -140,6 +176,25 @@ export default function AsignaturaInfo() {
 								</option>
 							))}
 						</select>
+						<select
+							name=''
+							id=''
+							className='form-select mt-2'
+							onChange={(e) => (e.target.value != "-1" ? navigate(`/materias-web/${e.target.value}`) : "")}
+							disabled={correlativaFutura.length == 0}
+						>
+							<option value='-1' selected>
+								Visitar Dependiente
+							</option>
+							{correlativaFutura.map((asign, index) => (
+								<option key={index} value={asign.acronimo}>
+									{asign.nombre}
+								</option>
+							))}
+						</select>
+						<button className='btn btn-primary me-3 mt-3' onClick={() => navigate(-1)}>
+							<i className='bi bi-arrow-left'></i> Volver
+						</button>
 					</div>
 				</div>
 			</div>
