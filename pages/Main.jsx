@@ -15,7 +15,7 @@ export default function Main() {
 
 	return (
 		<>
-			<div className='container-fluid my-2 min-vh-100 bg-dark text-white'>
+			<div className='container-fluid py-3 min-vh-100 bg-dark text-white'>
 				<InfoBanner />
 				<Estadisticas />
 				<div className='container-fluid'>
