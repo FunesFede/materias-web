@@ -60,12 +60,12 @@ export default function Estadisticas() {
 					</h5>
 					<h5>
 						<i className='bi bi-percent'></i> Porcentaje completado: %
-						{((regularizadasYAprobadas.size * 100) / (asignaturas.filter((a) => a.tipo == "Obligatoria").length + 6)).toFixed(2)}
+						{((aprobadas.length * 100) / (asignaturas.filter((a) => a.tipo == "Obligatoria").length + 6)).toFixed(2)}
 					</h5>
 				</div>
 				<div className='row mt-2'>
 					<h6 className='text-secondary'>
-						<i className='bi bi-info-circle-fill'></i> Los totales solo toman en cuenta 6 electivas
+						<i className='bi bi-info-circle-fill'></i> Los totales y porcentajes solo toman en cuenta 6 electivas y asignaturas aprobadas.
 					</h6>
 				</div>
 			</div>
