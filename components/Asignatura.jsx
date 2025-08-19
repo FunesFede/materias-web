@@ -85,7 +85,7 @@ export default function Asignatura({ asignatura }) {
 					<h5 className='card-title'>
 						{handleIcono()}
 						<span className={esHecha() ? "text-decoration-line-through" : ""}>{asignatura.nombre}</span>{" "}
-						{asignatura.tipo == "Electiva" && <span class='badge text-bg-success'>Electiva</span>}
+						{asignatura.tipo == "Electiva" && <span className='badge text-bg-success'>Electiva</span>}
 					</h5>
 
 					<div className='botones-container'>
