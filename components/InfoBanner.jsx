@@ -4,7 +4,7 @@ export default function InfoBanner() {
 	const [min, setMin] = useState(true);
 
 	return (
-		<div className='container-fluid bg-dark2 rounded mb-4 py-2 text-white'>
+		<div className='container-fluid container-rounded-dark rounded mb-4 py-2 text-white'>
 			{!min && (
 				<span>
 					<div className='row'>

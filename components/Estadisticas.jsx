@@ -30,7 +30,7 @@ export default function Estadisticas() {
 	}, []);
 
 	return (
-		<div className='container-fluid bg-dark2 rounded my-4 py-2 text-white'>
+		<div className='container-fluid container-rounded-dark rounded my-4 py-2 text-white'>
 			<div className='row mb-3'>
 				<h4>
 					<i className='bi bi-graph-up'></i> Tus Estadísticas

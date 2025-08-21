@@ -11,16 +11,20 @@
 }
 
 .columna {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(44, 48, 51, 1);
   border-radius: 0.5rem;
   padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(44, 48, 51, 0.1);
 }
 
-.bg-dark2 {
-  background-color: rgba(255, 255, 255, 0.05);
+.container-rounded-dark {
+  background-color: rgba(44, 48, 51, 1);
   border-radius: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(44, 48, 51, 0.7);
+}
+
+.bg-dark-custom {
+  background-color: rgba(44, 48, 51, 1);
 }
 
 .titulo-columna {
