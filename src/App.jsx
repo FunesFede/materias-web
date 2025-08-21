@@ -4,6 +4,7 @@ import { ToastContainer, Flip } from "react-toastify";
 
 import Main from "../pages/Main.jsx";
 import AsignaturaInfo from "../pages/AsignaturaInfo.jsx";
+import Footer from "../components/Footer.jsx";
 
 function App() {
 	return (
@@ -13,6 +14,7 @@ function App() {
 					<Route path='/materias-web' element={<Main />} />
 					<Route path='/materias-web/:acrom' element={<AsignaturaInfo />} />
 				</Routes>
+				<Footer />
 				<ToastContainer
 					position='bottom-right'
 					autoClose={10000}
