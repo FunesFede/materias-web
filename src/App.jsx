@@ -11,8 +11,8 @@ function App() {
 		<>
 			<BrowserRouter>
 				<Routes>
-					<Route path='/materias-web' element={<Main />} />
-					<Route path='/materias-web/:acrom' element={<AsignaturaInfo />} />
+					<Route path='/' element={<Main />} />
+					<Route path='/:acrom' element={<AsignaturaInfo />} />
 				</Routes>
 				<Footer />
 				<ToastContainer
