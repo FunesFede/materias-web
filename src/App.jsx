@@ -13,6 +13,7 @@ function App() {
 				<Routes>
 					<Route path='/' element={<Main />} />
 					<Route path='/asignatura/:acrom' element={<AsignaturaInfo />} />
+					<Route path='*' element={<Main />} />
 				</Routes>
 				<Footer />
 				<ToastContainer
