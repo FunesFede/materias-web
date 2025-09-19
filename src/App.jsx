@@ -12,7 +12,7 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route path='/' element={<Main />} />
-					<Route path='/:acrom' element={<AsignaturaInfo />} />
+					<Route path='/asignatura/:acrom' element={<AsignaturaInfo />} />
 				</Routes>
 				<Footer />
 				<ToastContainer
