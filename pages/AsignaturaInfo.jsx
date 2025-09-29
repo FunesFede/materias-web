@@ -186,7 +186,7 @@ export default function AsignaturaInfo() {
 											name=''
 											id=''
 											className='form-select'
-											onChange={(e) => (e.target.value != "-1" ? navigate(`/${e.target.value}`) : "")}
+											onChange={(e) => (e.target.value != "-1" ? navigate(`/asignatura/${e.target.value}`) : "")}
 											disabled={asignAprobadas.length == 0 && asignRegularizadas.length == 0}
 											defaultValue='-1'
 										>
@@ -208,7 +208,7 @@ export default function AsignaturaInfo() {
 											name=''
 											id=''
 											className='form-select'
-											onChange={(e) => (e.target.value != "-1" ? navigate(`/${e.target.value}`) : "")}
+											onChange={(e) => (e.target.value != "-1" ? navigate(`/asignatura/${e.target.value}`) : "")}
 											disabled={correlativaFutura.length == 0}
 											defaultValue='-1'
 										>
