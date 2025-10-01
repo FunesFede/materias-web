@@ -2,7 +2,7 @@ import React from "react";
 
 export default function () {
 	return (
-		<footer className='bg-dark-custom p-2 text-secondary'>
+		<footer className='footer bg-dark-custom p-2 mt-auto text-secondary'>
 			<p className='m-0'>
 				Hecho con <i class='bi bi-heart-fill'></i> por Fede
 			</p>

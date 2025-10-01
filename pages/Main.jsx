@@ -2,7 +2,7 @@ import React from "react";
 
 import Asignatura from "../components/Asignatura.jsx";
 import InfoBanner from "../components/InfoBanner.jsx";
-import Estadisticas from "../components/Estadisticas.jsx";
+import Estadisticas from "../components/EstadisticasC.jsx";
 
 import asignaturas from "../data/asignaturas.json";
 
@@ -17,7 +17,7 @@ export default function Main() {
 		<>
 			<div className='container-fluid py-3 min-vh-100 bg-dark text-white'>
 				<InfoBanner />
-				<Estadisticas />
+				{/* <Estadisticas /> */}
 				<div className='container-fluid'>
 					{/* Sistema de columnas usando CSS Grid */}
 					<div className='columnas-grid'>
