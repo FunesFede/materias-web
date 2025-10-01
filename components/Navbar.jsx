@@ -11,6 +11,8 @@ export default function Navbar() {
 	const buscarAsignatura = (e) => {
 		e.preventDefault();
 
+		if (query == "" || query == " ") navigate("/");
+
 		if (!query.trim()) return;
 		const lowerQuery = query.toLowerCase();
 		const closest =
