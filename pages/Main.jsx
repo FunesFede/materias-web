@@ -16,8 +16,6 @@ export default function Main() {
 	return (
 		<>
 			<div className='container-fluid py-3 min-vh-100 bg-dark text-white'>
-				<InfoBanner />
-				{/* <Estadisticas /> */}
 				<div className='container-fluid'>
 					{/* Sistema de columnas usando CSS Grid */}
 					<div className='columnas-grid'>

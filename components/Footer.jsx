@@ -6,7 +6,7 @@ export default function () {
 			<p className='m-0'>
 				Hecho con <i class='bi bi-heart-fill'></i> por Fede
 			</p>
-			<p className='m-0'>(Gabi furro)</p>
+			<p className='m-0'>No afiliado a la Universidad Tecnológica nacional. Todos los logotipos y derechos pertenecen a la Universidad Tecnológica Nacional.</p>
 		</footer>
 	);
 }

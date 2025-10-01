@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import EstadisticasC from "../components/EstadisticasC.jsx";
 
@@ -16,25 +17,27 @@ export default function Estadisticas() {
 
 	const regularizadasYAprobadas = new Set([...regularizadas, ...aprobadas]);
 
-	useEffect(() => {
-		const handleStorageChange = () => {
-			setRefreshKey((prev) => prev + 1);
-		};
+	// useEffect(() => {
+	// 	const handleStorageChange = () => {
+	// 		setRefreshKey((prev) => prev + 1);
+	// 	};
 
-		window.addEventListener("storage", handleStorageChange);
+	// 	window.addEventListener("storage", handleStorageChange);
 
-		// Custom event for same-tab localStorage changes
-		window.addEventListener("localStorageUpdate", handleStorageChange);
+	// 	// Custom event for same-tab localStorage changes
+	// 	window.addEventListener("localStorageUpdate", handleStorageChange);
 
-		return () => {
-			window.removeEventListener("storage", handleStorageChange);
-			window.removeEventListener("localStorageUpdate", handleStorageChange);
-		};
-	}, []);
+	// 	return () => {
+	// 		window.removeEventListener("storage", handleStorageChange);
+	// 		window.removeEventListener("localStorageUpdate", handleStorageChange);
+	// 	};
+	// }, []);
 
 	return (
 		<>
-			<EstadisticasC aprobadas={aprobadas} regularizadas={regularizadas} regularizadasYAprobadas={regularizadasYAprobadas} />
+			<div className='container-fluid py-3 min-vh-100 bg-dark text-white'>
+				<EstadisticasC aprobadas={aprobadas} regularizadas={regularizadas} regularizadasYAprobadas={regularizadasYAprobadas} />
+			</div>
 		</>
 	);
 }
