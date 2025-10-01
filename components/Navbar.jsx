@@ -38,9 +38,9 @@ export default function Navbar() {
 	return (
 		<nav className='navbar navbar-expand-lg bg-body-tertiary'>
 			<div className='container-fluid'>
-				<a className='navbar-brand' href='#'>
+				<NavLink className='navbar-brand' to='/'>
 					<img src='/logo.png' alt='Logo' width='100' height='30' class='d-inline-block align-text-top' />
-				</a>
+				</NavLink>
 				<button
 					className='navbar-toggler'
 					type='button'
