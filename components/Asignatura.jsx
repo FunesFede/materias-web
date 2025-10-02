@@ -1,32 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { toast, Flip } from "react-toastify";
-import asigUtils from "../utils/asignaturas.js";
 import { useNavigate } from "react-router";
+
+import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
+import UserStateContext from "../utils/contexts/UserContext.js";
+
+import { addAprobada, addRegularizada, borrarAsignaturaRecursivo } from "../utils/firebase/asignaturas.js";
 
 export default function Asignatura({ asignatura }) {
 	const [refreshKey, setRefreshKey] = useState(0);
 	const navigate = useNavigate();
+	const asignaturas = useContext(AsignaturasContext);
+	const user = useContext(UserStateContext);
+
+	console.log(asignaturas);
 
 	let mensaje = asignatura.regularizadas.length > 0 ? `Regularizadas (o aprobadas): ${asignatura.regularizadas.join(", ")}` : "No requiere asignaturas regularizadas";
 
 	mensaje = mensaje + (asignatura.aprobadas.length > 0 ? `, Aprobadas: ${asignatura.aprobadas.join(", ")}` : ", No requiere asignaturas aprobadas");
-
-	// Listen for localStorage changes
-	useEffect(() => {
-		const handleStorageChange = () => {
-			setRefreshKey((prev) => prev + 1);
-		};
-
-		window.addEventListener("storage", handleStorageChange);
-
-		// Custom event for same-tab localStorage changes
-		window.addEventListener("localStorageUpdate", handleStorageChange);
-
-		return () => {
-			window.removeEventListener("storage", handleStorageChange);
-			window.removeEventListener("localStorageUpdate", handleStorageChange);
-		};
-	}, []);
 
 	const notify = () =>
 		toast.info(mensaje, {
@@ -42,18 +33,20 @@ export default function Asignatura({ asignatura }) {
 		});
 
 	const esHecha = () => {
-		return asigUtils.esRegularizada(asignatura.acronimo) || asigUtils.esAprobada(asignatura.acronimo);
+		return asignaturas.regularizadas.includes(asignatura.acronimo) || asignaturas.aprobadas.includes(asignatura.acronimo);
 	};
 
 	const esCursable = () => {
 		for (let index = 0; index < asignatura.regularizadas.length; index++) {
 			const element = asignatura.regularizadas[index];
-			if (!asigUtils.esRegularizada(element)) return false;
+			console.log(element);
+			if (!asignaturas.regularizadas.includes(element) && !asignaturas.aprobadas.includes(element)) return false;
 		}
 
 		for (let index = 0; index < asignatura.aprobadas.length; index++) {
 			const element = asignatura.aprobadas[index];
-			if (!asigUtils.esAprobada(element)) return false;
+			console.log(element);
+			if (!asignaturas.aprobadas.includes(element)) return false;
 		}
 
 		return true;
@@ -62,7 +55,7 @@ export default function Asignatura({ asignatura }) {
 	const handleIcono = () => {
 		if (esCursable()) {
 			if (esHecha()) {
-				if (asigUtils.esAprobada(asignatura.acronimo)) return <i className='bi bi-check-lg'></i>;
+				if (asignaturas.aprobadas.includes(asignatura.acronimo)) return <i className='bi bi-check-lg'></i>;
 				else return <i className='bi bi-hourglass'></i>;
 			} else return <i className='bi bi-unlock-fill'></i>;
 		} else return <i className='bi bi-lock-fill'></i>;
@@ -73,7 +66,7 @@ export default function Asignatura({ asignatura }) {
 			<div
 				className={
 					esHecha()
-						? asigUtils.esAprobada(asignatura.acronimo)
+						? asignaturas.aprobadas.includes(asignatura.acronimo)
 							? "card bg-success-dark text-white"
 							: "card bg-warning-dark text-white"
 						: esCursable()
@@ -91,9 +84,9 @@ export default function Asignatura({ asignatura }) {
 					<div className='botones-container'>
 						<button
 							title='Aprobar Asignatura'
-							disabled={!esCursable() || asigUtils.esAprobada(asignatura.acronimo)}
+							disabled={!esCursable() || asignaturas.aprobadas.includes(asignatura.acronimo)}
 							className='btn btn-success btn-sm me-2 text-white'
-							onClick={() => asigUtils.aprobar(asignatura.acronimo)}
+							onClick={() => addAprobada(user.uid, asignatura.acronimo)}
 						>
 							<i className='bi bi-check-lg'></i>
 						</button>
@@ -101,7 +94,7 @@ export default function Asignatura({ asignatura }) {
 							title='Regularizar Asignatura'
 							disabled={!esCursable() || esHecha()}
 							className='btn btn-warning btn-sm me-2 text-white'
-							onClick={() => asigUtils.regularizar(asignatura.acronimo)}
+							onClick={() => addRegularizada(user.uid, asignatura.acronimo)}
 						>
 							<i className='bi bi-hourglass-bottom'></i>
 						</button>
@@ -111,7 +104,12 @@ export default function Asignatura({ asignatura }) {
 						<button title='Ver Correlativas' className='btn btn-primary btn-sm me-2' onClick={() => notify()}>
 							<i className='bi bi-arrow-left-right'></i>
 						</button>
-						<button title='Eliminar Cursado' disabled={!esHecha()} className='btn btn-danger btn-sm' onClick={() => asigUtils.borrar(asignatura.acronimo)}>
+						<button
+							title='Eliminar Cursado'
+							disabled={!esHecha()}
+							className='btn btn-danger btn-sm'
+							onClick={() => borrarAsignaturaRecursivo(user.uid, asignatura.acronimo)}
+						>
 							<i className='bi bi-x-lg'></i>
 						</button>
 					</div>

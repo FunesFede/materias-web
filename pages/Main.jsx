@@ -6,7 +6,13 @@ import Estadisticas from "../components/EstadisticasC.jsx";
 
 import asignaturas from "../data/asignaturas.json";
 
-export default function Main() {
+import { useContext } from "react";
+import UserStateContext from "../utils/contexts/UserContext.js";
+import Spinner from "../components/Spinner.jsx";
+
+export default function Main({ loading }) {
+	const { user, setUser } = useContext(UserStateContext);
+
 	const primerAnio = asignaturas.filter((asignatura) => asignatura.anio == 1);
 	const segundoAnio = asignaturas.filter((asignatura) => asignatura.anio == 2);
 	const tercerAnio = asignaturas.filter((asignatura) => asignatura.anio == 3);
@@ -16,55 +22,59 @@ export default function Main() {
 	return (
 		<>
 			<div className='container-fluid py-3 min-vh-100 bg-dark text-white'>
-				<div className='container-fluid'>
-					{/* Sistema de columnas usando CSS Grid */}
-					<div className='columnas-grid'>
-						<div key={1} className='columna'>
-							<h3 className='titulo-columna'>Primer Año</h3>
-							<div className='asignaturas-container'>
-								{primerAnio.map((asig, index) => (
-									<Asignatura key={index} asignatura={asig}></Asignatura>
-								))}
+				{loading ? (
+					<Spinner />
+				) : (
+					<div className='container-fluid'>
+						{/* Sistema de columnas usando CSS Grid */}
+						<div className='columnas-grid'>
+							<div key={1} className='columna'>
+								<h3 className='titulo-columna'>Primer Año</h3>
+								<div className='asignaturas-container'>
+									{primerAnio.map((asig, index) => (
+										<Asignatura key={index} asignatura={asig}></Asignatura>
+									))}
+								</div>
 							</div>
-						</div>
 
-						<div key={2} className='columna'>
-							<h3 className='titulo-columna'>Segundo Año</h3>
-							<div className='asignaturas-container'>
-								{segundoAnio.map((asig, index) => (
-									<Asignatura key={index} asignatura={asig}></Asignatura>
-								))}
+							<div key={2} className='columna'>
+								<h3 className='titulo-columna'>Segundo Año</h3>
+								<div className='asignaturas-container'>
+									{segundoAnio.map((asig, index) => (
+										<Asignatura key={index} asignatura={asig}></Asignatura>
+									))}
+								</div>
 							</div>
-						</div>
 
-						<div key={3} className='columna'>
-							<h3 className='titulo-columna'>Tercer Año</h3>
-							<div className='asignaturas-container'>
-								{tercerAnio.map((asig, index) => (
-									<Asignatura key={index} asignatura={asig}></Asignatura>
-								))}
+							<div key={3} className='columna'>
+								<h3 className='titulo-columna'>Tercer Año</h3>
+								<div className='asignaturas-container'>
+									{tercerAnio.map((asig, index) => (
+										<Asignatura key={index} asignatura={asig}></Asignatura>
+									))}
+								</div>
 							</div>
-						</div>
 
-						<div key={4} className='columna'>
-							<h3 className='titulo-columna'>Cuarto Año</h3>
-							<div className='asignaturas-container'>
-								{cuartoAnio.map((asig, index) => (
-									<Asignatura key={index} asignatura={asig}></Asignatura>
-								))}
+							<div key={4} className='columna'>
+								<h3 className='titulo-columna'>Cuarto Año</h3>
+								<div className='asignaturas-container'>
+									{cuartoAnio.map((asig, index) => (
+										<Asignatura key={index} asignatura={asig}></Asignatura>
+									))}
+								</div>
 							</div>
-						</div>
 
-						<div key={5} className='columna'>
-							<h3 className='titulo-columna'>Quinto Año</h3>
-							<div className='asignaturas-container'>
-								{quintoAnio.map((asig, index) => (
-									<Asignatura key={index} asignatura={asig}></Asignatura>
-								))}
+							<div key={5} className='columna'>
+								<h3 className='titulo-columna'>Quinto Año</h3>
+								<div className='asignaturas-container'>
+									{quintoAnio.map((asig, index) => (
+										<Asignatura key={index} asignatura={asig}></Asignatura>
+									))}
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				)}
 			</div>
 		</>
 	);

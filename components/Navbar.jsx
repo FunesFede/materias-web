@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { toast, Flip } from "react-toastify";
 
 import asignaturas from "../data/asignaturas.json";
+import UserStateContext from "../utils/contexts/UserContext";
+import { auth } from "../firebase/config";
+import { signOut } from "firebase/auth";
 
-export default function Navbar() {
-	const [query, setQuery] = React.useState("");
+export default function Navbar({ setLoading }) {
+	const [query, setQuery] = useState("");
 	const navigate = useNavigate();
+	const user = useContext(UserStateContext);
+
+	const handleCerrarSession = () => {
+		signOut(auth);
+		setLoading(true);
+	};
 
 	const buscarAsignatura = (e) => {
 		e.preventDefault();
@@ -77,11 +86,17 @@ export default function Navbar() {
 							placeholder='Buscar Asignatura...'
 							aria-label='Buscar Asignatura'
 							onChange={(e) => setQuery(e.target.value)}
+							disabled={!user}
 						/>
-						<button className='btn btn-outline-primary' type='submit'>
+						<button className='btn btn-outline-primary' type='submit' disabled={!user}>
 							Buscar
 						</button>
 					</form>
+					{user && (
+						<button className='btn btn-outline-danger ms-3' type='button' onClick={handleCerrarSession}>
+							Cerrar Sesión
+						</button>
+					)}
 				</div>
 			</div>
 		</nav>

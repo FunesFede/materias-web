@@ -1,37 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import EstadisticasC from "../components/EstadisticasC.jsx";
+import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
 
 export default function Estadisticas() {
 	const navigate = useNavigate();
+	const asignaturas = useContext(AsignaturasContext);
 
 	// const [refreshKey, setRefreshKey] = useState(0);
-	let regularizadas = localStorage.getItem("regularizadas");
-	let aprobadas = localStorage.getItem("aprobadas");
-
-	if (!regularizadas) regularizadas = [];
-	else regularizadas = regularizadas.split(",");
-	if (!aprobadas) aprobadas = [];
-	else aprobadas = aprobadas.split(",");
+	let regularizadas = asignaturas.regularizadas;
+	let aprobadas = asignaturas.aprobadas;
 
 	const regularizadasYAprobadas = new Set([...regularizadas, ...aprobadas]);
-
-	// useEffect(() => {
-	// 	const handleStorageChange = () => {
-	// 		setRefreshKey((prev) => prev + 1);
-	// 	};
-
-	// 	window.addEventListener("storage", handleStorageChange);
-
-	// 	// Custom event for same-tab localStorage changes
-	// 	window.addEventListener("localStorageUpdate", handleStorageChange);
-
-	// 	return () => {
-	// 		window.removeEventListener("storage", handleStorageChange);
-	// 		window.removeEventListener("localStorageUpdate", handleStorageChange);
-	// 	};
-	// }, []);
 
 	return (
 		<>
