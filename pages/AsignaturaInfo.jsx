@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router";
 
-import asignaturas from "../data/asignaturas.json";
+import asignaturasData from "../data/asignaturas.json";
 import asigUtils from "../utils/asignaturas.js";
+import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
 
 export default function AsignaturaInfo() {
 	const { acrom } = useParams();
 	const navigate = useNavigate();
+	const asignaturas = useContext(AsignaturasContext);
 
-	let asignatura = asignaturas.filter((asign) => asign.acronimo == acrom.toUpperCase())[0];
+	let asignatura = asignaturasData.filter((asign) => asign.acronimo == acrom.toUpperCase())[0];
 	if (!asignatura) {
 		asignatura = {
 			nombre: "Asignatura No Encontrada",
@@ -19,25 +21,25 @@ export default function AsignaturaInfo() {
 		};
 	}
 
-	const asignRegularizadas = asignaturas.filter((asign) => asignatura.regularizadas.includes(asign.acronimo));
-	const asignAprobadas = asignaturas.filter((asign) => asignatura.aprobadas.includes(asign.acronimo));
-	const correlativaFuturaRegular = asignaturas.filter((asign) => asign.regularizadas.includes(asignatura.acronimo));
-	const correlativaFuturaAprobada = asignaturas.filter((asign) => asign.aprobadas.includes(asignatura.acronimo));
+	const asignRegularizadas = asignaturasData.filter((asign) => asignatura.regularizadas.includes(asign.acronimo));
+	const asignAprobadas = asignaturasData.filter((asign) => asignatura.aprobadas.includes(asign.acronimo));
+	const correlativaFuturaRegular = asignaturasData.filter((asign) => asign.regularizadas.includes(asignatura.acronimo));
+	const correlativaFuturaAprobada = asignaturasData.filter((asign) => asign.aprobadas.includes(asignatura.acronimo));
 	const correlativaFutura = [...correlativaFuturaAprobada, ...correlativaFuturaRegular].sort((a, b) => a.nombre.localeCompare(b.nombre));
 
 	const esHecha = (a) => {
-		return asigUtils.esRegularizada(a) || asigUtils.esAprobada(a);
+		return asignaturas.regularizadas.includes(a) || asignaturas.aprobadas.includes(a);
 	};
 
 	const esCursable = (a) => {
 		for (let index = 0; index < a.regularizadas.length; index++) {
 			const element = a.regularizadas[index];
-			if (!asigUtils.esRegularizada(element)) return false;
+			if (!asignaturas.regularizadas.includes(element) && !asignaturas.aprobadas.includes(element)) return false;
 		}
 
 		for (let index = 0; index < a.aprobadas.length; index++) {
 			const element = a.aprobadas[index];
-			if (!asigUtils.esAprobada(element)) return false;
+			if (!asignaturas.aprobadas.includes(element)) return false;
 		}
 
 		return true;
@@ -46,7 +48,7 @@ export default function AsignaturaInfo() {
 	const handleEstado = () => {
 		if (esCursable(asignatura)) {
 			if (esHecha(asignatura.acronimo)) {
-				if (asigUtils.esAprobada(asignatura.acronimo))
+				if (asignaturas.aprobadas.includes(asignatura.acronimo))
 					return (
 						<span className='text-success'>
 							<i className='bi bi-check-lg'></i> Aprobada
@@ -75,7 +77,7 @@ export default function AsignaturaInfo() {
 	const handleColor = (asig) => {
 		if (esCursable(asig)) {
 			if (esHecha(asig.acronimo)) {
-				if (asigUtils.esAprobada(asig.acronimo)) return "text-success";
+				if (asignaturas.aprobadas.includes(asig.acronimo)) return "text-success";
 				else return "text-warning";
 			} else return "";
 		} else return "text-danger";
@@ -100,7 +102,7 @@ export default function AsignaturaInfo() {
 
 	return (
 		<>
-			<div className='container-fluid min-vh-100 bg-dark text-white d-flex align-items-center justify-content-center'>
+			<div className='container-fluid min-vh-100 bg-dark text-white d-flex align-items-center justify-content-center w-responsive'>
 				<div className='container'>
 					<div className='card bg-dark-custom text-white'>
 						<div className='card-body container-dark-rounded rounded'>
