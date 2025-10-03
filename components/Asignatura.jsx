@@ -13,8 +13,6 @@ export default function Asignatura({ asignatura }) {
 	const asignaturas = useContext(AsignaturasContext);
 	const user = useContext(UserStateContext);
 
-	console.log(asignaturas);
-
 	let mensaje = asignatura.regularizadas.length > 0 ? `Regularizadas (o aprobadas): ${asignatura.regularizadas.join(", ")}` : "No requiere asignaturas regularizadas";
 
 	mensaje = mensaje + (asignatura.aprobadas.length > 0 ? `, Aprobadas: ${asignatura.aprobadas.join(", ")}` : ", No requiere asignaturas aprobadas");
@@ -39,13 +37,11 @@ export default function Asignatura({ asignatura }) {
 	const esCursable = () => {
 		for (let index = 0; index < asignatura.regularizadas.length; index++) {
 			const element = asignatura.regularizadas[index];
-			console.log(element);
 			if (!asignaturas.regularizadas.includes(element) && !asignaturas.aprobadas.includes(element)) return false;
 		}
 
 		for (let index = 0; index < asignatura.aprobadas.length; index++) {
 			const element = asignatura.aprobadas[index];
-			console.log(element);
 			if (!asignaturas.aprobadas.includes(element)) return false;
 		}
 

@@ -1,7 +1,7 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router";
 import { ToastContainer, Flip } from "react-toastify";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 
 import Main from "../pages/Main.jsx";
 import AsignaturaInfo from "../pages/AsignaturaInfo.jsx";
@@ -9,13 +9,15 @@ import Footer from "../components/Footer.jsx";
 import Estadisticas from "../pages/Estadisticas.jsx";
 import Navbar from "../components/Navbar.jsx";
 import InfoBanner from "../components/InfoBanner.jsx";
-import Login from "../pages/Login.jsx";
-import Spinner from "../components/Spinner.jsx";
+import Login from "../pages/auth/Login.jsx";
+import NotFound from "../pages/NotFound.jsx";
+import Register from "../pages/auth/Register.jsx";
+import PasswordReset from "../pages/auth/PasswordReset.jsx";
 
-import { onAuthStateChanged } from "firebase/auth"; // Importa el listener
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 
-import { getAsignaturaDocRef, getAsignaturas } from "../utils/firebase/asignaturas.js";
+import { getAsignaturas } from "../utils/firebase/asignaturas.js";
 
 import UserStateContext from "../utils/contexts/UserContext.js";
 import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
@@ -26,23 +28,28 @@ function App() {
 	const [loading, setLoading] = useState(true);
 
 	const handleSign = (user) => {
-		// setUser(user);
+		setLoading(true);
 	};
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
 			setUser(currentUser);
-			getAsignaturas(currentUser.uid, setAsignaturas);
+			if (currentUser) getAsignaturas(currentUser.uid, setAsignaturas);
 			setTimeout(() => {
 				setLoading(false);
 			}, 2000);
 		});
 
-		return () => unsubscribe(); // Limpieza del listener
+		return () => unsubscribe();
 	}, []);
 
-	console.log(user);
-	console.log(loading);
+	const RequireAuth = ({ children }) => {
+		const location = useLocation();
+		if (!user && !loading) {
+			return <Navigate to='/login' replace state={{ from: location }} />;
+		}
+		return children;
+	};
 
 	return (
 		<>
@@ -50,17 +57,38 @@ function App() {
 				<AsignaturasContext.Provider value={asignaturas}>
 					<BrowserRouter>
 						<Navbar setLoading={setLoading} />
-						{user ? (
-							<Routes>
-								<Route path='/' element={<Main loading={loading} />} />
-								<Route path='/estadisticas' element={<Estadisticas />} />
+						<Routes>
+							<Route path='/login' element={<Login signInSuccessFunc={handleSign} />} />
+							<Route path='/login/register' element={<Register signInSuccessFunc={handleSign} />} />
+							<Route path='/login/passwordreset' element={<PasswordReset />} />
 
-								<Route path='/asignatura/:acrom' element={<AsignaturaInfo />} />
-								<Route path='*' element={<Main />} />
-							</Routes>
-						) : (
-							<Login signInSuccessFunc={handleSign} />
-						)}
+							<Route
+								path='/'
+								element={
+									<RequireAuth>
+										<Main loading={loading} />
+									</RequireAuth>
+								}
+							/>
+							<Route
+								path='/estadisticas'
+								element={
+									<RequireAuth>
+										<Estadisticas loading={loading} />
+									</RequireAuth>
+								}
+							/>
+							<Route
+								path='/asignatura/:acrom'
+								element={
+									<RequireAuth>
+										<AsignaturaInfo />
+									</RequireAuth>
+								}
+							/>
+
+							<Route path='*' element={<NotFound />} />
+						</Routes>
 						<Footer />
 
 						<ToastContainer
@@ -80,14 +108,14 @@ function App() {
 				</AsignaturasContext.Provider>
 			</UserStateContext.Provider>
 
-			<div class='offcanvas offcanvas-start' tabindex='-1' id='offcanvasExample' aria-labelledby='offcanvasExampleLabel'>
-				<div class='offcanvas-header'>
-					<h5 class='offcanvas-title' id='offcanvasExampleLabel'>
+			<div className='offcanvas offcanvas-start' tabIndex='-1' id='offcanvasExample' aria-labelledby='offcanvasExampleLabel'>
+				<div className='offcanvas-header'>
+					<h5 className='offcanvas-title' id='offcanvasExampleLabel'>
 						Guía Botones e Iconos
 					</h5>
-					<button type='button' class='btn-close' data-bs-dismiss='offcanvas' aria-label='Close'></button>
+					<button type='button' className='btn-close' data-bs-dismiss='offcanvas' aria-label='Close'></button>
 				</div>
-				<div class='offcanvas-body'>
+				<div className='offcanvas-body'>
 					<InfoBanner />
 				</div>
 			</div>

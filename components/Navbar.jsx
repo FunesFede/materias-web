@@ -93,7 +93,7 @@ export default function Navbar({ setLoading }) {
 						</button>
 					</form>
 					{user && (
-						<button className='btn btn-outline-danger ms-3' type='button' onClick={handleCerrarSession}>
+						<button className='btn btn-outline-danger ms-3 mt-2 mt-md-0' type='button' onClick={handleCerrarSession}>
 							Cerrar Sesión
 						</button>
 					)}

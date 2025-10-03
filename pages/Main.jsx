@@ -1,18 +1,9 @@
-import React from "react";
-
 import Asignatura from "../components/Asignatura.jsx";
-import InfoBanner from "../components/InfoBanner.jsx";
-import Estadisticas from "../components/EstadisticasC.jsx";
 
 import asignaturas from "../data/asignaturas.json";
-
-import { useContext } from "react";
-import UserStateContext from "../utils/contexts/UserContext.js";
 import Spinner from "../components/Spinner.jsx";
 
 export default function Main({ loading }) {
-	const { user, setUser } = useContext(UserStateContext);
-
 	const primerAnio = asignaturas.filter((asignatura) => asignatura.anio == 1);
 	const segundoAnio = asignaturas.filter((asignatura) => asignatura.anio == 2);
 	const tercerAnio = asignaturas.filter((asignatura) => asignatura.anio == 3);
@@ -26,7 +17,6 @@ export default function Main({ loading }) {
 					<Spinner />
 				) : (
 					<div className='container-fluid'>
-						{/* Sistema de columnas usando CSS Grid */}
 						<div className='columnas-grid'>
 							<div key={1} className='columna'>
 								<h3 className='titulo-columna'>Primer Año</h3>
