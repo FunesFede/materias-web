@@ -62,7 +62,7 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 
 	return (
 		<>
-			<form onSubmit={handleSubmit(handleAuth)} className='container-fluid bg-dark-custom w-50 rounded my-4 p-4 text-white'>
+			<form onSubmit={handleSubmit(handleAuth)} className='container-fluid bg-dark-custom w-responsive rounded my-4 p-4 text-white'>
 				<div className='mb-3'>
 					<h3>
 						{" "}
