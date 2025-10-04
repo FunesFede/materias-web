@@ -77,52 +77,52 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 				<div className='mb-3'>
 					<h3>
 						{" "}
-						<i class='bi bi-hand-thumbs-up-fill'></i> Que bueno que te unas a nosotros
+						<i className='bi bi-hand-thumbs-up-fill'></i> Que bueno que te unas a nosotros
 					</h3>
 					<h4>Completá tu registro</h4>
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='name'>
-						<i class='bi bi-person-badge'></i> Nombre
+						<i className='bi bi-person-badge'></i> Nombre
 					</label>
 					<input className='form-control' id='name' type='text' {...register("displayName", { required: true })} />
 					{errors.displayName && (
 						<span className='text-danger'>
-							<i class='bi bi-exclamation-diamond-fill'></i> Un nombre es requerido
+							<i className='bi bi-exclamation-diamond-fill'></i> Un nombre es requerido
 						</span>
 					)}
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='email'>
-						<i class='bi bi-envelope-at-fill'></i> Email
+						<i className='bi bi-envelope-at-fill'></i> Email
 					</label>
 					<input className='form-control' type='email' {...register("email", { required: true })} />
 					{errors.email && (
 						<span className='text-danger'>
-							<i class='bi bi-exclamation-diamond-fill'></i> Un email es requerido
+							<i className='bi bi-exclamation-diamond-fill'></i> Un email es requerido
 						</span>
 					)}
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='pass'>
-						<i class='bi bi-eye-slash-fill'></i> Contraseña
+						<i className='bi bi-eye-slash-fill'></i> Contraseña
 					</label>
 					<input className='form-control' type='password' {...register("password", { required: true })} />
 					{errors.password && (
 						<span className='text-danger'>
-							<i class='bi bi-exclamation-diamond-fill'></i> Una contraseña es requerida
+							<i className='bi bi-exclamation-diamond-fill'></i> Una contraseña es requerida
 						</span>
 					)}
 				</div>
 				<button type='submit' className='btn btn-primary' disabled={loading}>
 					{loading ? (
 						<>
-							<span class='spinner-border spinner-border-sm' aria-hidden='true'></span>
+							<span className='spinner-border spinner-border-sm' aria-hidden='true'></span>
 							<span role='status'> Cargando...</span>
 						</>
 					) : (
 						<>
-							<i class='bi bi-person-plus-fill'></i> Registrarse
+							<i className='bi bi-person-plus-fill'></i> Registrarse
 						</>
 					)}
 				</button>

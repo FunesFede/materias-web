@@ -65,37 +65,37 @@ const FirebaseUpdateProfile = () => {
 				<div className='mb-3'>
 					<h3>
 						{" "}
-						<i class='bi bi-person-circle'></i> Tu Perfil
+						<i className='bi bi-person-circle'></i> Tu Perfil
 					</h3>
 					<h5>Configurá tu perfil a tu gusto</h5>
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='email'>
-						<i class='bi bi-envelope-at-fill'></i> Email {user.emailVerified ? "(Verificado)" : "(No verificado)"}
+						<i className='bi bi-envelope-at-fill'></i> Email {user.emailVerified ? "(Verificado)" : "(No verificado)"}
 					</label>
 					<input className='form-control' disabled placeholder='Gabriel' id='name' type='email' {...register("email")} />
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='name'>
-						<i class='bi bi-person-badge'></i> Nombre
+						<i className='bi bi-person-badge'></i> Nombre
 					</label>
 					<input className='form-control' placeholder='Gabriel' id='name' type='text' {...register("displayName")} />
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='photo'>
-						<i class='bi bi-camera-fill'></i> Foto de Perfil
+						<i className='bi bi-camera-fill'></i> Foto de Perfil
 					</label>
 					<input className='form-control' disabled placeholder='https://imgur.com/i/perfil.png' id='photo' type='text' {...register("photoURL")} />
 				</div>
 				<button type='submit' className='btn btn-primary' disabled={loading || !isDirty}>
 					{loading ? (
 						<>
-							<span class='spinner-border spinner-border-sm' aria-hidden='true'></span>
+							<span className='spinner-border spinner-border-sm' aria-hidden='true'></span>
 							<span role='status'> Cargando...</span>
 						</>
 					) : (
 						<>
-							<i class='bi bi-save-fill'></i> Guardar Cambios
+							<i className='bi bi-save-fill'></i> Guardar Cambios
 						</>
 					)}
 				</button>

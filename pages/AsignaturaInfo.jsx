@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router";
 
 import asignaturasData from "../data/asignaturas.json";
-import asigUtils from "../utils/asignaturas.js";
 import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
 
 export default function AsignaturaInfo() {

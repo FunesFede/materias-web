@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { toast, Flip } from "react-toastify";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 
 import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
@@ -8,27 +7,9 @@ import UserStateContext from "../utils/contexts/UserContext.js";
 import { addAprobada, addRegularizada, borrarAsignaturaRecursivo } from "../utils/firebase/asignaturas.js";
 
 export default function Asignatura({ asignatura }) {
-	const [refreshKey, setRefreshKey] = useState(0);
 	const navigate = useNavigate();
 	const asignaturas = useContext(AsignaturasContext);
 	const user = useContext(UserStateContext);
-
-	let mensaje = asignatura.regularizadas.length > 0 ? `Regularizadas (o aprobadas): ${asignatura.regularizadas.join(", ")}` : "No requiere asignaturas regularizadas";
-
-	mensaje = mensaje + (asignatura.aprobadas.length > 0 ? `, Aprobadas: ${asignatura.aprobadas.join(", ")}` : ", No requiere asignaturas aprobadas");
-
-	const notify = () =>
-		toast.info(mensaje, {
-			position: "bottom-right",
-			autoClose: 10000,
-			hideProgressBar: false,
-			closeOnClick: false,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-			theme: "dark",
-			transition: Flip,
-		});
 
 	const esHecha = () => {
 		return asignaturas.regularizadas.includes(asignatura.acronimo) || asignaturas.aprobadas.includes(asignatura.acronimo);
@@ -58,7 +39,7 @@ export default function Asignatura({ asignatura }) {
 	};
 
 	return (
-		<div className='asignatura-vertical mb-3' key={refreshKey}>
+		<div className='asignatura-vertical mb-3'>
 			<div
 				className={
 					esHecha()
@@ -86,6 +67,7 @@ export default function Asignatura({ asignatura }) {
 						>
 							<i className='bi bi-check-lg'></i>
 						</button>
+
 						<button
 							title='Regularizar Asignatura'
 							disabled={!esCursable() || esHecha()}
@@ -94,12 +76,15 @@ export default function Asignatura({ asignatura }) {
 						>
 							<i className='bi bi-hourglass-bottom'></i>
 						</button>
+
 						<button title='Ver Información' className='btn btn-primary btn-sm me-2' onClick={() => navigate(`/asignatura/${asignatura.acronimo}`)}>
 							<i className='bi bi-info'></i>
 						</button>
-						<button title='Ver Correlativas' className='btn btn-primary btn-sm me-2' onClick={() => notify()}>
+
+						<button title='Ver Correlativas' className='btn btn-primary btn-sm me-2' data-bs-toggle='modal' data-bs-target={"#" + asignatura.acronimo + "modal"}>
 							<i className='bi bi-arrow-left-right'></i>
 						</button>
+
 						<button
 							title='Eliminar Cursado'
 							disabled={!esHecha()}

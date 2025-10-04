@@ -1,0 +1,93 @@
+import { useContext } from "react";
+import UserStateContext from "../utils/contexts/UserContext.js";
+
+import asignaturasData from "../data/asignaturas.json";
+
+import Asignatura from "../components/Asignatura.jsx";
+import Spinner from "../components/Spinner.jsx";
+import CorrelativasModal from "../components/CorrelativasModal.jsx";
+
+export default function Main({ loading }) {
+	const user = useContext(UserStateContext);
+
+	const primerAnio = asignaturasData.filter((asignatura) => asignatura.anio == 1);
+	const segundoAnio = asignaturasData.filter((asignatura) => asignatura.anio == 2);
+	const tercerAnio = asignaturasData.filter((asignatura) => asignatura.anio == 3);
+	const cuartoAnio = asignaturasData.filter((asignatura) => asignatura.anio == 4);
+	const quintoAnio = asignaturasData.filter((asignatura) => asignatura.anio == 5);
+
+	const handleSaludo = () => {
+		const now = new Date();
+		const hora = now.getHours();
+
+		if (hora >= 6 && hora < 12) return "🌤 Buenos días";
+		if (hora >= 12 && hora < 19) return "🌄 Buenas tardes";
+		if (hora >= 19 || hora < 6) return "🌙 Buenas noches";
+		else return "👋 Hola";
+	};
+
+	return (
+		<>
+			<div className='container-fluid py-3 min-vh-100 bg-dark text-white'>
+				{asignaturasData.map((a) => {
+					return <CorrelativasModal asignatura={a} key={a.acronimo + "modal"} />;
+				})}
+				{loading ? (
+					<Spinner />
+				) : (
+					<div className='container-fluid'>
+						<h3 className='text-start'>
+							{handleSaludo()}, {user?.displayName ? user.displayName + "." : "como estás hoy?"}
+						</h3>
+						<div className='columnas-grid'>
+							<div key={1} className='columna'>
+								<h3 className='titulo-columna'>Primer Año</h3>
+								<div className='asignaturas-container'>
+									{primerAnio.map((asig, index) => (
+										<Asignatura key={index} asignatura={asig}></Asignatura>
+									))}
+								</div>
+							</div>
+
+							<div key={2} className='columna'>
+								<h3 className='titulo-columna'>Segundo Año</h3>
+								<div className='asignaturas-container'>
+									{segundoAnio.map((asig, index) => (
+										<Asignatura key={index} asignatura={asig}></Asignatura>
+									))}
+								</div>
+							</div>
+
+							<div key={3} className='columna'>
+								<h3 className='titulo-columna'>Tercer Año</h3>
+								<div className='asignaturas-container'>
+									{tercerAnio.map((asig, index) => (
+										<Asignatura key={index} asignatura={asig}></Asignatura>
+									))}
+								</div>
+							</div>
+
+							<div key={4} className='columna'>
+								<h3 className='titulo-columna'>Cuarto Año</h3>
+								<div className='asignaturas-container'>
+									{cuartoAnio.map((asig, index) => (
+										<Asignatura key={index} asignatura={asig}></Asignatura>
+									))}
+								</div>
+							</div>
+
+							<div key={5} className='columna'>
+								<h3 className='titulo-columna'>Quinto Año</h3>
+								<div className='asignaturas-container'>
+									{quintoAnio.map((asig, index) => (
+										<Asignatura key={index} asignatura={asig}></Asignatura>
+									))}
+								</div>
+							</div>
+						</div>
+					</div>
+				)}
+			</div>
+		</>
+	);
+}

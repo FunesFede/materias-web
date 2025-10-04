@@ -49,26 +49,26 @@ export default function Profile({ setLoading }) {
 	};
 
 	return (
-		<div class='dropdown ms-2 mt-2 mt-md-0'>
-			<button class='btn btn-primary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
-				<i class='bi bi-person-circle'></i> Perfil
+		<div className='dropdown ms-2 mt-2 mt-md-0'>
+			<button className='btn btn-primary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
+				<i className='bi bi-person-circle'></i> Perfil
 			</button>
-			<ul class='dropdown-menu dropdown-menu-end'>
+			<ul className='dropdown-menu dropdown-menu-end'>
 				<li>
-					<button class='dropdown-item' disabled={!user} onClick={() => navigate("/profile/settings")}>
+					<button className='dropdown-item' disabled={!user} onClick={() => navigate("/profile/settings")}>
 						Configuración
 					</button>
 				</li>
 				<li>
-					<button class='dropdown-item' disabled={!user || user?.emailVerified} onClick={handleVerifiacionEmail}>
+					<button className='dropdown-item' disabled={!user || user?.emailVerified} onClick={handleVerifiacionEmail}>
 						Verificación Email {user ? (user.emailVerified ? "(Verificado)" : "(No verificado)") : ""}
 					</button>
 				</li>
 				<li>
-					<hr class='dropdown-divider' />
+					<hr className='dropdown-divider' />
 				</li>
 				<li>
-					<button class='dropdown-item' onClick={handleCerrarSession}>
+					<button className='dropdown-item' onClick={handleCerrarSession}>
 						{user ? "Cerrar Sesión" : "Iniciar Sesión"}
 					</button>
 				</li>

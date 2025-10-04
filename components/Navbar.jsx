@@ -42,7 +42,7 @@ export default function Navbar({ setLoading }) {
 		<nav className='navbar navbar-expand-lg bg-body-tertiary'>
 			<div className='container-fluid'>
 				<NavLink className='navbar-brand' to='/'>
-					<img src='/logo.png' alt='Logo' width='100' height='30' class='d-inline-block align-text-top' />
+					<img src='/logo.png' alt='Logo' width='100' height='30' className='d-inline-block align-text-top' />
 				</NavLink>
 				<button
 					className='navbar-toggler'
@@ -68,7 +68,7 @@ export default function Navbar({ setLoading }) {
 							</NavLink>
 						</li>
 						<li className='nav-item'>
-							<a class='nav-link' data-bs-toggle='offcanvas' href='#offcanvasExample' role='button' aria-controls='offcanvasExample'>
+							<a className='nav-link' data-bs-toggle='offcanvas' href='#offcanvasExample' role='button' aria-controls='offcanvasExample'>
 								Guía Botones
 							</a>
 						</li>

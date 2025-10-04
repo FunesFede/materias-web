@@ -67,41 +67,41 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 				<div className='mb-3'>
 					<h3>
 						{" "}
-						<i class='bi bi-emoji-smile-fill'></i> ¡Hola! Que bueno tenerte de nuevo
+						<i className='bi bi-emoji-smile-fill'></i> ¡Hola! Que bueno tenerte de nuevo
 					</h3>
 					<h4>Por favor, iniciá sesión</h4>
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='email'>
-						<i class='bi bi-envelope-at-fill'></i> Email
+						<i className='bi bi-envelope-at-fill'></i> Email
 					</label>
 					<input className='form-control' type='email' {...register("email", { required: true })} />
 					{errors.email && (
 						<span className='text-danger'>
-							<i class='bi bi-exclamation-diamond-fill'></i> Un email es requerido
+							<i className='bi bi-exclamation-diamond-fill'></i> Un email es requerido
 						</span>
 					)}
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='pass'>
-						<i class='bi bi-eye-slash-fill'></i> Contraseña
+						<i className='bi bi-eye-slash-fill'></i> Contraseña
 					</label>
 					<input className='form-control' type='password' {...register("password", { required: true })} />
 					{errors.password && (
 						<span className='text-danger'>
-							<i class='bi bi-exclamation-diamond-fill'></i> Una contraseña es requerida
+							<i className='bi bi-exclamation-diamond-fill'></i> Una contraseña es requerida
 						</span>
 					)}
 				</div>
 				<button type='submit' className='btn btn-primary' disabled={loading}>
 					{loading ? (
 						<>
-							<span class='spinner-border spinner-border-sm' aria-hidden='true'></span>
+							<span className='spinner-border spinner-border-sm' aria-hidden='true'></span>
 							<span role='status'> Cargando...</span>
 						</>
 					) : (
 						<>
-							<i class='bi bi-box-arrow-in-right'></i> Iniciar Sesión
+							<i className='bi bi-box-arrow-in-right'></i> Iniciar Sesión
 						</>
 					)}
 				</button>

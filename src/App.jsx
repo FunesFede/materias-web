@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-route
 import { ToastContainer, Flip } from "react-toastify";
 import { useState, useEffect } from "react";
 
-import Main from "../pages/Main.jsx";
+import Home from "../pages/Home.jsx";
 import AsignaturaInfo from "../pages/AsignaturaInfo.jsx";
 import Footer from "../components/Footer.jsx";
 import Estadisticas from "../pages/Estadisticas.jsx";
@@ -59,7 +59,7 @@ function App() {
 					<BrowserRouter>
 						<Navbar setLoading={setLoading} />
 						<Routes>
-							<Route path='/login' element={<Login signInSuccessFunc={handleSign} />} />
+							<Route path='/login' element={user ? <Navigate to='/' replace /> : <Login signInSuccessFunc={handleSign} />} />
 							<Route path='/login/register' element={<Register signInSuccessFunc={handleSign} />} />
 							<Route path='/login/passwordreset' element={<PasswordReset />} />
 
@@ -67,7 +67,7 @@ function App() {
 								path='/'
 								element={
 									<RequireAuth>
-										<Main loading={loading} />
+										<Home loading={loading} />
 									</RequireAuth>
 								}
 							/>

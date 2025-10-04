@@ -57,18 +57,18 @@ const FirebasePasswordReset = () => {
 				<div className='mb-3'>
 					<h3>
 						{" "}
-						<i class='bi bi-lock-fill'></i> Reestablecé tu contraseña
+						<i className='bi bi-lock-fill'></i> Reestablecé tu contraseña
 					</h3>
 					<h5>Recibirás un mail para reestablecerla</h5>
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='email'>
-						<i class='bi bi-envelope-at-fill'></i> Email
+						<i className='bi bi-envelope-at-fill'></i> Email
 					</label>
 					<input className='form-control' type='email' {...register("email", { required: true })} disabled={done} />
 					{errors.email && (
 						<span className='text-danger'>
-							<i class='bi bi-exclamation-diamond-fill'></i> Un email es requerido
+							<i className='bi bi-exclamation-diamond-fill'></i> Un email es requerido
 						</span>
 					)}
 				</div>
@@ -76,18 +76,18 @@ const FirebasePasswordReset = () => {
 					<button type='submit' className='btn btn-primary' disabled={loading}>
 						{loading ? (
 							<>
-								<span class='spinner-border spinner-border-sm' aria-hidden='true'></span>
+								<span className='spinner-border spinner-border-sm' aria-hidden='true'></span>
 								<span role='status'> Cargando...</span>
 							</>
 						) : (
 							<>
-								<i class='bi bi-key-fill'></i> Reestablecer Contraseña
+								<i className='bi bi-key-fill'></i> Reestablecer Contraseña
 							</>
 						)}
 					</button>
 				) : (
 					<button type='button' className='btn btn-primary' onClick={() => navigate("/login")}>
-						<i class='bi bi-door-open-fill'></i> Volver al login
+						<i className='bi bi-door-open-fill'></i> Volver al login
 					</button>
 				)}
 			</form>
