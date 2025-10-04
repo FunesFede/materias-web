@@ -100,7 +100,9 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 							<span role='status'> Cargando...</span>
 						</>
 					) : (
-						"Iniciar Sesión"
+						<>
+							<i class='bi bi-box-arrow-in-right'></i> Iniciar Sesión
+						</>
 					)}
 				</button>
 				<p className='text-secondary mt-2 mb-0'>

@@ -16,6 +16,7 @@ const FirebaseUpdateProfile = () => {
 		register,
 		handleSubmit,
 		formState: { isDirty },
+		reset,
 	} = useForm({
 		defaultValues: {
 			email: user.email,
@@ -93,7 +94,9 @@ const FirebaseUpdateProfile = () => {
 							<span role='status'> Cargando...</span>
 						</>
 					) : (
-						"Guardar Cambios"
+						<>
+							<i class='bi bi-save-fill'></i> Guardar Cambios
+						</>
 					)}
 				</button>
 			</form>

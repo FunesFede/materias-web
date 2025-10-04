@@ -80,21 +80,17 @@ const FirebasePasswordReset = () => {
 								<span role='status'> Cargando...</span>
 							</>
 						) : (
-							"Reestablecer Contraseña"
+							<>
+								<i class='bi bi-key-fill'></i> Reestablecer Contraseña
+							</>
 						)}
 					</button>
 				) : (
 					<button type='button' className='btn btn-primary' onClick={() => navigate("/login")}>
-						Volver al login
+						<i class='bi bi-door-open-fill'></i> Volver al login
 					</button>
 				)}
 			</form>
-			<p className='text-secondary mt-2 mb-0'>
-				¿Ya tenés una cuenta?{" "}
-				<a href='#' onClick={() => navigate("/login")}>
-					Iniciá sesión
-				</a>
-			</p>
 			<p className='text-secondary m-1'>
 				¿No tenés una cuenta?{" "}
 				<a href='#' onClick={() => navigate("/login/register")}>
