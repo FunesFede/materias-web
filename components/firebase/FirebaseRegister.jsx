@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useForm } from "react-hook-form";
 
@@ -21,11 +21,22 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 		try {
 			let userCredential;
 			userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
-
+			await updateProfile(userCredential.user, { displayName: data.displayName });
 			onSignInSuccess(userCredential.user);
 			navigate("/", { replace: true });
 
 			await sendEmailVerification(userCredential.user);
+			toast.info("Hemos enviado un correo de verificación automaticamente", {
+				position: "bottom-right",
+				autoClose: 6000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "dark",
+				transition: Flip,
+			});
 		} catch (err) {
 			let errorMessage = "Ocurrió un error desconocido. " + err.code;
 			switch (err.code) {
@@ -71,6 +82,17 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 					<h4>Completá tu registro</h4>
 				</div>
 				<div className='mb-3 text-start'>
+					<label className='form-label' htmlFor='name'>
+						<i class='bi bi-person-badge'></i> Nombre
+					</label>
+					<input className='form-control' id='name' type='text' {...register("displayName", { required: true })} />
+					{errors.displayName && (
+						<span className='text-danger'>
+							<i class='bi bi-exclamation-diamond-fill'></i> Un nombre es requerido
+						</span>
+					)}
+				</div>
+				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='email'>
 						<i class='bi bi-envelope-at-fill'></i> Email
 					</label>
@@ -99,7 +121,9 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 							<span role='status'> Cargando...</span>
 						</>
 					) : (
-						"Registrarse"
+						<>
+							<i class='bi bi-person-plus-fill'></i> Registrarse
+						</>
 					)}
 				</button>
 				<p className='text-secondary mt-2'>
