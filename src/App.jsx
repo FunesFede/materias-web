@@ -21,6 +21,7 @@ import { getAsignaturas } from "../utils/firebase/asignaturas.js";
 
 import UserStateContext from "../utils/contexts/UserContext.js";
 import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
+import Profile from "../pages/Profile.jsx";
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -83,6 +84,15 @@ function App() {
 								element={
 									<RequireAuth>
 										<AsignaturaInfo />
+									</RequireAuth>
+								}
+							/>
+
+							<Route
+								path='/profile/settings'
+								element={
+									<RequireAuth>
+										<Profile />
 									</RequireAuth>
 								}
 							/>

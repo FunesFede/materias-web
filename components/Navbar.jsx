@@ -4,18 +4,12 @@ import { toast, Flip } from "react-toastify";
 
 import asignaturas from "../data/asignaturas.json";
 import UserStateContext from "../utils/contexts/UserContext";
-import { auth } from "../firebase/config";
-import { signOut } from "firebase/auth";
+import Profile from "./Profile";
 
 export default function Navbar({ setLoading }) {
 	const [query, setQuery] = useState("");
 	const navigate = useNavigate();
 	const user = useContext(UserStateContext);
-
-	const handleCerrarSession = () => {
-		signOut(auth);
-		setLoading(true);
-	};
 
 	const buscarAsignatura = (e) => {
 		e.preventDefault();
@@ -92,11 +86,7 @@ export default function Navbar({ setLoading }) {
 							Buscar
 						</button>
 					</form>
-					{user && (
-						<button className='btn btn-outline-danger ms-3 mt-2 mt-md-0' type='button' onClick={handleCerrarSession}>
-							Cerrar Sesión
-						</button>
-					)}
+					<Profile setLoading={setLoading} />
 				</div>
 			</div>
 		</nav>

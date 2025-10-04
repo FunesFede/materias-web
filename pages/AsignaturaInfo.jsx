@@ -14,10 +14,12 @@ export default function AsignaturaInfo() {
 	if (!asignatura) {
 		asignatura = {
 			nombre: "Asignatura No Encontrada",
+			anio: 0,
+			acronimo: "?",
 			tipo: "?",
 			duracion: "?",
-			aprobadas: ["?"],
-			regularizadas: ["?"],
+			aprobadas: [],
+			regularizadas: [],
 		};
 	}
 
@@ -32,6 +34,7 @@ export default function AsignaturaInfo() {
 	};
 
 	const esCursable = (a) => {
+		if (asignatura.anio == 0) return false;
 		for (let index = 0; index < a.regularizadas.length; index++) {
 			const element = a.regularizadas[index];
 			if (!asignaturas.regularizadas.includes(element) && !asignaturas.aprobadas.includes(element)) return false;
