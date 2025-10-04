@@ -92,7 +92,7 @@ function App() {
 								path='/profile/settings'
 								element={
 									<RequireAuth>
-										<Profile />
+										<Profile loading={loading} />
 									</RequireAuth>
 								}
 							/>

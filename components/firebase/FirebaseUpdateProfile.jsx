@@ -15,7 +15,7 @@ const FirebaseUpdateProfile = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { isDirty },
 	} = useForm({
 		defaultValues: {
 			email: user.email,
@@ -86,7 +86,7 @@ const FirebaseUpdateProfile = () => {
 					</label>
 					<input className='form-control' disabled placeholder='https://imgur.com/i/perfil.png' id='photo' type='text' {...register("photoURL")} />
 				</div>
-				<button type='submit' className='btn btn-primary' disabled={loading}>
+				<button type='submit' className='btn btn-primary' disabled={loading || !isDirty}>
 					{loading ? (
 						<>
 							<span class='spinner-border spinner-border-sm' aria-hidden='true'></span>
