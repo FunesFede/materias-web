@@ -4,6 +4,8 @@ import { useNavigate } from "react-router";
 import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
 import UserStateContext from "../utils/contexts/UserContext.js";
 
+import { esCursable, esHecha } from "../utils/asignaturas.js";
+
 import { addAprobada, addRegularizada, borrarAsignaturaRecursivo } from "../utils/firebase/asignaturas.js";
 
 export default function Asignatura({ asignatura }) {
@@ -11,27 +13,12 @@ export default function Asignatura({ asignatura }) {
 	const asignaturas = useContext(AsignaturasContext);
 	const user = useContext(UserStateContext);
 
-	const esHecha = () => {
-		return asignaturas.regularizadas.includes(asignatura.acronimo) || asignaturas.aprobadas.includes(asignatura.acronimo);
-	};
-
-	const esCursable = () => {
-		for (let index = 0; index < asignatura.regularizadas.length; index++) {
-			const element = asignatura.regularizadas[index];
-			if (!asignaturas.regularizadas.includes(element) && !asignaturas.aprobadas.includes(element)) return false;
-		}
-
-		for (let index = 0; index < asignatura.aprobadas.length; index++) {
-			const element = asignatura.aprobadas[index];
-			if (!asignaturas.aprobadas.includes(element)) return false;
-		}
-
-		return true;
-	};
+	const hecha = esHecha(asignaturas, asignatura);
+	const cursable = esCursable(asignaturas, asignatura);
 
 	const handleIcono = () => {
-		if (esCursable()) {
-			if (esHecha()) {
+		if (cursable) {
+			if (hecha) {
 				if (asignaturas.aprobadas.includes(asignatura.acronimo)) return <i className='bi bi-check-lg'></i>;
 				else return <i className='bi bi-hourglass'></i>;
 			} else return <i className='bi bi-unlock-fill'></i>;
@@ -42,11 +29,11 @@ export default function Asignatura({ asignatura }) {
 		<div className='asignatura-vertical mb-3'>
 			<div
 				className={
-					esHecha()
+					hecha
 						? asignaturas.aprobadas.includes(asignatura.acronimo)
 							? "card bg-success-dark text-white"
 							: "card bg-warning-dark text-white"
-						: esCursable()
+						: cursable
 						? "card bg-secondary text-white"
 						: "card bg-danger-dark text-white"
 				}
@@ -54,14 +41,14 @@ export default function Asignatura({ asignatura }) {
 				<div className='card-body'>
 					<h5 className='card-title'>
 						{handleIcono()}
-						<span className={esHecha() ? "text-decoration-line-through" : ""}>{asignatura.nombre}</span>{" "}
+						<span className={hecha ? "text-decoration-line-through" : ""}>{asignatura.nombre}</span>{" "}
 						{asignatura.tipo == "Electiva" && <span className='badge text-bg-success'>Electiva</span>}
 					</h5>
 
 					<div className='botones-container'>
 						<button
 							title='Aprobar Asignatura'
-							disabled={!esCursable() || asignaturas.aprobadas.includes(asignatura.acronimo)}
+							disabled={!cursable || asignaturas.aprobadas.includes(asignatura.acronimo)}
 							className='btn btn-success btn-sm me-2 text-white'
 							onClick={() => addAprobada(user.uid, asignatura.acronimo)}
 						>
@@ -70,7 +57,7 @@ export default function Asignatura({ asignatura }) {
 
 						<button
 							title='Regularizar Asignatura'
-							disabled={!esCursable() || esHecha()}
+							disabled={!cursable || hecha}
 							className='btn btn-warning btn-sm me-2 text-white'
 							onClick={() => addRegularizada(user.uid, asignatura.acronimo)}
 						>
@@ -87,7 +74,7 @@ export default function Asignatura({ asignatura }) {
 
 						<button
 							title='Eliminar Cursado'
-							disabled={!esHecha()}
+							disabled={!hecha}
 							className='btn btn-danger btn-sm'
 							onClick={() => borrarAsignaturaRecursivo(user.uid, asignatura.acronimo)}
 						>
