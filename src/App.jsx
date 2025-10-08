@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router";
 import { ToastContainer, Flip } from "react-toastify";
 import { useState, useEffect } from "react";
 
@@ -13,6 +13,7 @@ import Login from "../pages/auth/Login.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import Register from "../pages/auth/Register.jsx";
 import PasswordReset from "../pages/auth/PasswordReset.jsx";
+import Spinner from "../components/Spinner.jsx";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
@@ -28,7 +29,7 @@ function App() {
 	const [asignaturas, setAsignaturas] = useState({ regularizadas: [], aprobadas: [] });
 	const [loading, setLoading] = useState(true);
 
-	const handleSign = (user) => {
+	const handleSignInSuccess = (user) => {
 		setLoading(true);
 	};
 
@@ -38,7 +39,7 @@ function App() {
 			if (currentUser) getAsignaturas(currentUser.uid, setAsignaturas);
 			setTimeout(() => {
 				setLoading(false);
-			}, 2000);
+			}, 500);
 		});
 
 		return () => unsubscribe();
@@ -46,9 +47,8 @@ function App() {
 
 	const RequireAuth = ({ children }) => {
 		const location = useLocation();
-		if (!user && !loading) {
-			return <Navigate to='/login' replace state={{ from: location }} />;
-		}
+		if (loading) return <Spinner />;
+		if (!user) return <Navigate to='/login' replace state={{ from: location }} />;
 		return children;
 	};
 
@@ -59,15 +59,15 @@ function App() {
 					<BrowserRouter>
 						<Navbar setLoading={setLoading} />
 						<Routes>
-							<Route path='/login' element={user ? <Navigate to='/' replace /> : <Login signInSuccessFunc={handleSign} />} />
-							<Route path='/login/register' element={<Register signInSuccessFunc={handleSign} />} />
+							<Route path='/login' element={<Login signInSuccessFunc={handleSignInSuccess} />} />
+							<Route path='/login/register' element={<Register signInSuccessFunc={handleSignInSuccess} />} />
 							<Route path='/login/passwordreset' element={<PasswordReset />} />
 
 							<Route
 								path='/'
 								element={
 									<RequireAuth>
-										<Home loading={loading} />
+										<Home />
 									</RequireAuth>
 								}
 							/>
@@ -75,7 +75,7 @@ function App() {
 								path='/estadisticas'
 								element={
 									<RequireAuth>
-										<Estadisticas loading={loading} />
+										<Estadisticas />
 									</RequireAuth>
 								}
 							/>
@@ -92,7 +92,7 @@ function App() {
 								path='/profile/settings'
 								element={
 									<RequireAuth>
-										<Profile loading={loading} />
+										<Profile />
 									</RequireAuth>
 								}
 							/>

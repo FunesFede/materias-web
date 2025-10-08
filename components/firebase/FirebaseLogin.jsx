@@ -19,27 +19,24 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 	const handleAuth = async (data) => {
 		setLoading(true);
 		try {
-			let userCredential;
-			userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
-			onSignInSuccess(userCredential.user);
+			const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
+			const user = userCredential.user;
 
-			const to = typeof from === "string" ? from : from?.pathname || "/";
+			onSignInSuccess && onSignInSuccess(user);
+			const to = typeof from === "string" ? from : from?.pathname;
 			navigate(to, { replace: true });
 		} catch (err) {
-			let errorMessage = "Ocurrió un error desconocido. " + err.code;
+			let errorMessage = "Ocurrió un error desconocido. " + (err.code || "");
 			switch (err.code) {
 				case "auth/invalid-credential":
 					errorMessage = "Credenciales inválidas. Verifica tu email y contraseña.";
 					break;
-
 				case "auth/user-disabled":
 					errorMessage = "Tu cuenta se encuentra deshabilitada.";
 					break;
-
 				case "auth/password-does-not-meet-requirements":
 					errorMessage = "Tu contraseña ya no cumple con lo requerimentos, por favor, reestablecela.";
 					break;
-
 				default:
 					console.error("Authentication Error:", err.code, err.message);
 					break;
@@ -49,6 +46,7 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 				position: "top-center",
 				autoClose: 5000,
 				hideProgressBar: false,
+				newestOnTop: false,
 				closeOnClick: false,
 				pauseOnHover: true,
 				draggable: true,
@@ -76,11 +74,7 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 						<i className='bi bi-envelope-at-fill'></i> Email
 					</label>
 					<input className='form-control' type='email' {...register("email", { required: true })} />
-					{errors.email && (
-						<span className='text-danger'>
-							<i className='bi bi-exclamation-diamond-fill'></i> Un email es requerido
-						</span>
-					)}
+					{errors.email && <span className='text-danger'>Un email es requerido</span>}
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='pass'>

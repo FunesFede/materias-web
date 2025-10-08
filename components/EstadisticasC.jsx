@@ -21,7 +21,7 @@ export default function EstadisticasC({ regularizadas, aprobadas, regularizadasY
 						<i className='bi bi-journals'></i> Total Cursadas: {regularizadasYAprobadas.size}
 					</h5>
 					<h5>
-						<i className='bi bi-arrow-left-right'></i> A cursar: {asignaturas.filter((a) => a.tipo == "Obligatoria").length + 6 - regularizadasYAprobadas.size}
+						<i className='bi bi-arrow-left-right'></i> A cursar: {asignaturas.filter((a) => a.tipo == "Obligatoria").length + 7 - regularizadasYAprobadas.size}
 					</h5>
 				</div>
 				<div className='col-4'>

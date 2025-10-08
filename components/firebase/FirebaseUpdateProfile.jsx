@@ -10,7 +10,6 @@ import UserStateContext from "../../utils/contexts/UserContext";
 const FirebaseUpdateProfile = () => {
 	const user = useContext(UserStateContext);
 	const [loading, setLoading] = useState(false);
-	console.log(user);
 
 	const {
 		register,
