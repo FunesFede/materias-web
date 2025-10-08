@@ -251,10 +251,50 @@
             },
             {
                 "anio": 4,
+                "nombre": "Arquitectura de Software",
+                "area": "",
+                "acronimo": "ArqS",
+                "tipo": "Electiva",
+                "duracion": "Anual",
+                "regularizadas": ["BDD", "DDS"],
+                "aprobadas": ["SSL", "PPR"]
+            },
+            {
+                "anio": 4,
+                "nombre": "Comunicación Multimedial en el Desarrollo de Sistemas de Información",
+                "area": "",
+                "acronimo": "CM",
+                "tipo": "Electiva",
+                "duracion": "Cuatrimestral",
+                "regularizadas": ["BDD"],
+                "aprobadas": ["SPN", "ASI"]
+            },
+            {
+                "anio": 4,
                 "nombre": "Desarrollo de Aplicaciones con Objetos",
                 "area": "",
                 "acronimo": "DAO",
                 "tipo": "Obligatoria",
+                "duracion": "Cuatrimestral",
+                "regularizadas": ["SSL"],
+                "aprobadas": ["AED"]
+            },
+            {
+                "anio": 4,
+                "nombre": "Desarrollo y Operaciones DevOps",
+                "area": "",
+                "acronimo": "DOPS",
+                "tipo": "Electiva",
+                "duracion": "Cuatrimestral",
+                "regularizadas": ["BDD", "DDS"],
+                "aprobadas": ["SSL", "PPR"]
+            },
+            {
+                "anio": 4,
+                "nombre": "Desarrollo de Aplicaciones con Objetos",
+                "area": "",
+                "acronimo": "DAO",
+                "tipo": "Electiva",
                 "duracion": "Cuatrimestral",
                 "regularizadas": ["SSL"],
                 "aprobadas": ["AED"]
@@ -323,7 +363,7 @@
                 "anio": 4,
                 "nombre": "Redes de Datos",
                 "area": "",
-                "acronimo": "RED",
+                "acronimo": "RDD",
                 "tipo": "Obligatoria",
                 "duracion": "Anual",
                 "regularizadas": ["SOP", "COM"],
@@ -421,22 +461,22 @@
             },
             {
                 "anio": 5,
-                "nombre": "Habilidades Blandas",
+                "nombre": "Desarrollo de Tecnología Blockchain",
                 "area": "",
-                "acronimo": "HB",
+                "acronimo": "DTB",
                 "tipo": "Electiva",
                 "duracion": "Cuatrimestral",
-                "regularizadas": ["AS"],
-                "aprobadas": []
+                "regularizadas": ["RDD", "BDD"],
+                "aprobadas": ["DDS", "PPR"]
             },
             {
                 "anio": 5,
-                "nombre": "Ingeniería de Software de Fuentes Abiertas-Libre",
+                "nombre": "Ingeniería de Software de Fuentes Abiertas/Libres",
                 "area": "",
                 "acronimo": "SOFTAB",
-                "tipo": "Obligatoria",
+                "tipo": "Electiva",
                 "duracion": "Cuatrimestral",
-                "regularizadas": ["BDD", "DDS", "RED"],
+                "regularizadas": ["BDD", "DDS", "RDD"],
                 "aprobadas": ["SSL", "PPR"]
             },
             {
@@ -456,7 +496,7 @@
                 "acronimo": "PROYFIN",
                 "tipo": "Obligatoria",
                 "duracion": "Anual",
-                "regularizadas": ["IS", "RED", "AS"],
+                "regularizadas": ["IS", "RDD", "AS"],
                 "aprobadas": ["INGLESII", "DDS", "DSI"]
             },
             {
@@ -466,7 +506,7 @@
                 "acronimo": "SSI",
                 "tipo": "Obligatoria",
                 "duracion": "Cuatrimestral",
-                "regularizadas": ["RED", "AS"],
+                "regularizadas": ["RDD", "AS"],
                 "aprobadas": ["DDS", "COM"]
             },
             {
@@ -478,5 +518,45 @@
                 "duracion": "Cuatrimestral",
                 "regularizadas": ["ECO", "IOP"],
                 "aprobadas": ["DSI"]
+            },
+            {
+                "anio": 5,
+                "nombre": "Auditoría de Si/Ti",
+                "area": "",
+                "acronimo": "ASITI",
+                "tipo": "Electiva",
+                "duracion": "Cuatrimestral",
+                "regularizadas": ["AS"],
+                "aprobadas": ["DDS"]
+            },
+            {
+                "anio": 5,
+                "nombre": "Testing de Software",
+                "area": "",
+                "acronimo": "TS",
+                "tipo": "Electiva",
+                "duracion": "Cuatrimestral",
+                "regularizadas": ["IS"],
+                "aprobadas": ["BDD", "DDS"]
+            },
+            {
+                "anio": 5,
+                "nombre": "Seguridad en el Desarrollo de Software",
+                "area": "",
+                "acronimo": "SDS",
+                "tipo": "Electiva",
+                "duracion": "Cuatrimestral",
+                "regularizadas": ["RDD", "BDD"],
+                "aprobadas": ["DDS", "SPN"]
+            },
+            {
+                "anio": 5,
+                "nombre": "Integración de Aplicaciones en Entorno Web",
+                "area": "",
+                "acronimo": "IAEW",
+                "tipo": "Electiva",
+                "duracion": "Cuatrimestral",
+                "regularizadas": ["RDD", "BDD"],
+                "aprobadas": ["BDD", "DDS"]
             }
 ]

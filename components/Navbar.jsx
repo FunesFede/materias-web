@@ -41,9 +41,9 @@ export default function Navbar({ setLoading }) {
 	return (
 		<nav className='navbar navbar-expand-lg bg-body-tertiary'>
 			<div className='container-fluid'>
-				<NavLink className='navbar-brand' to='/'>
-					<img src='/logo.png' alt='Logo' width='100' height='30' className='d-inline-block align-text-top' />
-				</NavLink>
+				<a className='navbar-brand' href='https://www.samas.org.ar/index.php/blog-infosam/236-octubre-rosa' target='_blank'>
+					<img src='/pink-ribbon.png' alt='Logo' width='40' height='40' className='d-inline-block align-text-top' />
+				</a>
 				<button
 					className='navbar-toggler'
 					type='button'
