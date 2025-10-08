@@ -271,16 +271,6 @@
             },
             {
                 "anio": 4,
-                "nombre": "Desarrollo de Aplicaciones con Objetos",
-                "area": "",
-                "acronimo": "DAO",
-                "tipo": "Obligatoria",
-                "duracion": "Cuatrimestral",
-                "regularizadas": ["SSL"],
-                "aprobadas": ["AED"]
-            },
-            {
-                "anio": 4,
                 "nombre": "Desarrollo y Operaciones DevOps",
                 "area": "",
                 "acronimo": "DOPS",
