@@ -6,7 +6,7 @@ import asignaturas from "../data/asignaturas.json";
 import UserStateContext from "../utils/contexts/UserContext";
 import Profile from "./Profile";
 
-export default function Navbar({ setLoading }) {
+export default function Navbar({ setAsignaturas }) {
 	const [query, setQuery] = useState("");
 	const navigate = useNavigate();
 	const user = useContext(UserStateContext);
@@ -86,7 +86,7 @@ export default function Navbar({ setLoading }) {
 							Buscar
 						</button>
 					</form>
-					<Profile setLoading={setLoading} />
+					<Profile setAsignaturas={setAsignaturas} />
 				</div>
 			</div>
 		</nav>

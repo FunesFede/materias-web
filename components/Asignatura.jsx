@@ -13,8 +13,8 @@ export default function Asignatura({ asignatura }) {
 	const asignaturas = useContext(AsignaturasContext);
 	const user = useContext(UserStateContext);
 
-	const hecha = esHecha(asignaturas, asignatura);
-	const cursable = esCursable(asignaturas, asignatura);
+	const hecha = asignaturas ? esHecha(asignaturas, asignatura) : false;
+	const cursable = asignaturas ? esCursable(asignaturas, asignatura) : false;
 
 	const handleIcono = () => {
 		if (cursable) {

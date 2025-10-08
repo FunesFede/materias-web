@@ -7,14 +7,14 @@ import { useNavigate } from "react-router";
 
 import { toast, Flip } from "react-toastify";
 
-export default function Profile({ setLoading }) {
+export default function Profile({ setAsignaturas }) {
 	const user = useContext(UserStateContext);
 	const navigate = useNavigate();
 
 	const handleCerrarSession = () => {
 		if (user) {
 			signOut(auth);
-			setLoading(true);
+			setAsignaturas(null);
 		} else navigate("/login");
 	};
 

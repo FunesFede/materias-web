@@ -9,8 +9,8 @@ export default function Estadisticas() {
 	const asignaturas = useContext(AsignaturasContext);
 
 	// const [refreshKey, setRefreshKey] = useState(0);
-	let regularizadas = asignaturas.regularizadas;
-	let aprobadas = asignaturas.aprobadas;
+	let regularizadas = asignaturas ? asignaturas.regularizadas : [];
+	let aprobadas = asignaturas ? asignaturas.aprobadas : [];
 
 	const regularizadasYAprobadas = new Set([...regularizadas, ...aprobadas]);
 

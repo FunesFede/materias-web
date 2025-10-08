@@ -26,8 +26,9 @@ import Profile from "../pages/Profile.jsx";
 
 function App() {
 	const [user, setUser] = useState(null);
-	const [asignaturas, setAsignaturas] = useState({ regularizadas: [], aprobadas: [] });
+	const [asignaturas, setAsignaturas] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const [authChecked, setAuthChecked] = useState(false);
 
 	const handleSignInSuccess = (user) => {
 		setLoading(true);
@@ -37,18 +38,20 @@ function App() {
 		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
 			setUser(currentUser);
 			if (currentUser) getAsignaturas(currentUser.uid, setAsignaturas);
-			setTimeout(() => {
-				setLoading(false);
-			}, 500);
+			setAuthChecked(true);
 		});
-
 		return () => unsubscribe();
 	}, []);
 
+	useEffect(() => {
+		if (asignaturas) setLoading(false);
+		else setLoading(true);
+	}, [asignaturas]);
+
 	const RequireAuth = ({ children }) => {
 		const location = useLocation();
-		if (loading) return <Spinner />;
-		if (!user) return <Navigate to='/login' replace state={{ from: location }} />;
+		if (authChecked && !user) return <Navigate to='/login' replace state={{ from: location }} />;
+		if (loading || !authChecked) return <Spinner />;
 		return children;
 	};
 
@@ -57,7 +60,7 @@ function App() {
 			<UserStateContext.Provider value={user}>
 				<AsignaturasContext.Provider value={asignaturas}>
 					<BrowserRouter>
-						<Navbar setLoading={setLoading} />
+						<Navbar setAsignaturas={setAsignaturas} />
 						<Routes>
 							<Route path='/login' element={<Login signInSuccessFunc={handleSignInSuccess} />} />
 							<Route path='/login/register' element={<Register signInSuccessFunc={handleSignInSuccess} />} />
