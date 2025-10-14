@@ -253,7 +253,7 @@
                 "anio": 4,
                 "nombre": "Arquitectura de Software",
                 "area": "",
-                "acronimo": "ArqS",
+                "acronimo": "ARQS",
                 "tipo": "Electiva",
                 "duracion": "Anual",
                 "regularizadas": ["BDD", "DDS"],
