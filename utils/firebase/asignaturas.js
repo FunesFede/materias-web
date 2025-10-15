@@ -1,6 +1,7 @@
 import { db } from "/firebase/config"; // Asegúrate de importar 'db'
 import { doc, setDoc, arrayUnion, arrayRemove, onSnapshot, getDoc } from "firebase/firestore"; // Añado getDoc
 import asignaturasData from "../../data/asignaturas.json";
+import { removeNota } from "./notas";
 
 // Define el path base para el documento de arrays de asignaturas
 export const getAsignaturaDocRef = (userId) => {
@@ -248,6 +249,7 @@ export const removeAprobada = async (userId, acronimo) => {
 			},
 			{ merge: true }
 		);
+		await removeNota(userId, acronimo);
 		console.log(`Removido ${acronimo.toUpperCase()} de aprobadas.`);
 		return true;
 	} catch (error) {

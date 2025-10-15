@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
-import EstadisticasC from "../components/EstadisticasC.jsx";
+
+import EstadisticasC from "../components/estadisticas/EstadisticasC.jsx";
 import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
-import Spinner from "../components/Spinner.jsx";
+import Promedio from "../components/estadisticas/Promedio.jsx";
 
 export default function Estadisticas() {
 	const asignaturas = useContext(AsignaturasContext);
@@ -18,6 +17,7 @@ export default function Estadisticas() {
 		<>
 			<div className='container-fluid py-3 min-vh-100 bg-dark text-white'>
 				<EstadisticasC aprobadas={aprobadas} regularizadas={regularizadas} regularizadasYAprobadas={regularizadasYAprobadas} />
+				<Promedio />
 			</div>
 		</>
 	);

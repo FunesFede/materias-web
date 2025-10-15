@@ -3,11 +3,22 @@ import { useNavigate, useParams } from "react-router";
 
 import asignaturasData from "../data/asignaturas.json";
 import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
+import UserStateContext from "../utils/contexts/UserContext.js";
+
+import { esCursable, esHecha } from "../utils/asignaturasHelpers.js";
+
+import { Modal } from "bootstrap";
+
+import SetNotaModal from "../components/modals/SetNotaModal.jsx";
+import NotasContext from "../utils/contexts/NotasContext.js";
 
 export default function AsignaturaInfo() {
 	const { acrom } = useParams();
 	const navigate = useNavigate();
+
 	const asignaturas = useContext(AsignaturasContext);
+	const notas = useContext(NotasContext);
+	const user = useContext(UserStateContext);
 
 	let asignatura = asignaturasData.filter((asign) => asign.acronimo == acrom.toUpperCase())[0];
 	if (!asignatura) {
@@ -22,35 +33,22 @@ export default function AsignaturaInfo() {
 		};
 	}
 
+	const nota = notas[asignatura.acronimo];
+
+	const hecha = esHecha(asignaturas, asignatura);
+	const cursable = esCursable(asignaturas, asignatura);
+	const aprobada = asignaturas.aprobadas.includes(asignatura.acronimo);
+
 	const asignRegularizadas = asignaturasData.filter((asign) => asignatura.regularizadas.includes(asign.acronimo));
 	const asignAprobadas = asignaturasData.filter((asign) => asignatura.aprobadas.includes(asign.acronimo));
 	const correlativaFuturaRegular = asignaturasData.filter((asign) => asign.regularizadas.includes(asignatura.acronimo));
 	const correlativaFuturaAprobada = asignaturasData.filter((asign) => asign.aprobadas.includes(asignatura.acronimo));
 	const correlativaFutura = [...correlativaFuturaAprobada, ...correlativaFuturaRegular].sort((a, b) => a.nombre.localeCompare(b.nombre));
 
-	const esHecha = (a) => {
-		return asignaturas.regularizadas.includes(a) || asignaturas.aprobadas.includes(a);
-	};
-
-	const esCursable = (a) => {
-		if (asignatura.anio == 0) return false;
-		for (let index = 0; index < a.regularizadas.length; index++) {
-			const element = a.regularizadas[index];
-			if (!asignaturas.regularizadas.includes(element) && !asignaturas.aprobadas.includes(element)) return false;
-		}
-
-		for (let index = 0; index < a.aprobadas.length; index++) {
-			const element = a.aprobadas[index];
-			if (!asignaturas.aprobadas.includes(element)) return false;
-		}
-
-		return true;
-	};
-
 	const handleEstado = () => {
-		if (esCursable(asignatura)) {
-			if (esHecha(asignatura.acronimo)) {
-				if (asignaturas.aprobadas.includes(asignatura.acronimo))
+		if (cursable) {
+			if (hecha) {
+				if (aprobada)
 					return (
 						<span className='text-success'>
 							<i className='bi bi-check-lg'></i> Aprobada
@@ -77,8 +75,8 @@ export default function AsignaturaInfo() {
 	};
 
 	const handleColor = (asig) => {
-		if (esCursable(asig)) {
-			if (esHecha(asig.acronimo)) {
+		if (esCursable(asignaturas, asig)) {
+			if (esHecha(asignaturas, asig)) {
 				if (asignaturas.aprobadas.includes(asig.acronimo)) return "text-success";
 				else return "text-warning";
 			} else return "";
@@ -102,8 +100,15 @@ export default function AsignaturaInfo() {
 		}
 	};
 
+	const handleAddNota = () => {
+		const modalEl = document.getElementById(asignatura.acronimo + "NotaModal");
+		const modal = Modal.getOrCreateInstance(modalEl);
+		modal.show();
+	};
+
 	return (
 		<>
+			<SetNotaModal aNota={nota} userId={user.uid} asignatura={asignatura} key={asignatura.acronimo + "NotaModal"} />
 			<div className='container-fluid min-vh-100 bg-dark text-white d-flex align-items-center justify-content-center w-responsive'>
 				<div className='container'>
 					<div className='card bg-dark-custom text-white'>
@@ -120,7 +125,26 @@ export default function AsignaturaInfo() {
 							<div className='card-text pt-0'>
 								<ul className='list-group list-group-flush pt-0'>
 									<li key='1' className='list-group-item pt-0 bg-dark-custom text-white'>
-										<span className='fw-bold'>Estado:</span> {handleEstado()}
+										<span className='fw-bold'>Estado:</span> {handleEstado()}{" "}
+										{nota ? (
+											<>
+												{" "}
+												| <span className='fw-bold'>Nota final:</span> {nota}{" "}
+												<span className='clickable link link-primary' onClick={handleAddNota} id={asignatura.acronimo + "NotaModal"}>
+													<i className='bi bi-pen'></i>
+												</span>
+											</>
+										) : aprobada ? (
+											<>
+												{" "}
+												| <span className='fw-bold'>Nota final:</span>{" "}
+												<span className='clickable link-primary link-underline link-underline-opacity-0' onClick={handleAddNota}>
+													<i className='bi bi-file-earmark-plus'></i> Añadir
+												</span>
+											</>
+										) : (
+											""
+										)}
 									</li>
 									<li key='2' className='list-group-item bg-dark-custom text-white'>
 										<div className='fw-bold'>

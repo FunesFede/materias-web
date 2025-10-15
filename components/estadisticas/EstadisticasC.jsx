@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import asignaturas from "../data/asignaturas.json";
+import asignaturas from "../../data/asignaturas.json";
 
 export default function EstadisticasC({ regularizadas, aprobadas, regularizadasYAprobadas }) {
 	return (
-		<div className='container-fluid container-rounded-dark rounded my-4 py-2 text-white max-width-80'>
+		<div className='container-fluid container-rounded-dark rounded my-4 py-3 text-white max-width-80'>
 			<div className='row mb-3'>
 				<h4>
 					<i className='bi bi-graph-up'></i> Tus Estadísticas

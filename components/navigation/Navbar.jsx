@@ -2,9 +2,9 @@ import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { toast, Flip } from "react-toastify";
 
-import asignaturas from "../data/asignaturas.json";
-import UserStateContext from "../utils/contexts/UserContext";
-import Profile from "./Profile";
+import asignaturas from "../../data/asignaturas.json";
+import UserStateContext from "../../utils/contexts/UserContext";
+import Profile from "../Profile";
 
 export default function Navbar({ setAsignaturas }) {
 	const [query, setQuery] = useState("");

@@ -1,8 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
+import asignaturasData from "../../data/asignaturas.json";
+
 export default function CorrelativasModal({ asignatura }) {
 	const navigate = useNavigate();
+	const regularizadas =
+		asignatura.regularizadas.length > 0
+			? asignatura.regularizadas.map((acron) => {
+					return asignaturasData.find((a) => a.acronimo == acron).nombre;
+			  })
+			: ["No requiere asignaturas regularizadas."];
+	const aprobadas =
+		asignatura.aprobadas.length > 0
+			? asignatura.aprobadas.map((acron) => {
+					return asignaturasData.find((a) => a.acronimo == acron).nombre;
+			  })
+			: ["No requiere asignaturas aprobadas."];
+
 	return (
 		<div className='modal fade' id={asignatura.acronimo + "modal"} key={asignatura.acronimo + "modal"} tabIndex='-1' aria-labelledby='correlativasModalLabel'>
 			<div className='modal-dialog'>
@@ -16,11 +31,11 @@ export default function CorrelativasModal({ asignatura }) {
 					<div className='modal-body'>
 						<p>
 							<span className='fw-bold'>Regularizadas (o aprobadas): </span>
-							{asignatura.regularizadas.length > 0 ? asignatura.regularizadas.join(", ") : "No requiere asignaturas regularizadas."}
+							{regularizadas.join(", ")}
 						</p>
 						<p>
 							<span className='fw-bold'>Aprobadas: </span>
-							{asignatura.aprobadas.length > 0 ? asignatura.aprobadas.join(", ") : "No requiere asignaturas aprobadas."}
+							{aprobadas.join(", ")}
 						</p>
 					</div>
 					<div className='modal-footer'>
