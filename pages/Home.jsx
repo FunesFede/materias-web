@@ -1,14 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import UserStateContext from "../utils/contexts/UserContext.js";
 
 import asignaturasData from "../data/asignaturas.json";
 
 import Asignatura from "../components/Asignatura.jsx";
-import Spinner from "../components/Spinner.jsx";
-import CorrelativasModal from "../components/CorrelativasModal.jsx";
+
+import CorrelativasModal from "../components/modals/CorrelativasModal.jsx";
+import SetNotaModal from "../components/modals/SetNotaModal.jsx";
 
 export default function Main() {
 	const user = useContext(UserStateContext);
+	const [setLoading, loading] = useState(false);
 
 	const primerAnio = asignaturasData.filter((asignatura) => asignatura.anio == 1).sort((a, b) => a.nombre.localeCompare(b.nombre));
 	const segundoAnio = asignaturasData.filter((asignatura) => asignatura.anio == 2).sort((a, b) => a.nombre.localeCompare(b.nombre));
@@ -30,7 +32,12 @@ export default function Main() {
 		<>
 			<div className='container-fluid py-3 min-vh-100 bg-dark text-white'>
 				{asignaturasData.map((a) => {
-					return <CorrelativasModal asignatura={a} key={a.acronimo + "modal"} />;
+					return (
+						<span key={a.acronimo}>
+							<SetNotaModal userId={user.uid} asignatura={a} key={a.acronimo + "NotaModal"} />
+							<CorrelativasModal asignatura={a} key={a.acronimo + "modal"} />
+						</span>
+					);
 				})}
 				<div className='container-fluid'>
 					<h3 className='text-start'>

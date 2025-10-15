@@ -80,7 +80,7 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 					<label className='form-label' htmlFor='pass'>
 						<i className='bi bi-eye-slash-fill'></i> Contraseña
 					</label>
-					<input className='form-control' type='password' {...register("password", { required: true })} />
+					<input className='form-control' autoComplete='current-password' type='password' {...register("password", { required: true })} />
 					{errors.password && (
 						<span className='text-danger'>
 							<i className='bi bi-exclamation-diamond-fill'></i> Una contraseña es requerida

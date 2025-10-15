@@ -5,9 +5,9 @@ import { useState, useEffect } from "react";
 
 import Home from "../pages/Home.jsx";
 import AsignaturaInfo from "../pages/AsignaturaInfo.jsx";
-import Footer from "../components/Footer.jsx";
+import Footer from "../components/navigation/Footer.jsx";
 import Estadisticas from "../pages/Estadisticas.jsx";
-import Navbar from "../components/Navbar.jsx";
+import Navbar from "../components/navigation/Navbar.jsx";
 import InfoBanner from "../components/InfoBanner.jsx";
 import Login from "../pages/auth/Login.jsx";
 import NotFound from "../pages/NotFound.jsx";
@@ -22,11 +22,14 @@ import { getAsignaturas } from "../utils/firebase/asignaturas.js";
 
 import UserStateContext from "../utils/contexts/UserContext.js";
 import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
+import NotasContext from "../utils/contexts/NotasContext.js";
 import Profile from "../pages/Profile.jsx";
+import { getNotas } from "../utils/firebase/notas.js";
 
 function App() {
 	const [user, setUser] = useState(null);
 	const [asignaturas, setAsignaturas] = useState(null);
+	const [notas, setNotas] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [authChecked, setAuthChecked] = useState(false);
 
@@ -37,7 +40,10 @@ function App() {
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
 			setUser(currentUser);
-			if (currentUser) getAsignaturas(currentUser.uid, setAsignaturas);
+			if (currentUser) {
+				getAsignaturas(currentUser.uid, setAsignaturas);
+				getNotas(currentUser.uid, setNotas);
+			}
 			setAuthChecked(true);
 		});
 		return () => unsubscribe();
@@ -59,65 +65,68 @@ function App() {
 		<>
 			<UserStateContext.Provider value={user}>
 				<AsignaturasContext.Provider value={asignaturas}>
-					<BrowserRouter>
-						<Navbar setAsignaturas={setAsignaturas} />
-						<Routes>
-							<Route path='/login' element={<Login signInSuccessFunc={handleSignInSuccess} />} />
-							<Route path='/login/register' element={<Register signInSuccessFunc={handleSignInSuccess} />} />
-							<Route path='/login/passwordreset' element={<PasswordReset />} />
+					<NotasContext.Provider value={notas}>
+						<BrowserRouter>
+							<Navbar setAsignaturas={setAsignaturas} />
+							<Routes>
+								<Route path='/login' element={<Login signInSuccessFunc={handleSignInSuccess} />} />
+								<Route path='/login/register' element={<Register signInSuccessFunc={handleSignInSuccess} />} />
+								<Route path='/login/passwordreset' element={<PasswordReset />} />
 
-							<Route
-								path='/'
-								element={
-									<RequireAuth>
-										<Home />
-									</RequireAuth>
-								}
-							/>
-							<Route
-								path='/estadisticas'
-								element={
-									<RequireAuth>
-										<Estadisticas />
-									</RequireAuth>
-								}
-							/>
-							<Route
-								path='/asignatura/:acrom'
-								element={
-									<RequireAuth>
-										<AsignaturaInfo />
-									</RequireAuth>
-								}
-							/>
+								<Route
+									path='/'
+									element={
+										<RequireAuth>
+											<Home />
+										</RequireAuth>
+									}
+								/>
 
-							<Route
-								path='/profile/settings'
-								element={
-									<RequireAuth>
-										<Profile />
-									</RequireAuth>
-								}
+								<Route
+									path='/estadisticas'
+									element={
+										<RequireAuth>
+											<Estadisticas />
+										</RequireAuth>
+									}
+								/>
+								<Route
+									path='/asignatura/:acrom'
+									element={
+										<RequireAuth>
+											<AsignaturaInfo />
+										</RequireAuth>
+									}
+								/>
+
+								<Route
+									path='/profile/settings'
+									element={
+										<RequireAuth>
+											<Profile />
+										</RequireAuth>
+									}
+								/>
+
+								<Route path='*' element={<NotFound />} />
+							</Routes>
+							<Footer />
+
+							<ToastContainer
+								position='bottom-right'
+								autoClose={10000}
+								hideProgressBar={false}
+								newestOnTop={false}
+								closeOnClick={false}
+								rtl={false}
+								pauseOnFocusLoss
+								draggable
+								pauseOnHover
+								theme='dark'
+								transition={Flip}
 							/>
-
-							<Route path='*' element={<NotFound />} />
-						</Routes>
-						<Footer />
-
-						<ToastContainer
-							position='bottom-right'
-							autoClose={10000}
-							hideProgressBar={false}
-							newestOnTop={false}
-							closeOnClick={false}
-							rtl={false}
-							pauseOnFocusLoss
-							draggable
-							pauseOnHover
-							theme='dark'
-							transition={Flip}
-						/>
-					</BrowserRouter>
+						</BrowserRouter>
+					</NotasContext.Provider>
 				</AsignaturasContext.Provider>
 			</UserStateContext.Provider>
 
