@@ -39,11 +39,11 @@ export default function Navbar({ setAsignaturas }) {
 	};
 
 	return (
-		<nav className='navbar navbar-expand-lg bg-body-tertiary'>
+		<nav className='sticky-top navbar navbar-expand-lg bg-body-tertiary'>
 			<div className='container-fluid'>
-				<a className='navbar-brand' href='https://www.samas.org.ar/index.php/blog-infosam/236-octubre-rosa' target='_blank'>
-					<img src='/pink-ribbon.png' alt='Logo' width='40' height='40' className='d-inline-block align-text-top' />
-				</a>
+				<NavLink to='/' className='navbar-brand'>
+					<img src='/logo.png' alt='Logo' width='100' height='30' className='d-inline-block align-text-top' />
+				</NavLink>
 				<button
 					className='navbar-toggler'
 					type='button'
@@ -67,8 +67,36 @@ export default function Navbar({ setAsignaturas }) {
 								Estadísticas
 							</NavLink>
 						</li>
+						<li className='nav-item dropdown'>
+							<a className='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+								Universidad
+							</a>
+							<ul className='dropdown-menu'>
+								<li>
+									<a className='dropdown-item' href='https://a4.frc.utn.edu.ar' target='_blank' rel='noopener noreferrer'>
+										Autogestión
+									</a>
+								</li>
+								<li>
+									<a className='dropdown-item' href='https://uv.frc.utn.edu.ar' target='_blank' rel='noopener noreferrer'>
+										Aula Virtual
+									</a>
+								</li>
+
+								<li>
+									<a className='dropdown-item' href='https://www.institucional.frc.utn.edu.ar/sistemas/' target='_blank' rel='noopener noreferrer'>
+										Departamento de Sistemas
+									</a>
+								</li>
+								<li>
+									<a className='dropdown-item' href='https://seu.frc.utn.edu.ar/?pIs=1286' target='_blank' rel='noopener noreferrer'>
+										Pasantías
+									</a>
+								</li>
+							</ul>
+						</li>
 						<li className='nav-item'>
-							<a className='nav-link' data-bs-toggle='offcanvas' href='#offcanvasExample' role='button' aria-controls='offcanvasExample'>
+							<a className='nav-link' data-bs-toggle='offcanvas' href='#GuiaBotones' role='button' aria-controls='GuiaBotones'>
 								Guía Botones
 							</a>
 						</li>
