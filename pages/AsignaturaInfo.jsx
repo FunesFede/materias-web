@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate, useParams } from "react-router";
+import { NavLink, useNavigate, useParams } from "react-router";
 
 import asignaturasData from "../data/asignaturas.json";
 import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
@@ -109,8 +109,21 @@ export default function AsignaturaInfo() {
 	return (
 		<>
 			<SetNotaModal aNota={nota} userId={user.uid} asignatura={asignatura} key={asignatura.acronimo + "NotaModal"} />
-			<div className='container-fluid min-vh-100 bg-dark text-white d-flex align-items-center justify-content-center w-responsive'>
+			<div className='container-fluid vh-100 bg-dark text-white d-flex align-items-center justify-content-center w-responsive'>
 				<div className='container'>
+					<div className='container'>
+						<nav aria-label='breadcrumb'>
+							<ol class='breadcrumb'>
+								<li class='breadcrumb-item'>
+									<NavLink to='/'>Home</NavLink>
+								</li>
+								<li class='breadcrumb-item'>Asignaturas</li>
+								<li class='breadcrumb-item active' aria-current='page'>
+									{asignatura.nombre}
+								</li>
+							</ol>
+						</nav>
+					</div>
 					<div className='card bg-dark-custom text-white'>
 						<div className='card-body container-dark-rounded rounded'>
 							<div className='card-title mb-0 pb-0'>
