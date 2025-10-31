@@ -65,7 +65,7 @@ const FirebasePasswordReset = () => {
 					<label className='form-label' htmlFor='email'>
 						<i className='bi bi-envelope-at-fill'></i> Email
 					</label>
-					<input className='form-control' type='email' {...register("email", { required: true })} disabled={done} />
+					<input className='form-control' autoComplete='username' type='email' {...register("email", { required: true })} disabled={done} />
 					{errors.email && (
 						<span className='text-danger'>
 							<i className='bi bi-exclamation-diamond-fill'></i> Un email es requerido

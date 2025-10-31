@@ -85,7 +85,7 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 					<label className='form-label' htmlFor='name'>
 						<i className='bi bi-person-badge'></i> Nombre
 					</label>
-					<input className='form-control' id='name' type='text' {...register("displayName", { required: true })} />
+					<input className='form-control' autoComplete='name' id='name' type='text' {...register("displayName", { required: true })} />
 					{errors.displayName && (
 						<span className='text-danger'>
 							<i className='bi bi-exclamation-diamond-fill'></i> Un nombre es requerido
@@ -96,7 +96,7 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 					<label className='form-label' htmlFor='email'>
 						<i className='bi bi-envelope-at-fill'></i> Email
 					</label>
-					<input className='form-control' type='email' {...register("email", { required: true })} />
+					<input className='form-control' autoComplete='username' type='email' {...register("email", { required: true })} />
 					{errors.email && (
 						<span className='text-danger'>
 							<i className='bi bi-exclamation-diamond-fill'></i> Un email es requerido
@@ -107,7 +107,7 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 					<label className='form-label' htmlFor='pass'>
 						<i className='bi bi-eye-slash-fill'></i> Contraseña
 					</label>
-					<input className='form-control' type='password' {...register("password", { required: true })} />
+					<input className='form-control' autoComplete='current-password' type='password' {...register("password", { required: true })} />
 					{errors.password && (
 						<span className='text-danger'>
 							<i className='bi bi-exclamation-diamond-fill'></i> Una contraseña es requerida

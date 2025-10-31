@@ -73,7 +73,7 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 					<label className='form-label' htmlFor='email'>
 						<i className='bi bi-envelope-at-fill'></i> Email
 					</label>
-					<input className='form-control' type='email' {...register("email", { required: true })} />
+					<input className='form-control' autoComplete='username' type='email' {...register("email", { required: true })} />
 					{errors.email && <span className='text-danger'>Un email es requerido</span>}
 				</div>
 				<div className='mb-3 text-start'>

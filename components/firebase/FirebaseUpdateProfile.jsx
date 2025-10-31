@@ -72,13 +72,13 @@ const FirebaseUpdateProfile = () => {
 					<label className='form-label' htmlFor='email'>
 						<i className='bi bi-envelope-at-fill'></i> Email {user.emailVerified ? "(Verificado)" : "(No verificado)"}
 					</label>
-					<input className='form-control' disabled placeholder='Gabriel' id='name' type='email' {...register("email")} />
+					<input className='form-control' autoComplete='username' disabled placeholder='fede@ffede.ar' id='name' type='email' {...register("email")} />
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='name'>
 						<i className='bi bi-person-badge'></i> Nombre
 					</label>
-					<input className='form-control' placeholder='Gabriel' id='name' type='text' {...register("displayName")} />
+					<input className='form-control' autoComplete='name' placeholder='Gabriel' id='name' type='text' {...register("displayName")} />
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='photo'>
