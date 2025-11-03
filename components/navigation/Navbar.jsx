@@ -22,7 +22,7 @@ export default function Navbar({ setAsignaturas }) {
 			asignaturas.find((a) => a.nombre.toLowerCase() === lowerQuery || a.acronimo.toLowerCase() === lowerQuery) ||
 			asignaturas.find((a) => a.nombre.toLowerCase().includes(lowerQuery) || a.acronimo.toLowerCase().includes(lowerQuery));
 		if (closest) {
-			navigate(`/asignatura/${closest.acronimo}`);
+			navigate(`/asignaturas/${closest.acronimo}`);
 		} else {
 			toast.error("No hay resultados para la asignatura buscada. Asegúrese de utilizar tildes.", {
 				position: "bottom-right",

@@ -67,64 +67,66 @@ function App() {
 				<AsignaturasContext.Provider value={asignaturas}>
 					<NotasContext.Provider value={notas}>
 						<BrowserRouter>
-							<Navbar setAsignaturas={setAsignaturas} />
-							<Routes>
-								<Route path='/login' element={<Login signInSuccessFunc={handleSignInSuccess} />} />
-								<Route path='/login/register' element={<Register signInSuccessFunc={handleSignInSuccess} />} />
-								<Route path='/login/passwordreset' element={<PasswordReset />} />
+							<div className='d-flex flex-column min-vh-100'>
+								<Navbar setAsignaturas={setAsignaturas} />
+								<Routes>
+									<Route path='/login' element={<Login signInSuccessFunc={handleSignInSuccess} />} />
+									<Route path='/login/register' element={<Register signInSuccessFunc={handleSignInSuccess} />} />
+									<Route path='/login/passwordreset' element={<PasswordReset />} />
 
-								<Route
-									path='/'
-									element={
-										<RequireAuth>
-											<Home />
-										</RequireAuth>
-									}
-								/>
+									<Route
+										path='/'
+										element={
+											<RequireAuth>
+												<Home />
+											</RequireAuth>
+										}
+									/>
 
-								<Route
-									path='/estadisticas'
-									element={
-										<RequireAuth>
-											<Estadisticas />
-										</RequireAuth>
-									}
-								/>
-								<Route
-									path='/asignatura/:acrom'
-									element={
-										<RequireAuth>
-											<AsignaturaInfo />
-										</RequireAuth>
-									}
-								/>
+									<Route
+										path='/estadisticas'
+										element={
+											<RequireAuth>
+												<Estadisticas />
+											</RequireAuth>
+										}
+									/>
+									<Route
+										path='/asignaturas/:acrom'
+										element={
+											<RequireAuth>
+												<AsignaturaInfo />
+											</RequireAuth>
+										}
+									/>
 
-								<Route
-									path='/profile/settings'
-									element={
-										<RequireAuth>
-											<Profile />
-										</RequireAuth>
-									}
-								/>
+									<Route
+										path='/profile/settings'
+										element={
+											<RequireAuth>
+												<Profile />
+											</RequireAuth>
+										}
+									/>
 
-								<Route path='*' element={<NotFound />} />
-							</Routes>
+									<Route path='*' element={<NotFound />} />
+								</Routes>
+
+								<ToastContainer
+									position='bottom-right'
+									autoClose={10000}
+									hideProgressBar={false}
+									newestOnTop={false}
+									closeOnClick={false}
+									rtl={false}
+									pauseOnFocusLoss
+									draggable
+									pauseOnHover
+									theme='dark'
+									transition={Flip}
+								/>
+							</div>
 							<Footer />
-
-							<ToastContainer
-								position='bottom-right'
-								autoClose={10000}
-								hideProgressBar={false}
-								newestOnTop={false}
-								closeOnClick={false}
-								rtl={false}
-								pauseOnFocusLoss
-								draggable
-								pauseOnHover
-								theme='dark'
-								transition={Flip}
-							/>
 						</BrowserRouter>
 					</NotasContext.Provider>
 				</AsignaturasContext.Provider>

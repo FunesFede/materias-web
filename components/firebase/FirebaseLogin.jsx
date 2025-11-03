@@ -23,7 +23,7 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 			const user = userCredential.user;
 
 			onSignInSuccess && onSignInSuccess(user);
-			const to = typeof from === "string" ? from : from?.pathname;
+			const to = typeof from === "string" ? from : from?.pathname || "/";
 			navigate(to, { replace: true });
 		} catch (err) {
 			let errorMessage = "Ocurrió un error desconocido. " + (err.code || "");
@@ -73,14 +73,14 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 					<label className='form-label' htmlFor='email'>
 						<i className='bi bi-envelope-at-fill'></i> Email
 					</label>
-					<input className='form-control' autoComplete='username' type='email' {...register("email", { required: true })} />
+					<input id='email' className='form-control' autoComplete='username' type='email' {...register("email", { required: true })} />
 					{errors.email && <span className='text-danger'>Un email es requerido</span>}
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='pass'>
 						<i className='bi bi-eye-slash-fill'></i> Contraseña
 					</label>
-					<input className='form-control' autoComplete='current-password' type='password' {...register("password", { required: true })} />
+					<input id='pass' className='form-control' autoComplete='current-password' type='password' {...register("password", { required: true })} />
 					{errors.password && (
 						<span className='text-danger'>
 							<i className='bi bi-exclamation-diamond-fill'></i> Una contraseña es requerida

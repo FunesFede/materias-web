@@ -76,10 +76,10 @@ export default function SetNotaModal({ userId, asignatura, aNota }) {
 								</p>
 							)}
 							<div className='mb-3 text-start'>
-								<label className='form-label' htmlFor='notaInput'>
+								<label className='form-label' htmlFor={"notaInput" + asignatura.acronimo}>
 									<i className='bi bi-123'></i> Nota
 								</label>
-								<input id='notaInput' autoFocus className='form-control' type='number' min={6} max={10} {...register("nota", { required: true })} />
+								<input id={"notaInput" + asignatura.acronimo} className='form-control' type='number' min={6} max={10} {...register("nota", { required: true })} />
 								{errors.nota && <span className='text-danger'>Una nota es requerida</span>}
 							</div>
 						</div>

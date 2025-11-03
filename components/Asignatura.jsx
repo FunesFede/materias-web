@@ -27,6 +27,19 @@ export default function Asignatura({ asignatura }) {
 		} else return <i className='bi bi-lock-fill'></i>;
 	};
 
+	const openModal = () => {
+		const modalEl = document.getElementById(asignatura.acronimo + "NotaModal");
+		const modal = Modal.getOrCreateInstance(modalEl);
+		modal.show();
+
+		// Wait before focus because .show() returns before the modal pops up
+		setTimeout(() => {
+			const input = document.getElementById("notaInput" + asignatura.acronimo);
+			console.log(input);
+			input.focus({ focusVisible: true });
+		}, 500);
+	};
+
 	return (
 		<>
 			<div className='asignatura-vertical mb-3'>
@@ -54,11 +67,7 @@ export default function Asignatura({ asignatura }) {
 								disabled={!cursable || asignaturas.aprobadas.includes(asignatura.acronimo)}
 								className='btn btn-success btn-sm me-2 text-white'
 								id={asignatura.acronimo + "btnNotaModal"}
-								onClick={() => {
-									const modalEl = document.getElementById(asignatura.acronimo + "NotaModal");
-									const modal = Modal.getOrCreateInstance(modalEl);
-									modal.show();
-								}}
+								onClick={openModal}
 							>
 								<i className='bi bi-check-lg'></i>
 							</button>
@@ -72,7 +81,7 @@ export default function Asignatura({ asignatura }) {
 								<i className='bi bi-hourglass-bottom'></i>
 							</button>
 
-							<button title='Ver Información' className='btn btn-primary btn-sm me-2' onClick={() => navigate(`/asignatura/${asignatura.acronimo}`)}>
+							<button title='Ver Información' className='btn btn-primary btn-sm me-2' onClick={() => navigate(`/asignaturas/${asignatura.acronimo}`)}>
 								<i className='bi bi-info'></i>
 							</button>
 

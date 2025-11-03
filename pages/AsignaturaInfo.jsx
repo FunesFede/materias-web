@@ -104,26 +104,34 @@ export default function AsignaturaInfo() {
 		const modalEl = document.getElementById(asignatura.acronimo + "NotaModal");
 		const modal = Modal.getOrCreateInstance(modalEl);
 		modal.show();
+
+		setTimeout(() => {
+			const input = document.getElementById("notaInput" + asignatura.acronimo);
+
+			if (input) {
+				input.focus({ focusVisible: true });
+			}
+		}, 500);
 	};
 
 	return (
 		<>
 			<SetNotaModal aNota={nota} userId={user.uid} asignatura={asignatura} key={asignatura.acronimo + "NotaModal"} />
-			<div className='container-fluid vh-100 bg-dark text-white d-flex align-items-center justify-content-center w-responsive'>
-				<div className='container'>
-					<div className='container'>
-						<nav aria-label='breadcrumb'>
-							<ol class='breadcrumb'>
-								<li class='breadcrumb-item'>
-									<NavLink to='/'>Home</NavLink>
-								</li>
-								<li class='breadcrumb-item'>Asignaturas</li>
-								<li class='breadcrumb-item active' aria-current='page'>
-									{asignatura.nombre}
-								</li>
-							</ol>
-						</nav>
-					</div>
+
+			<div className='container-fluid bg-dark text-white d-flex flex-column flex-grow-1 justify-content-center'>
+				<div className='container w-responsive'>
+					<nav aria-label='breadcrumb'>
+						<ol class='breadcrumb'>
+							<li class='breadcrumb-item'>
+								<NavLink to='/'>Home</NavLink>
+							</li>
+							<li class='breadcrumb-item'>Asignaturas</li>
+							<li class='breadcrumb-item active' aria-current='page'>
+								{asignatura.nombre}
+							</li>
+						</ol>
+					</nav>
+
 					<div className='card bg-dark-custom text-white'>
 						<div className='card-body container-dark-rounded rounded'>
 							<div className='card-title mb-0 pb-0'>
@@ -227,7 +235,7 @@ export default function AsignaturaInfo() {
 											name=''
 											id=''
 											className='form-select'
-											onChange={(e) => (e.target.value != "-1" ? navigate(`/asignatura/${e.target.value}`) : "")}
+											onChange={(e) => (e.target.value != "-1" ? navigate(`/asignaturas/${e.target.value}`) : "")}
 											disabled={asignAprobadas.length == 0 && asignRegularizadas.length == 0}
 											defaultValue='-1'
 										>
@@ -249,7 +257,7 @@ export default function AsignaturaInfo() {
 											name=''
 											id=''
 											className='form-select'
-											onChange={(e) => (e.target.value != "-1" ? navigate(`/asignatura/${e.target.value}`) : "")}
+											onChange={(e) => (e.target.value != "-1" ? navigate(`/asignaturas/${e.target.value}`) : "")}
 											disabled={correlativaFutura.length == 0}
 											defaultValue='-1'
 										>

@@ -39,7 +39,7 @@ export default function CorrelativasModal({ asignatura }) {
 						</p>
 					</div>
 					<div className='modal-footer'>
-						<button className='btn btn-primary' data-bs-dismiss='modal' onClick={() => navigate("/asignatura/" + asignatura.acronimo)}>
+						<button className='btn btn-primary' data-bs-dismiss='modal' onClick={() => navigate("/asignaturas/" + asignatura.acronimo)}>
 							<i className='bi bi-arrow-right'></i> Más Información
 						</button>
 					</div>

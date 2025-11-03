@@ -13,8 +13,9 @@ export default function Profile({ setAsignaturas }) {
 
 	const handleCerrarSession = () => {
 		if (user) {
-			signOut(auth);
-			setAsignaturas(null);
+			signOut(auth)
+				.catch(() => console.log("Failed to sign out"))
+				.then(() => setAsignaturas(null));
 		} else navigate("/login");
 	};
 
