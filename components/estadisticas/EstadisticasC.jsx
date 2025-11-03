@@ -30,7 +30,6 @@ export default function EstadisticasC({ regularizadas, aprobadas, regularizadasY
 						<i className='bi bi-info-circle-fill'></i> Los porcentajes y totales solo toman en cuenta asignaturas aprobadas y 7 de las{" "}
 						{asignaturas.filter((a) => a.tipo == "Electiva").length} electivas.
 					</h6>
-					<h6 className='text-secondary'>Seguramente te está yendo mejor que el Augusto</h6>
 				</div>
 			</div>
 		</div>
