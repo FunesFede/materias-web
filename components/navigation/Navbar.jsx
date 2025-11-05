@@ -42,7 +42,7 @@ export default function Navbar({ setAsignaturas }) {
 		<nav className='sticky-top navbar navbar-expand-lg bg-body-tertiary'>
 			<div className='container-fluid'>
 				<NavLink to='/' className='navbar-brand'>
-					<img src='/logo.png' alt='Logo' width='100' height='30' className='d-inline-block align-text-top' />
+					<img src='/images/logo.png' alt='Logo' width='100' height='30' className='d-inline-block align-text-top' />
 				</NavLink>
 				<button
 					className='navbar-toggler'
@@ -91,6 +91,14 @@ export default function Navbar({ setAsignaturas }) {
 								<li>
 									<a className='dropdown-item' href='https://seu.frc.utn.edu.ar/?pIs=1286' target='_blank' rel='noopener noreferrer'>
 										Pasantías
+									</a>
+								</li>
+								<li>
+									<hr className='dropdown-divider' />
+								</li>
+								<li>
+									<a className='dropdown-item' href='/docs/correlativas.pdf' target='_blank' rel='noopener noreferrer'>
+										Correlativas PDF
 									</a>
 								</li>
 							</ul>
