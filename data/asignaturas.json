@@ -326,7 +326,7 @@
                 "acronimo": "IS",
                 "tipo": "Obligatoria",
                 "duracion": "Cuatrimestral",
-                "regularizadas": ["BDA", "DSI", "DDS"],
+                "regularizadas": ["BDD", "DSI", "DDS"],
                 "aprobadas": ["SSL", "PPR"]
             },
             {
