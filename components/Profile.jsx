@@ -54,7 +54,7 @@ export default function Profile({ setAsignaturas }) {
 			<button className='btn btn-primary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
 				<i className='bi bi-person-circle'></i> Perfil
 			</button>
-			<ul className='dropdown-menu dropdown-menu-end'>
+			<ul className='dropdown-menu dropdown-perfil dropdown-menu-end'>
 				<li>
 					<button className='dropdown-item' disabled={!user} onClick={() => navigate("/profile/settings")}>
 						<i className='bi bi-gear-wide-connected'></i> Configuración

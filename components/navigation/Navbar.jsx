@@ -82,7 +82,7 @@ export default function Navbar({ setAsignaturas }) {
 										<i className='bi bi-easel3-fill'></i> Aula Virtual
 									</a>
 								</li>
-								<li class='nav-item dropend'>
+								<li class='nav-item dropend horarios-item'>
 									<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
 										<i className='bi bi-calendar-week'></i> Horarios
 									</a>
@@ -139,6 +139,46 @@ export default function Navbar({ setAsignaturas }) {
 								<li>
 									<a className='dropdown-item' href='/docs/correlativas.pdf' target='_blank' rel='noopener noreferrer'>
 										<i className='bi bi-file-earmark-text-fill'></i> Correlativas PDF
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class='nav-item dropdown horarios-dropdown'>
+							<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+								<i className='bi bi-calendar-week'></i> Horarios
+							</a>
+							<ul class='dropdown-menu'>
+								<li>
+									<a class='dropdown-item' href='/docs/horarios/primero.pdf' target='_blank'>
+										<i className='bi bi-calendar-week'></i> Primer Año
+									</a>
+								</li>
+								<li>
+									<a class='dropdown-item' href='/docs/horarios/segundo.pdf' target='_blank'>
+										<i className='bi bi-calendar-week'></i> Segundo Año
+									</a>
+								</li>
+								<li>
+									<a class='dropdown-item' href='/docs/horarios/tercero.pdf' target='_blank'>
+										<i className='bi bi-calendar-week'></i> Tercer Año
+									</a>
+								</li>
+								<li>
+									<a class='dropdown-item' href='/docs/horarios/cuarto.pdf' target='_blank'>
+										<i className='bi bi-calendar-week'></i> Cuarto Año
+									</a>
+								</li>
+								<li>
+									<a class='dropdown-item' href='/docs/horarios/quinto.pdf' target='_blank'>
+										<i className='bi bi-calendar-week'></i> Quinto Año
+									</a>
+								</li>
+								<li>
+									<hr className='dropdown-divider' />
+								</li>
+								<li>
+									<a class='dropdown-item' href='/docs/horarios/seminario.pdf' target='_blank'>
+										<i className='bi bi-calendar-week'></i> Seminario
 									</a>
 								</li>
 							</ul>

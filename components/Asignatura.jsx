@@ -85,9 +85,9 @@ export default function Asignatura({ asignatura }) {
 								<i className='bi bi-info'></i>
 							</button>
 
-							<button title='Ver Correlativas' className='btn btn-primary btn-sm me-2' data-bs-toggle='modal' data-bs-target={"#" + asignatura.acronimo + "modal"}>
+							{/* <button title='Ver Correlativas' className='btn btn-primary btn-sm me-2' data-bs-toggle='modal' data-bs-target={"#" + asignatura.acronimo + "modal"}>
 								<i className='bi bi-arrow-left-right'></i>
-							</button>
+							</button> */}
 
 							<button
 								title='Eliminar Cursado'
