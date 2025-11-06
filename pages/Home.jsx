@@ -23,8 +23,8 @@ export default function Main() {
 		const hora = now.getHours();
 
 		if (hora >= 6 && hora < 12) return "🌤 Buenos días";
-		if (hora >= 12 && hora < 19) return "🌄 Buenas tardes";
-		if (hora >= 19 || hora < 6) return "🌙 Buenas noches";
+		if (hora >= 12 && hora < 20) return "🌄 Buenas tardes";
+		if (hora >= 20 || hora < 6) return "🌙 Buenas noches";
 		else return "👋 Hola";
 	};
 

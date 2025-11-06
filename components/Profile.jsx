@@ -57,11 +57,20 @@ export default function Profile({ setAsignaturas }) {
 			<ul className='dropdown-menu dropdown-menu-end'>
 				<li>
 					<button className='dropdown-item' disabled={!user} onClick={() => navigate("/profile/settings")}>
-						Configuración
+						<i className='bi bi-gear-wide-connected'></i> Configuración
 					</button>
 				</li>
 				<li>
 					<button className='dropdown-item' disabled={!user || user?.emailVerified} onClick={handleVerifiacionEmail}>
+						{user ? (
+							user.emailVerified ? (
+								<i className='bi bi-envelope-check-fill'></i>
+							) : (
+								<i className='bi bi-envelope-exclamation-fill'></i>
+							)
+						) : (
+							<i className='bi bi-envelope-at-fill'></i>
+						)}{" "}
 						Verificación Email {user ? (user.emailVerified ? "(Verificado)" : "(No verificado)") : ""}
 					</button>
 				</li>
@@ -70,7 +79,15 @@ export default function Profile({ setAsignaturas }) {
 				</li>
 				<li>
 					<button className='dropdown-item' onClick={handleCerrarSession}>
-						{user ? "Cerrar Sesión" : "Iniciar Sesión"}
+						{user ? (
+							<>
+								<i className='bi bi-box-arrow-in-left'></i> Cerrar Sesión
+							</>
+						) : (
+							<>
+								<i className='bi bi-box-arrow-in-right'></i> Iniciar Sesión
+							</>
+						)}
 					</button>
 				</li>
 			</ul>

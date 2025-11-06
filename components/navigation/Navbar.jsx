@@ -59,38 +59,78 @@ export default function Navbar({ setAsignaturas }) {
 					<ul className='navbar-nav me-auto mb-2 mb-lg-0'>
 						<li className='nav-item'>
 							<NavLink className='nav-link' to='/'>
-								Home
+								<i className='bi bi-house-fill'></i> Home
 							</NavLink>
 						</li>
 						<li className='nav-item'>
 							<NavLink className='nav-link' to='/estadisticas'>
-								Estadísticas
+								<i className='bi bi-clipboard-data-fill'></i> Estadísticas
 							</NavLink>
 						</li>
 						<li className='nav-item dropdown'>
 							<a className='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
-								Universidad
+								<i className='bi bi-building-fill'></i> Universidad
 							</a>
 							<ul className='dropdown-menu'>
 								<li>
 									<a className='dropdown-item' href='https://a4.frc.utn.edu.ar' target='_blank' rel='noopener noreferrer'>
-										Autogestión
+										<i className='bi bi-kanban-fill'></i> Autogestión
 									</a>
 								</li>
 								<li>
 									<a className='dropdown-item' href='https://uv.frc.utn.edu.ar' target='_blank' rel='noopener noreferrer'>
-										Aula Virtual
+										<i className='bi bi-easel3-fill'></i> Aula Virtual
 									</a>
+								</li>
+								<li class='nav-item dropend'>
+									<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+										<i className='bi bi-calendar-week'></i> Horarios
+									</a>
+									<ul class='dropdown-menu'>
+										<li>
+											<a class='dropdown-item' href='/docs/horarios/primero.pdf' target='_blank'>
+												<i className='bi bi-calendar-week'></i> Primer Año
+											</a>
+										</li>
+										<li>
+											<a class='dropdown-item' href='/docs/horarios/segundo.pdf' target='_blank'>
+												<i className='bi bi-calendar-week'></i> Segundo Año
+											</a>
+										</li>
+										<li>
+											<a class='dropdown-item' href='/docs/horarios/tercero.pdf' target='_blank'>
+												<i className='bi bi-calendar-week'></i> Tercer Año
+											</a>
+										</li>
+										<li>
+											<a class='dropdown-item' href='/docs/horarios/cuarto.pdf' target='_blank'>
+												<i className='bi bi-calendar-week'></i> Cuarto Año
+											</a>
+										</li>
+										<li>
+											<a class='dropdown-item' href='/docs/horarios/quinto.pdf' target='_blank'>
+												<i className='bi bi-calendar-week'></i> Quinto Año
+											</a>
+										</li>
+										<li>
+											<hr className='dropdown-divider' />
+										</li>
+										<li>
+											<a class='dropdown-item' href='/docs/horarios/seminario.pdf' target='_blank'>
+												<i className='bi bi-calendar-week'></i> Seminario
+											</a>
+										</li>
+									</ul>
 								</li>
 
 								<li>
 									<a className='dropdown-item' href='https://www.institucional.frc.utn.edu.ar/sistemas/' target='_blank' rel='noopener noreferrer'>
-										Departamento de Sistemas
+										<i className='bi bi-cpu'></i> Departamento de Sistemas
 									</a>
 								</li>
 								<li>
 									<a className='dropdown-item' href='https://seu.frc.utn.edu.ar/?pIs=1286' target='_blank' rel='noopener noreferrer'>
-										Pasantías
+										<i className='bi bi-laptop'></i> Pasantías
 									</a>
 								</li>
 								<li>
@@ -98,14 +138,14 @@ export default function Navbar({ setAsignaturas }) {
 								</li>
 								<li>
 									<a className='dropdown-item' href='/docs/correlativas.pdf' target='_blank' rel='noopener noreferrer'>
-										Correlativas PDF
+										<i className='bi bi-file-earmark-text-fill'></i> Correlativas PDF
 									</a>
 								</li>
 							</ul>
 						</li>
 						<li className='nav-item'>
 							<a className='nav-link' data-bs-toggle='offcanvas' href='#GuiaBotones' role='button' aria-controls='GuiaBotones'>
-								Guía Botones
+								<i className='bi bi-question-circle-fill'></i> Guía Botones
 							</a>
 						</li>
 					</ul>
@@ -119,7 +159,7 @@ export default function Navbar({ setAsignaturas }) {
 							disabled={!user}
 						/>
 						<button className='btn btn-outline-primary' type='submit' disabled={!user}>
-							Buscar
+							<i className='bi bi-search'></i>
 						</button>
 					</form>
 					<Profile setAsignaturas={setAsignaturas} />
