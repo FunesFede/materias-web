@@ -82,7 +82,7 @@ export default function Asignatura({ asignatura }) {
 							</button>
 
 							<button title='Ver Información' className='btn btn-primary btn-sm me-2' onClick={() => navigate(`/asignaturas/${asignatura.acronimo}`)}>
-								<i className='bi bi-info'></i>
+								<i className='bi bi-info-lg'></i>
 							</button>
 
 							{/* <button title='Ver Correlativas' className='btn btn-primary btn-sm me-2' data-bs-toggle='modal' data-bs-target={"#" + asignatura.acronimo + "modal"}>
@@ -95,7 +95,7 @@ export default function Asignatura({ asignatura }) {
 								className='btn btn-danger btn-sm'
 								onClick={() => borrarAsignaturaRecursivo(user.uid, asignatura.acronimo)}
 							>
-								<i className='bi bi-x-lg'></i>
+								<i className='bi bi-trash3'></i>
 							</button>
 						</div>
 					</div>
