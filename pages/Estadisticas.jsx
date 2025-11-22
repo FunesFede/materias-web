@@ -14,7 +14,7 @@ export default function Estadisticas() {
 
 	return (
 		<>
-			<div className='container-fluid p-5 bg-dark text-white d-flex flex-column flex-grow-1'>
+			<div className='container-fluid py-4 bg-dark text-white d-flex flex-column flex-grow-1'>
 				<h3 className='text-start mx-3 mb-3'>
 					<i className='bi bi-clipboard-data-fill'></i> Tus Estadísticas
 				</h3>

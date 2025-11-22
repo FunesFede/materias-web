@@ -30,7 +30,7 @@ export default function Main() {
 
 	return (
 		<>
-			<div className='container-fluid py-3 bg-dark text-white d-flex flex-column flex-grow-1'>
+			<div className='container-fluid py-4 bg-dark text-white d-flex flex-column flex-grow-1'>
 				{asignaturasData.map((a) => {
 					return (
 						<span key={a.acronimo}>
