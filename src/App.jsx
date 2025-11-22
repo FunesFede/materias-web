@@ -71,7 +71,7 @@ function App() {
 								<Navbar setAsignaturas={setAsignaturas} />
 								<Routes>
 									<Route path='/login' element={<Login signInSuccessFunc={handleSignInSuccess} />} />
-									<Route path='/login/register' element={<Register signInSuccessFunc={handleSignInSuccess} />} />
+									<Route path='/register' element={<Register signInSuccessFunc={handleSignInSuccess} />} />
 									<Route path='/login/passwordreset' element={<PasswordReset />} />
 
 									<Route

@@ -4,7 +4,7 @@ import FirebasePasswordReset from "../../components/firebase/FirebasePasswordRes
 
 export default function PasswordReset() {
 	return (
-		<div className='container-fluid py-3 min-vh-100 bg-dark text-white'>
+		<div className='container-fluid bg-dark text-white d-flex flex-column flex-grow-1 justify-content-center'>
 			<FirebasePasswordReset />
 		</div>
 	);

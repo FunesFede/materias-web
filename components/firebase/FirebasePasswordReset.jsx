@@ -4,7 +4,7 @@ import { auth } from "../../firebase/config";
 import { useForm } from "react-hook-form";
 
 import { toast, Flip } from "react-toastify";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 const FirebasePasswordReset = () => {
 	const [loading, setLoading] = useState(false);
@@ -92,10 +92,7 @@ const FirebasePasswordReset = () => {
 				)}
 			</form>
 			<p className='text-secondary m-1'>
-				¿No tenés una cuenta?{" "}
-				<a href='#' onClick={() => navigate("/login/register")}>
-					Registrate
-				</a>
+				¿No tenés una cuenta? <NavLink to='/register'>Registrate</NavLink>
 			</p>
 		</div>
 	);

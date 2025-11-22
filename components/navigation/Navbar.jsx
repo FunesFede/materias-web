@@ -183,11 +183,11 @@ export default function Navbar({ setAsignaturas }) {
 								</li>
 							</ul>
 						</li>
-						<li className='nav-item'>
+						{/* <li className='nav-item'>
 							<a className='nav-link' data-bs-toggle='offcanvas' href='#GuiaBotones' role='button' aria-controls='GuiaBotones'>
 								<i className='bi bi-question-circle-fill'></i> Guía Botones
 							</a>
-						</li>
+						</li> */}
 					</ul>
 					<form className='d-flex' role='search' onSubmit={buscarAsignatura}>
 						<input

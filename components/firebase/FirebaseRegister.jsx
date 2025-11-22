@@ -4,7 +4,7 @@ import { auth } from "../../firebase/config";
 import { useForm } from "react-hook-form";
 
 import { toast, Flip } from "react-toastify";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 const FirebaseRegister = ({ onSignInSuccess }) => {
 	const [loading, setLoading] = useState(false);
@@ -77,9 +77,9 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 				<div className='mb-3'>
 					<h3>
 						{" "}
-						<i className='bi bi-hand-thumbs-up-fill'></i> Que bueno que te unas a nosotros
+						<i className='bi bi-heart-fill'></i> ¡Bienvenido a tu carrera tracker!
 					</h3>
-					<h4>Completá tu registro</h4>
+					<h4>Por favor, completá tu registro</h4>
 				</div>
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='name'>
@@ -127,10 +127,7 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 					)}
 				</button>
 				<p className='text-secondary mt-2'>
-					¿Ya tenés una cuenta?{" "}
-					<a href='#' onClick={() => navigate("/login")}>
-						Iniciá sesión
-					</a>
+					¿Ya tenés una cuenta? <NavLink to='/login'>Iniciá sesión</NavLink>
 				</p>
 			</form>
 		</>

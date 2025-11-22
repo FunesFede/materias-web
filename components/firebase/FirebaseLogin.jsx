@@ -4,7 +4,7 @@ import { auth } from "../../firebase/config";
 import { useForm } from "react-hook-form";
 
 import { toast, Flip } from "react-toastify";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 const FirebaseLogin = ({ onSignInSuccess, from }) => {
 	const [loading, setLoading] = useState(false);
@@ -100,16 +100,10 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 					)}
 				</button>
 				<p className='text-secondary mt-2 mb-0'>
-					¿Olvidaste tu contraseña?{" "}
-					<a href='#' onClick={() => navigate("/login/passwordreset")}>
-						Reestablecer contraseña
-					</a>
+					¿Olvidaste tu contraseña? <NavLink to='/login/passwordreset'>Reestablecer contraseña</NavLink>
 				</p>
 				<p className='text-secondary mt-1'>
-					¿No tenés una cuenta?{" "}
-					<a href='#' onClick={() => navigate("/login/register")}>
-						Registrate
-					</a>
+					¿No tenés una cuenta? <NavLink to='/register'>Registrate</NavLink>
 				</p>
 			</form>
 		</>
