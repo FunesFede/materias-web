@@ -50,7 +50,7 @@ export default function GraficoAvance() {
 		plugins: {
 			title: {
 				display: true,
-				text: "Avance de Carrera",
+				text: "Progreso",
 				font: {
 					size: 18,
 				},
@@ -69,7 +69,7 @@ export default function GraficoAvance() {
 	};
 
 	return (
-		<div className='py-2 text-white max-width-80 position-relative mx-auto' style={{ height: "350px" }}>
+		<div className='container-rounded-dark p-3 text-white max-width-80 position-relative mx-auto' style={{ height: "510px" }}>
 			<Doughnut data={data} options={options} />
 
 			<div

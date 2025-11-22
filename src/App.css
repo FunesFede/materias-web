@@ -22,11 +22,29 @@
 .horarios-dropdown {
   display: none;
 }
+
 @media (max-width: 992px) {
   .horarios-dropdown {
     display: block;
   }
   .horarios-item {
+    display: none;
+  }
+}
+
+.show-mobile {
+  display: none;
+}
+
+.hide-mobile {
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .show-mobile {
+    display: block;
+  }
+  .hide-mobile {
     display: none;
   }
 }

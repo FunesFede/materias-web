@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavLink, useNavigate, useParams } from "react-router";
 
 import asignaturasData from "../data/asignaturas.json";
@@ -11,14 +11,24 @@ import { Modal } from "bootstrap";
 
 import SetNotaModal from "../components/modals/SetNotaModal.jsx";
 import NotasContext from "../utils/contexts/NotasContext.js";
+import { useSearchParams } from "react-router";
 
 export default function AsignaturaInfo() {
+	const [searchParams, setSearchParams] = useSearchParams();
 	const { acrom } = useParams();
 	const navigate = useNavigate();
 
 	const asignaturas = useContext(AsignaturasContext);
 	const notas = useContext(NotasContext);
 	const user = useContext(UserStateContext);
+
+	useEffect(() => {
+		const edit = Boolean(searchParams.get("edit"));
+		if (edit) {
+			handleAddNota();
+			setSearchParams({}, { replace: true });
+		}
+	}, [searchParams]);
 
 	let asignatura = asignaturasData.filter((asign) => asign.acronimo == acrom.toUpperCase())[0];
 	if (!asignatura) {
