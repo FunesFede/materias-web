@@ -3,7 +3,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useForm } from "react-hook-form";
 
-import { toast, Flip } from "react-toastify";
+import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router";
 
 const FirebasePasswordReset = () => {
@@ -21,31 +21,11 @@ const FirebasePasswordReset = () => {
 		setLoading(true);
 		try {
 			await sendPasswordResetEmail(auth, data.email);
-			toast.success("Email para reestablecer contraseña enviado correctamente!", {
-				position: "top-center",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: "dark",
-				transition: Flip,
-			});
+			toast.success("Email para reestablecer contraseña enviado correctamente!");
 			setDone(true);
 		} catch (err) {
 			let errorMessage = "Ocurrió un error desconocido. " + err.code;
-			toast.error(errorMessage, {
-				position: "top-center",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: "dark",
-				transition: Flip,
-			});
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}
@@ -66,11 +46,7 @@ const FirebasePasswordReset = () => {
 						<i className='bi bi-envelope-at-fill'></i> Email
 					</label>
 					<input className='form-control' id='email' autoComplete='username' type='email' {...register("email", { required: true })} disabled={done} />
-					{errors.email && (
-						<span className='text-danger'>
-							<i className='bi bi-exclamation-diamond-fill'></i> Un email es requerido
-						</span>
-					)}
+					{errors.email && <span className='text-danger'>Un email es requerido</span>}
 				</div>
 				{!done ? (
 					<button type='submit' className='btn btn-primary' disabled={loading}>

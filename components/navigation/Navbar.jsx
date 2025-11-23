@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
-import { toast, Flip } from "react-toastify";
+import { toast } from "react-toastify";
 
 import asignaturas from "../../data/asignaturas.json";
 import UserStateContext from "../../utils/contexts/UserContext";
@@ -24,17 +24,7 @@ export default function Navbar({ setAsignaturas }) {
 		if (closest) {
 			navigate(`/asignaturas/${closest.acronimo}`);
 		} else {
-			toast.error("No hay resultados para la asignatura buscada. Asegúrese de utilizar tildes.", {
-				position: "bottom-right",
-				autoClose: 3000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: "dark",
-				transition: Flip,
-			});
+			toast.error("No hay resultados para la asignatura buscada, ¿estás escribiendo el acrónimo o nombre correctamente?");
 		}
 	};
 

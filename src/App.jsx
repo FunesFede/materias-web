@@ -113,8 +113,8 @@ function App() {
 								</Routes>
 
 								<ToastContainer
-									position='bottom-right'
-									autoClose={10000}
+									position='top-center'
+									autoClose={5500}
 									hideProgressBar={false}
 									newestOnTop={false}
 									closeOnClick={false}

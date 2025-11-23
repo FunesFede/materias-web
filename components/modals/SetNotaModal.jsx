@@ -5,7 +5,7 @@ import { addAprobada } from "../../utils/firebase/asignaturas";
 import { Modal } from "bootstrap";
 import { addNota } from "../../utils/firebase/notas";
 
-import { toast, Flip } from "react-toastify";
+import { toast } from "react-toastify";
 
 export default function SetNotaModal({ userId, asignatura, aNota }) {
 	const [loading, setLoading] = useState(false);
@@ -26,23 +26,14 @@ export default function SetNotaModal({ userId, asignatura, aNota }) {
 
 	const handleModal = async (data) => {
 		setLoading(true);
-		console.log(data);
+
 		const notaAdded = await addNota(userId, asignatura.acronimo, data.nota);
 		const aprobadaAdded = aNota ? true : await addAprobada(userId, asignatura.acronimo);
 
 		if (!notaAdded || !aprobadaAdded) {
-			toast.error("Algo salió mal al intentar registrar la asignatura como aprobada. Intentá de nuevo.", {
-				position: "top-center",
-				autoClose: 5000,
-				hideProgressBar: false,
-				newestOnTop: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: "dark",
-				transition: Flip,
-			});
+			toast.error("Algo salió mal al intentar registrar la asignatura como aprobada. Intentá de nuevo.");
+		} else if (aNota) {
+			toast.success("Nota modificada correctamente");
 		}
 
 		setLoading(false);

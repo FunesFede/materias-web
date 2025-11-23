@@ -3,7 +3,7 @@ import { sendPasswordResetEmail, updateEmail, updateProfile } from "firebase/aut
 import { auth } from "../../firebase/config";
 import { useForm } from "react-hook-form";
 
-import { toast, Flip } from "react-toastify";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import UserStateContext from "../../utils/contexts/UserContext";
 
@@ -28,31 +28,11 @@ const FirebaseUpdateProfile = () => {
 		setLoading(true);
 		try {
 			await updateProfile(user, { displayName: data?.displayName });
-			toast.success("Tu perfil fue actualizado correctamente!", {
-				position: "top-center",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: "dark",
-				transition: Flip,
-			});
+			toast.success("Tu perfil fue actualizado correctamente!");
 		} catch (err) {
 			console.error("Error al actualizar perfil: ", error);
-			let errorMessage = "Ocurrió un error desconocido.";
-			toast.error(errorMessage, {
-				position: "top-center",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: "dark",
-				transition: Flip,
-			});
+			let errorMessage = "Ocurrió un error desconocido";
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}

@@ -3,11 +3,12 @@ import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } 
 import { auth } from "../../firebase/config";
 import { useForm } from "react-hook-form";
 
-import { toast, Flip } from "react-toastify";
+import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router";
 
 const FirebaseRegister = ({ onSignInSuccess }) => {
 	const [loading, setLoading] = useState(false);
+	const [showPass, setShowPass] = useState(false);
 	const navigate = useNavigate();
 
 	const {
@@ -26,17 +27,7 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 			navigate("/", { replace: true });
 
 			await sendEmailVerification(userCredential.user);
-			toast.info("Hemos enviado un correo de verificación automaticamente", {
-				position: "bottom-right",
-				autoClose: 6000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: "dark",
-				transition: Flip,
-			});
+			toast.info("Te enviamos un correo de verificación automaticamente, revisá tu bandeja de entrada para verificar tu email");
 		} catch (err) {
 			let errorMessage = "Ocurrió un error desconocido. " + err.code;
 			switch (err.code) {
@@ -55,17 +46,7 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 					break;
 			}
 
-			toast.error(errorMessage, {
-				position: "top-center",
-				autoClose: 6000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: "dark",
-				transition: Flip,
-			});
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}
@@ -86,34 +67,38 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 						<i className='bi bi-person-badge'></i> Nombre
 					</label>
 					<input className='form-control' autoComplete='name' id='name' type='text' {...register("displayName", { required: true })} />
-					{errors.displayName && (
-						<span className='text-danger'>
-							<i className='bi bi-exclamation-diamond-fill'></i> Un nombre es requerido
-						</span>
-					)}
+					{errors.displayName && <span className='text-danger'>Un nombre es requerido</span>}
 				</div>
+
 				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='email'>
 						<i className='bi bi-envelope-at-fill'></i> Email
 					</label>
 					<input className='form-control' autoComplete='username' type='email' {...register("email", { required: true })} />
-					{errors.email && (
-						<span className='text-danger'>
-							<i className='bi bi-exclamation-diamond-fill'></i> Un email es requerido
-						</span>
-					)}
+					{errors.email && <span className='text-danger'>Un email es requerido</span>}
 				</div>
-				<div className='mb-3 text-start'>
+				<div className='text-start'>
 					<label className='form-label' htmlFor='pass'>
 						<i className='bi bi-eye-slash-fill'></i> Contraseña
 					</label>
-					<input className='form-control' autoComplete='current-password' type='password' {...register("password", { required: true })} />
-					{errors.password && (
-						<span className='text-danger'>
-							<i className='bi bi-exclamation-diamond-fill'></i> Una contraseña es requerida
-						</span>
-					)}
 				</div>
+
+				<div class='input-group mb-3 text-start'>
+					<input id='pass' type={showPass ? "text" : "password"} class='form-control' {...register("password", { required: true })} />
+
+					<button
+						class='btn btn-outline-secondary'
+						type='button'
+						title={showPass ? "Ocultar contraseña" : "Mostrar contraseña"}
+						autoComplete='current-password'
+						onClick={() => setShowPass(!showPass)}
+					>
+						{showPass ? <i class='bi bi-eye-slash-fill'></i> : <i class='bi bi-eye-fill'></i>}
+					</button>
+
+					{errors.password && <span className='text-danger'>Una contraseña es requerida</span>}
+				</div>
+
 				<button type='submit' className='btn btn-primary' disabled={loading}>
 					{loading ? (
 						<>

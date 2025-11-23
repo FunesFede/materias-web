@@ -40,6 +40,12 @@ export default function Asignatura({ asignatura }) {
 		}, 500);
 	};
 
+	const eliminarAsignatura = () => {
+		if (window.confirm("¿Seguro que deseas eliminar esta asignatura?\n\nAsignaturas que dependan de esta serán eliminadas y la nota de exámen final será removida.")) {
+			borrarAsignaturaRecursivo(user.uid, asignatura.acronimo);
+		}
+	};
+
 	return (
 		<>
 			<div className='asignatura-vertical mb-3'>
@@ -89,12 +95,7 @@ export default function Asignatura({ asignatura }) {
 								<i className='bi bi-arrow-left-right'></i>
 							</button> */}
 
-							<button
-								title='Eliminar Cursado'
-								disabled={!hecha}
-								className='btn btn-danger btn-sm'
-								onClick={() => borrarAsignaturaRecursivo(user.uid, asignatura.acronimo)}
-							>
+							<button title='Eliminar Asignatura' disabled={!hecha} className='btn btn-danger btn-sm' onClick={eliminarAsignatura}>
 								<i className='bi bi-trash3'></i>
 							</button>
 						</div>
