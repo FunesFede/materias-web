@@ -67,23 +67,24 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 					{errors.email && <span className='text-danger'>Un email es requerido</span>}
 				</div>
 
-				<div className='text-start'>
+				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='pass'>
 						<i className='bi bi-eye-slash-fill'></i> Contraseña
 					</label>
-				</div>
-				<div class='input-group mb-3 text-start'>
-					<input id='pass' type={showPass ? "text" : "password"} class='form-control' {...register("password", { required: true })} />
 
-					<button
-						class='btn btn-outline-secondary'
-						type='button'
-						title={showPass ? "Ocultar contraseña" : "Mostrar contraseña"}
-						autoComplete='current-password'
-						onClick={() => setShowPass(!showPass)}
-					>
-						{showPass ? <i class='bi bi-eye-slash-fill'></i> : <i class='bi bi-eye-fill'></i>}
-					</button>
+					<div class='input-group'>
+						<input id='pass' type={showPass ? "text" : "password"} class='form-control' {...register("password", { required: true })} />
+
+						<button
+							class='btn btn-outline-secondary'
+							type='button'
+							title={showPass ? "Ocultar contraseña" : "Mostrar contraseña"}
+							autoComplete='current-password'
+							onClick={() => setShowPass(!showPass)}
+						>
+							{showPass ? <i class='bi bi-eye-slash-fill'></i> : <i class='bi bi-eye-fill'></i>}
+						</button>
+					</div>
 
 					{errors.password && <span className='text-danger'>Una contraseña es requerida</span>}
 				</div>

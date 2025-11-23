@@ -22,7 +22,7 @@ export default function Asignatura({ asignatura }) {
 		if (cursable) {
 			if (hecha) {
 				if (asignaturas.aprobadas.includes(asignatura.acronimo)) return <i className='bi bi-check-lg'></i>;
-				else return <i className='bi bi-hourglass'></i>;
+				else return <i className='bi bi-hourglass-split'></i>;
 			} else return <i className='bi bi-unlock-fill'></i>;
 		} else return <i className='bi bi-lock-fill'></i>;
 	};
@@ -48,30 +48,30 @@ export default function Asignatura({ asignatura }) {
 
 	return (
 		<>
-			<div className='asignatura-vertical mb-3'>
+			<div className='asignatura-vertical mb-3 user-select-none'>
 				<div
 					className={
 						hecha
 							? asignaturas.aprobadas.includes(asignatura.acronimo)
-								? "card bg-success-dark text-white"
-								: "card bg-warning-dark text-white"
+								? "card bg-success bg-gradient bg-opacity-50 text-white"
+								: "card bg-warning bg-gradient bg-opacity-50 text-white"
 							: cursable
-							? "card bg-secondary text-white"
-							: "card bg-danger-dark text-white"
+							? "card bg-secondary bg-gradient bg-opacity-75 text-white"
+							: "card bg-danger bg-gradient bg-opacity-75 text-white"
 					}
 				>
 					<div className='card-body'>
 						<h5 className='card-title'>
 							{handleIcono()}
 							<span className={aprobada ? "text-decoration-line-through" : ""}>{asignatura.nombre}</span>{" "}
-							{asignatura.tipo == "Electiva" && <span className='badge text-bg-success'>Electiva</span>}
+							{asignatura.tipo == "Electiva" && <span className='badge text-bg-success bg-gradient bg-opacity-75'>Electiva</span>}
 						</h5>
 
 						<div className='botones-container'>
 							<button
 								title='Aprobar Asignatura'
 								disabled={!cursable || asignaturas.aprobadas.includes(asignatura.acronimo)}
-								className='btn btn-success btn-sm me-2 text-white'
+								className='btn btn-success btn-sm shadow me-2 text-white'
 								id={asignatura.acronimo + "btnNotaModal"}
 								onClick={openModal}
 							>
@@ -81,13 +81,13 @@ export default function Asignatura({ asignatura }) {
 							<button
 								title='Regularizar Asignatura'
 								disabled={!cursable || hecha}
-								className='btn btn-warning btn-sm me-2 text-white'
+								className='btn btn-warning btn-sm me-2 shadow text-white'
 								onClick={() => addRegularizada(user.uid, asignatura.acronimo)}
 							>
-								<i className='bi bi-hourglass-bottom'></i>
+								<i className='bi bi-hourglass-split'></i>
 							</button>
 
-							<button title='Ver Información' className='btn btn-primary btn-sm me-2' onClick={() => navigate(`/asignaturas/${asignatura.acronimo}`)}>
+							<button title='Ver Información' className='btn btn-primary btn-sm me-2 shadow' onClick={() => navigate(`/asignaturas/${asignatura.acronimo}`)}>
 								<i className='bi bi-info-lg'></i>
 							</button>
 
@@ -95,7 +95,7 @@ export default function Asignatura({ asignatura }) {
 								<i className='bi bi-arrow-left-right'></i>
 							</button> */}
 
-							<button title='Eliminar Asignatura' disabled={!hecha} className='btn btn-danger btn-sm' onClick={eliminarAsignatura}>
+							<button title='Eliminar Asignatura' disabled={!hecha} className='btn btn-danger btn-sm shadow' onClick={eliminarAsignatura}>
 								<i className='bi bi-trash3'></i>
 							</button>
 						</div>

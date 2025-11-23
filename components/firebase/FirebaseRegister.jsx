@@ -56,10 +56,8 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 		<>
 			<form onSubmit={handleSubmit(handleAuth)} className='container-fluid bg-dark-custom w-responsive rounded my-4 p-4 text-white'>
 				<div className='mb-3'>
-					<h3>
-						{" "}
-						<i className='bi bi-heart-fill'></i> ¡Bienvenido a tu carrera tracker!
-					</h3>
+					<img src='/images/logo_2.png' alt='Logo UTN' width={35} height={40} draggable={false} />
+					<h3>¡Bienvenido a tu carrera tracker!</h3>
 					<h4>Por favor, completá tu registro</h4>
 				</div>
 				<div className='mb-3 text-start'>
@@ -77,29 +75,29 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 					<input className='form-control' autoComplete='username' type='email' {...register("email", { required: true })} />
 					{errors.email && <span className='text-danger'>Un email es requerido</span>}
 				</div>
-				<div className='text-start'>
+				<div className='mb-3 text-start'>
 					<label className='form-label' htmlFor='pass'>
 						<i className='bi bi-eye-slash-fill'></i> Contraseña
 					</label>
-				</div>
 
-				<div class='input-group mb-3 text-start'>
-					<input id='pass' type={showPass ? "text" : "password"} class='form-control' {...register("password", { required: true })} />
+					<div class='input-group'>
+						<input id='pass' type={showPass ? "text" : "password"} class='form-control' {...register("password", { required: true })} />
 
-					<button
-						class='btn btn-outline-secondary'
-						type='button'
-						title={showPass ? "Ocultar contraseña" : "Mostrar contraseña"}
-						autoComplete='current-password'
-						onClick={() => setShowPass(!showPass)}
-					>
-						{showPass ? <i class='bi bi-eye-slash-fill'></i> : <i class='bi bi-eye-fill'></i>}
-					</button>
+						<button
+							class='btn btn-outline-secondary'
+							type='button'
+							title={showPass ? "Ocultar contraseña" : "Mostrar contraseña"}
+							autoComplete='current-password'
+							onClick={() => setShowPass(!showPass)}
+						>
+							{showPass ? <i class='bi bi-eye-slash-fill'></i> : <i class='bi bi-eye-fill'></i>}
+						</button>
+					</div>
 
 					{errors.password && <span className='text-danger'>Una contraseña es requerida</span>}
 				</div>
 
-				<button type='submit' className='btn btn-primary' disabled={loading}>
+				<button type='submit' className='btn btn-primary mt-3' disabled={loading}>
 					{loading ? (
 						<>
 							<span className='spinner-border spinner-border-sm' aria-hidden='true'></span>

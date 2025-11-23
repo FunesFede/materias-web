@@ -9,6 +9,7 @@ export default function Promedio() {
 	const asignaturas = useContext(AsignaturasContext);
 	const notas = useContext(NotasContext);
 	const [aplazos, setAplazos] = useState(0);
+	const [showDetalle, setShowDetalle] = useState(false);
 
 	console.log(notas);
 	const faltantes = (asignaturas.aprobadas || []).filter((acrom) => !(acrom in notas));
@@ -33,9 +34,9 @@ export default function Promedio() {
 
 	return (
 		<div className='container-fluid'>
-			<div className='row g-3 p-2 mb-4'>
+			<div className='row g-3 p-2 mb-4 user-select-none'>
 				<div className='col-md-4 show-mobile'>
-					<div className='card bg-success text-white h-100'>
+					<div className='card bg-success bg-gradient text-white h-100'>
 						<div className='card-body text-center'>
 							<i className='bi bi-check-circle fs-1'></i>
 							<h3 className='mt-2 mb-0'>{cantidadNotas}</h3>
@@ -45,7 +46,7 @@ export default function Promedio() {
 				</div>
 
 				<div className='col-md-4'>
-					<div className='card bg-primary text-white h-100'>
+					<div className='card bg-primary bg-gradient text-white h-100'>
 						<div className='card-body text-center'>
 							<i className='bi bi-file-earmark-check-fill fs-1'></i>
 							<h3 className='mt-2 mb-0'>{promedio}</h3>
@@ -55,7 +56,7 @@ export default function Promedio() {
 				</div>
 
 				<div className='col-md-2'>
-					<div className='card bg-danger text-white h-100'>
+					<div className='card bg-danger bg-gradient text-white h-100'>
 						<div className='card-body text-center'>
 							<i className='bi bi-file-earmark-excel-fill fs-1'></i>
 							<h3 className='mt-2 mb-0'>{aplazos != 0 ? promAplazos : "A Calcular"}</h3>
@@ -65,7 +66,7 @@ export default function Promedio() {
 				</div>
 
 				<div className='col-md-2'>
-					<div className='card bg-secondary text-white h-100'>
+					<div className='card bg-secondary bg-gradient text-white h-100'>
 						<div className='card-body text-center'>
 							<i className='bi bi-folder-x fs-1'></i>
 							<input
@@ -82,7 +83,7 @@ export default function Promedio() {
 				</div>
 
 				<div className='col-md-4 hide-mobile'>
-					<div className='card bg-success text-white h-100'>
+					<div className='card bg-success bg-gradient text-white h-100'>
 						<div className='card-body text-center'>
 							<i className='bi bi-check-circle fs-1'></i>
 							<h3 className='mt-2 mb-0'>{cantidadNotas}</h3>
@@ -100,65 +101,81 @@ export default function Promedio() {
 			)}
 
 			<div className='container-rounded-dark rounded p-3'>
-				<h5 className='text-white mb-3'>
-					<i className='bi bi-list-check'></i> Detalle de Notas
-				</h5>
-				<div className='table-responsive'>
-					<table className='table table-dark table-striped'>
-						<thead>
-							<tr>
-								<th scope='col'>
-									<i className='bi bi-sort-alpha-down'></i> Asignatura
-								</th>
-								<th scope='col'>Nota Final</th>
-								<th scrope='col'></th>
-							</tr>
-						</thead>
-						<tbody className='table-group-divider'>
-							{faltantes.length > 0 &&
-								faltantes.map((faltante, index) => {
-									const nombre = asignaturasData.find((a) => a.acronimo === faltante)?.nombre;
+				<div
+					className='d-flex justify-content-between align-items-center clickable'
+					data-bs-toggle='collapse'
+					href='#tableCollapse'
+					role='button'
+					aria-expanded='false'
+					aria-controls='tableCollapse'
+				>
+					<h5 className='text-white mb-0'>
+						<i className='bi bi-list-check'></i> Detalle de Notas
+					</h5>
+					<button className='btn btn-link text-white text-decoration-none'>
+						<i className='bi bi-chevron-down'></i>
+					</button>
+				</div>
+
+				<div className='collapse' id='tableCollapse'>
+					<hr className='text-white' />
+					<div className='table-responsive'>
+						<table className='table table-dark table-striped'>
+							<thead>
+								<tr>
+									<th scope='col'>
+										<i className='bi bi-sort-alpha-down'></i> Asignatura
+									</th>
+									<th scope='col'>Nota Final</th>
+									<th scope='col'></th>
+								</tr>
+							</thead>
+							<tbody className='table-group-divider'>
+								{faltantes.length > 0 &&
+									faltantes.map((faltante, index) => {
+										const nombre = asignaturasData.find((a) => a.acronimo === faltante)?.nombre;
+										return (
+											<tr key={index} className='table-danger'>
+												<td>{nombre} </td>
+												<td>
+													<span className='badge bg-danger'>
+														<i className='bi bi-exclamation-triangle-fill'></i>
+													</span>
+												</td>
+												<td>
+													<NavLink to={`/asignaturas/${faltante}?edit=true`}>
+														<i className='bi bi-pen'></i>
+													</NavLink>
+												</td>
+											</tr>
+										);
+									})}
+
+								{notasDetalle.map((asig, index) => {
 									return (
-										<tr key={index} className='table-danger'>
-											<td>{nombre} </td>
+										<tr key={index}>
+											<td>{asig.nombre} </td>
 											<td>
-												<span className='badge bg-danger'>
-													<i className='bi bi-exclamation-triangle-fill'></i>
-												</span>
+												<span className={`badge ${asig.nota >= 8 ? "bg-success" : asig.nota >= 6 ? "bg-warning" : "bg-danger"}`}>{asig.nota}</span>
 											</td>
 											<td>
-												<NavLink to={`/asignaturas/${faltante}?edit=true`}>
-													<i className='bi bi-pen-fill'></i>
+												<NavLink to={`/asignaturas/${asig.acrom}?edit=true`}>
+													<i className='bi bi-pen'></i>
 												</NavLink>
 											</td>
 										</tr>
 									);
 								})}
-
-							{notasDetalle.map((asig, index) => {
-								return (
-									<tr key={index}>
-										<td>{asig.nombre} </td>
-										<td>
-											<span className={`badge ${asig.nota >= 8 ? "bg-success" : asig.nota >= 6 ? "bg-warning" : "bg-danger"}`}>{asig.nota}</span>
-										</td>
-										<td>
-											<NavLink to={`/asignaturas/${asig.acrom}?edit=true`}>
-												<i className='bi bi-pen'></i>
-											</NavLink>
-										</td>
-									</tr>
-								);
-							})}
-						</tbody>
-						<tfoot>
-							<tr className='fw-semibold'>
-								<td>Cantidad: {cantidadNotas}</td>
-								<td>Suma: {sumaNotas}</td>
-								<td></td>
-							</tr>
-						</tfoot>
-					</table>
+							</tbody>
+							<tfoot>
+								<tr className='fw-semibold'>
+									<td>Cantidad: {cantidadNotas}</td>
+									<td>Suma: {sumaNotas}</td>
+									<td></td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
