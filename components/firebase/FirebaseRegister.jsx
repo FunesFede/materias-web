@@ -81,7 +81,7 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 					</label>
 
 					<div class='input-group'>
-						<input id='pass' type={showPass ? "text" : "password"} class='form-control' {...register("password", { required: true })} />
+						<input id='pass' autoComplete='current-password' type={showPass ? "text" : "password"} class='form-control' {...register("password", { required: true })} />
 
 						<button
 							class='btn btn-outline-secondary'

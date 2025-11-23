@@ -9,12 +9,8 @@ export default function Promedio() {
 	const asignaturas = useContext(AsignaturasContext);
 	const notas = useContext(NotasContext);
 	const [aplazos, setAplazos] = useState(0);
-	const [showDetalle, setShowDetalle] = useState(false);
 
-	console.log(notas);
 	const faltantes = (asignaturas.aprobadas || []).filter((acrom) => !(acrom in notas));
-
-	console.log(faltantes);
 
 	const notasArray = Object.values(notas);
 	const sumaNotas = notasArray.reduce((acc, nota) => acc + nota, 0);
