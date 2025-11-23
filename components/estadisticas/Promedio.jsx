@@ -10,12 +10,26 @@ export default function Promedio() {
 	const notas = useContext(NotasContext);
 	const [aplazos, setAplazos] = useState(0);
 
+	console.log(notas);
+	const faltantes = (asignaturas.aprobadas || []).filter((acrom) => !(acrom in notas));
+
+	console.log(faltantes);
+
 	const notasArray = Object.values(notas);
 	const sumaNotas = notasArray.reduce((acc, nota) => acc + nota, 0);
 	const cantidadNotas = notasArray.length;
 
 	const promedio = cantidadNotas > 0 ? (sumaNotas / cantidadNotas).toFixed(2) : 0;
 	const promAplazos = aplazos != 0 ? ((sumaNotas + aplazos * 2) / (cantidadNotas + aplazos)).toFixed(2) : promedio;
+
+	const notasDetalle = Object.entries(notas)
+		.map(([acrom, nota]) => {
+			const nombre = asignaturasData.find((a) => a.acronimo === acrom)?.nombre || acrom;
+			return { acrom, nombre, nota };
+		})
+		.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+	console.log(notasDetalle);
 
 	return (
 		<div className='container-fluid'>
@@ -78,30 +92,58 @@ export default function Promedio() {
 				</div>
 			</div>
 
+			{asignaturas?.aprobadas.length != Object.values(notas).length && (
+				<div className='alert alert-danger mt-3' role='alert'>
+					<i className='bi bi-exclamation-triangle-fill'></i> La cantidad de notas no es igual a la cantidad de aprobadas registradas.
+					<span className='fw-bold'> Esto afecta el cálculo de tu promedio</span>.
+				</div>
+			)}
+
 			<div className='container-rounded-dark rounded p-3'>
 				<h5 className='text-white mb-3'>
 					<i className='bi bi-list-check'></i> Detalle de Notas
 				</h5>
 				<div className='table-responsive'>
-					<table className='table table-striped'>
+					<table className='table table-dark table-striped'>
 						<thead>
 							<tr>
-								<th scope='col'>Asignatura</th>
+								<th scope='col'>
+									<i className='bi bi-sort-alpha-down'></i> Asignatura
+								</th>
 								<th scope='col'>Nota Final</th>
-								<th scrope='col'>Editar</th>
+								<th scrope='col'></th>
 							</tr>
 						</thead>
 						<tbody className='table-group-divider'>
-							{Object.entries(notas).map(([acrom, nota]) => {
-								const asig = asignaturasData.find((a) => a.acronimo === acrom);
+							{faltantes.length > 0 &&
+								faltantes.map((faltante, index) => {
+									const nombre = asignaturasData.find((a) => a.acronimo === faltante)?.nombre;
+									return (
+										<tr key={index} className='table-danger'>
+											<td>{nombre} </td>
+											<td>
+												<span className='badge bg-danger'>
+													<i className='bi bi-exclamation-triangle-fill'></i>
+												</span>
+											</td>
+											<td>
+												<NavLink to={`/asignaturas/${faltante}?edit=true`}>
+													<i className='bi bi-pen-fill'></i>
+												</NavLink>
+											</td>
+										</tr>
+									);
+								})}
+
+							{notasDetalle.map((asig, index) => {
 								return (
-									<tr key={acrom}>
-										<td>{asig?.nombre || acrom} </td>
+									<tr key={index}>
+										<td>{asig.nombre} </td>
 										<td>
-											<span className={`badge ${nota >= 8 ? "bg-success" : nota >= 6 ? "bg-warning" : "bg-danger"}`}>{nota}</span>
+											<span className={`badge ${asig.nota >= 8 ? "bg-success" : asig.nota >= 6 ? "bg-warning" : "bg-danger"}`}>{asig.nota}</span>
 										</td>
 										<td>
-											<NavLink to={`/asignaturas/${acrom}?edit=true`}>
+											<NavLink to={`/asignaturas/${asig.acrom}?edit=true`}>
 												<i className='bi bi-pen'></i>
 											</NavLink>
 										</td>
@@ -109,7 +151,7 @@ export default function Promedio() {
 								);
 							})}
 						</tbody>
-						<tfoot className='rounded'>
+						<tfoot>
 							<tr className='fw-semibold'>
 								<td>Cantidad: {cantidadNotas}</td>
 								<td>Suma: {sumaNotas}</td>
@@ -119,14 +161,6 @@ export default function Promedio() {
 					</table>
 				</div>
 			</div>
-
-			{/* Alert */}
-			{asignaturas?.aprobadas.length != Object.values(notas).length && (
-				<div className='alert alert-warning mt-3' role='alert'>
-					<i className='bi bi-exclamation-triangle-fill'></i> La cantidad de notas no es igual a la cantidad de aprobadas registradas.
-					<span className='fw-bold'> Esto afecta el cálculo de tu promedio</span>.
-				</div>
-			)}
 		</div>
 	);
 }
