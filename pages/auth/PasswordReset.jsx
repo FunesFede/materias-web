@@ -11,14 +11,8 @@ export default function PasswordReset() {
 				<Col md={7} className='bg-dark-custom rounded-start px-4 py-5'>
 					<FirebasePasswordReset />
 				</Col>
-				<Col md={5} className='hide-mobile bg-dark-custom rounded-end d-flex align-items-center justify-content-center p-4'>
-					<img
-						draggable='false'
-						src='/images/undraw_forgot-password.svg'
-						className='hide-mobile img-fluid'
-						style={{ maxWidth: "300px" }}
-						alt='Password Reset illustration'
-					/>
+				<Col md={5} className='d-none d-md-flex bg-dark-custom rounded-end d-flex align-items-center justify-content-center p-4'>
+					<img draggable='false' src='/images/undraw_forgot-password.svg' className='img-fluid' style={{ maxWidth: "300px" }} alt='Password Reset illustration' />
 				</Col>
 			</Row>
 		</Container>

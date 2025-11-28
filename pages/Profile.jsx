@@ -11,8 +11,8 @@ export default function Profile() {
 				<Col md={7} className='bg-dark-custom rounded-start px-4 py-5'>
 					<FirebaseUpdateProfile />
 				</Col>
-				<Col md={5} className='hide-mobile bg-dark-custom rounded-end d-flex align-items-center justify-content-center p-4'>
-					<img draggable='false' src='/images/undraw_profile-data.svg' className='hide-mobile img-fluid' style={{ maxWidth: "300px" }} alt='Profile Data illustration' />
+				<Col md={5} className='d-none d-md-flex bg-dark-custom rounded-end d-flex align-items-center justify-content-center p-4'>
+					<img draggable='false' src='/images/undraw_profile-data.svg' className='img-fluid' style={{ maxWidth: "300px" }} alt='Profile Data illustration' />
 				</Col>
 			</Row>
 		</Container>

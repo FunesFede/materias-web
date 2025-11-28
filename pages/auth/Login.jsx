@@ -13,8 +13,8 @@ export default function Login({ signInSuccessFunc }) {
 				<Col md={7} className='bg-dark-custom rounded-start px-4 py-5'>
 					<FirebaseLogin onSignInSuccess={signInSuccessFunc} from={location.state?.from} />
 				</Col>
-				<Col md={5} className='hide-mobile bg-dark-custom rounded-end d-flex align-items-center justify-content-center p-4'>
-					<img draggable='false' src='/images/undraw_login.svg' className='hide-mobile img-fluid' style={{ maxWidth: "300px" }} alt='Login illustration' />
+				<Col md={5} className='d-none d-md-flex bg-dark-custom rounded-end d-flex align-items-center justify-content-center p-4'>
+					<img draggable='false' src='/images/undraw_login.svg' className='img-fluid' style={{ maxWidth: "300px" }} alt='Login illustration' />
 				</Col>
 			</Row>
 		</Container>
