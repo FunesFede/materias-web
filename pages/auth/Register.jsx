@@ -11,8 +11,8 @@ export default function Register({ signInSuccessFunc }) {
 				<Col md={7} className='bg-dark-custom rounded-start py-4 px-5'>
 					<FirebaseRegister onSignInSuccess={signInSuccessFunc} />
 				</Col>
-				<Col md={5} className='bg-dark-custom rounded-end d-flex align-items-center justify-content-center p-4'>
-					<img draggable='false' src='/images/undraw_hello.svg' className='img-fluid' style={{ maxWidth: "300px" }} alt='Hello illustration' />
+				<Col md={5} className='hide-mobile bg-dark-custom rounded-end d-flex align-items-center justify-content-center p-4'>
+					<img draggable='false' src='/images/undraw_hello.svg' className='hide-mobile img-fluid' style={{ maxWidth: "300px" }} alt='Hello illustration' />
 				</Col>
 			</Row>
 		</Container>

@@ -94,12 +94,7 @@ export default function Main() {
 					<Container fluid className='columnas-grid'>
 						<Container fluid key={1} className='columna py-3 px-1' id='primero'>
 							<Container>
-								<Row className='titulo-columna mx-1 align-items-center'>
-									<Col md={10}>
-										<h3>Primer Año</h3>
-									</Col>
-									<Col md={2}>{getInfoIcon(primerAnio)}</Col>
-								</Row>
+								<h3 className='titulo-columna'>Primer Año</h3>
 							</Container>
 
 							<Container fluid className='px-0 asignaturas-container'>
