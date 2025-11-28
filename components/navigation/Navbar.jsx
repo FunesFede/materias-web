@@ -5,8 +5,9 @@ import { toast } from "react-toastify";
 import asignaturas from "../../data/asignaturas.json";
 import UserStateContext from "../../utils/contexts/UserContext";
 import Profile from "../Profile";
+import { Button, Container, Form, InputGroup, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
-export default function Navbar({ setAsignaturas }) {
+export default function NavbarR({ setAsignaturas }) {
 	const [query, setQuery] = useState("");
 	const navigate = useNavigate();
 	const user = useContext(UserStateContext);
@@ -29,172 +30,134 @@ export default function Navbar({ setAsignaturas }) {
 	};
 
 	return (
-		<nav className='sticky-top navbar navbar-expand-lg bg-body-tertiary'>
-			<div className='container-fluid'>
-				<NavLink to='/' className='navbar-brand'>
-					<img src='/images/logo.png' alt='Logo' width='100' height='30' className='d-inline-block align-text-top' />
-				</NavLink>
-				<button
-					className='navbar-toggler'
-					type='button'
-					data-bs-toggle='collapse'
-					data-bs-target='#navbarSupportedContent'
-					aria-controls='navbarSupportedContent'
-					aria-expanded='false'
-					aria-label='Toggle navigation'
-				>
-					<span className='navbar-toggler-icon'></span>
-				</button>
-				<div className='collapse navbar-collapse' id='navbarSupportedContent'>
-					<ul className='navbar-nav me-auto mb-2 mb-lg-0'>
-						<li className='nav-item'>
-							<NavLink className='nav-link' to='/'>
-								<i className='bi bi-house-fill'></i> Home
-							</NavLink>
-						</li>
-						<li className='nav-item'>
-							<NavLink className='nav-link' to='/estadisticas'>
-								<i className='bi bi-clipboard-data-fill'></i> Estadísticas
-							</NavLink>
-						</li>
-						<li className='nav-item dropdown'>
-							<a className='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+		<Navbar sticky='top' expand='lg' className='bg-body-tertiary px-3 py-1'>
+			<NavLink to='/' className='navbar-brand'>
+				<img src='/images/logo.png' alt='Logo' width='100' height='30' className='d-inline-block align-text-top' />
+			</NavLink>
+			<Navbar.Toggle aria-controls='navbarSupportedContent' />
+			<Navbar.Collapse id='navbarSupportedContent'>
+				<Nav className='me-auto mb-2 mb-lg-0'>
+					<Nav.Item>
+						<NavLink className={"nav-link " + (user ? "" : "disabled")} to='/'>
+							<i className='bi bi-house-fill'></i> Home
+						</NavLink>
+					</Nav.Item>
+					<Nav.Item>
+						<NavLink className={"nav-link " + (user ? "" : "disabled")} to='/estadisticas'>
+							<i className='bi bi-clipboard-data-fill'></i> Estadísticas
+						</NavLink>
+					</Nav.Item>
+					<NavDropdown
+						title={
+							<>
 								<i className='bi bi-building-fill'></i> Universidad
-							</a>
-							<ul className='dropdown-menu'>
-								<li>
-									<a className='dropdown-item' href='https://a4.frc.utn.edu.ar' target='_blank' rel='noopener noreferrer'>
-										<i className='bi bi-kanban-fill'></i> Autogestión
-									</a>
-								</li>
-								<li>
-									<a className='dropdown-item' href='https://uv.frc.utn.edu.ar' target='_blank' rel='noopener noreferrer'>
-										<i className='bi bi-easel3-fill'></i> Aula Virtual
-									</a>
-								</li>
-								<li class='nav-item dropend horarios-item'>
-									<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
-										<i className='bi bi-calendar-week'></i> Horarios
-									</a>
-									<ul class='dropdown-menu'>
-										<li>
-											<a class='dropdown-item' href='/docs/horarios/primero.pdf' target='_blank'>
-												<i className='bi bi-calendar-week'></i> Primer Año
-											</a>
-										</li>
-										<li>
-											<a class='dropdown-item' href='/docs/horarios/segundo.pdf' target='_blank'>
-												<i className='bi bi-calendar-week'></i> Segundo Año
-											</a>
-										</li>
-										<li>
-											<a class='dropdown-item' href='/docs/horarios/tercero.pdf' target='_blank'>
-												<i className='bi bi-calendar-week'></i> Tercer Año
-											</a>
-										</li>
-										<li>
-											<a class='dropdown-item' href='/docs/horarios/cuarto.pdf' target='_blank'>
-												<i className='bi bi-calendar-week'></i> Cuarto Año
-											</a>
-										</li>
-										<li>
-											<a class='dropdown-item' href='/docs/horarios/quinto.pdf' target='_blank'>
-												<i className='bi bi-calendar-week'></i> Quinto Año
-											</a>
-										</li>
-										<li>
-											<hr className='dropdown-divider' />
-										</li>
-										<li>
-											<a class='dropdown-item' href='/docs/horarios/seminario.pdf' target='_blank'>
-												<i className='bi bi-calendar-week'></i> Seminario
-											</a>
-										</li>
-									</ul>
-								</li>
+							</>
+						}
+						className='dropdown-perfil'
+					>
+						<NavDropdown.Item href='https://a4.frc.utn.edu.ar' target='_blank' rel='noopener noreferrer'>
+							<i className='bi bi-kanban-fill'></i> Autogestión
+						</NavDropdown.Item>
 
-								<li>
-									<a className='dropdown-item' href='https://www.institucional.frc.utn.edu.ar/sistemas/' target='_blank' rel='noopener noreferrer'>
-										<i className='bi bi-cpu'></i> Departamento de Sistemas
-									</a>
-								</li>
-								<li>
-									<a className='dropdown-item' href='https://seu.frc.utn.edu.ar/?pIs=1286' target='_blank' rel='noopener noreferrer'>
-										<i className='bi bi-laptop'></i> Pasantías
-									</a>
-								</li>
-								<li>
-									<hr className='dropdown-divider' />
-								</li>
-								<li>
-									<a className='dropdown-item' href='/docs/correlativas.pdf' target='_blank' rel='noopener noreferrer'>
-										<i className='bi bi-file-earmark-text-fill'></i> Correlativas PDF
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li class='nav-item dropdown horarios-dropdown'>
-							<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+						<NavDropdown.Item href='https://uv.frc.utn.edu.ar' target='_blank' rel='noopener noreferrer'>
+							<i className='bi bi-easel3-fill'></i> Aula Virtual
+						</NavDropdown.Item>
+
+						<NavDropdown
+							title={
+								<>
+									<i className='bi bi-calendar-week'></i> Horarios
+								</>
+							}
+							drop='end'
+							className='dropend hide-mobile'
+						>
+							<NavDropdown.Item href='/docs/horarios/primero.pdf' target='_blank'>
+								<i className='bi bi-calendar-week'></i> Primer Año
+							</NavDropdown.Item>
+							<NavDropdown.Item href='/docs/horarios/segundo.pdf' target='_blank'>
+								<i className='bi bi-calendar-week'></i> Segundo Año
+							</NavDropdown.Item>
+							<NavDropdown.Item href='/docs/horarios/tercero.pdf' target='_blank'>
+								<i className='bi bi-calendar-week'></i> Tercer Año
+							</NavDropdown.Item>
+							<NavDropdown.Item href='/docs/horarios/cuarto.pdf' target='_blank'>
+								<i className='bi bi-calendar-week'></i> Cuarto Año
+							</NavDropdown.Item>
+							<NavDropdown.Item href='/docs/horarios/quinto.pdf' target='_blank'>
+								<i className='bi bi-calendar-week'></i> Quinto Año
+							</NavDropdown.Item>
+							<NavDropdown.Divider />
+							<NavDropdown.Item href='/docs/horarios/seminario.pdf' target='_blank'>
+								<i className='bi bi-calendar-week'></i> Seminario
+							</NavDropdown.Item>
+						</NavDropdown>
+
+						<NavDropdown.Item href='https://www.institucional.frc.utn.edu.ar/sistemas/' target='_blank' rel='noopener noreferrer'>
+							<i className='bi bi-cpu'></i> Departamento de Sistemas
+						</NavDropdown.Item>
+						<NavDropdown.Item href='https://seu.frc.utn.edu.ar/?pIs=1286' target='_blank' rel='noopener noreferrer'>
+							<i className='bi bi-laptop'></i> Pasantías
+						</NavDropdown.Item>
+						<NavDropdown.Divider />
+						<NavDropdown.Item href='/docs/correlativas.pdf' target='_blank' rel='noopener noreferrer'>
+							<i className='bi bi-file-earmark-text-fill'></i> Correlativas PDF
+						</NavDropdown.Item>
+					</NavDropdown>
+
+					<NavDropdown
+						title={
+							<>
 								<i className='bi bi-calendar-week'></i> Horarios
-							</a>
-							<ul class='dropdown-menu'>
-								<li>
-									<a class='dropdown-item' href='/docs/horarios/primero.pdf' target='_blank'>
-										<i className='bi bi-calendar-week'></i> Primer Año
-									</a>
-								</li>
-								<li>
-									<a class='dropdown-item' href='/docs/horarios/segundo.pdf' target='_blank'>
-										<i className='bi bi-calendar-week'></i> Segundo Año
-									</a>
-								</li>
-								<li>
-									<a class='dropdown-item' href='/docs/horarios/tercero.pdf' target='_blank'>
-										<i className='bi bi-calendar-week'></i> Tercer Año
-									</a>
-								</li>
-								<li>
-									<a class='dropdown-item' href='/docs/horarios/cuarto.pdf' target='_blank'>
-										<i className='bi bi-calendar-week'></i> Cuarto Año
-									</a>
-								</li>
-								<li>
-									<a class='dropdown-item' href='/docs/horarios/quinto.pdf' target='_blank'>
-										<i className='bi bi-calendar-week'></i> Quinto Año
-									</a>
-								</li>
-								<li>
-									<hr className='dropdown-divider' />
-								</li>
-								<li>
-									<a class='dropdown-item' href='/docs/horarios/seminario.pdf' target='_blank'>
-										<i className='bi bi-calendar-week'></i> Seminario
-									</a>
-								</li>
-							</ul>
-						</li>
-						{/* <li className='nav-item'>
+							</>
+						}
+						className='show-mobile'
+					>
+						<NavDropdown.Item href='/docs/horarios/primero.pdf' target='_blank'>
+							<i className='bi bi-calendar-week'></i> Primer Año
+						</NavDropdown.Item>
+						<NavDropdown.Item href='/docs/horarios/segundo.pdf' target='_blank'>
+							<i className='bi bi-calendar-week'></i> Segundo Año
+						</NavDropdown.Item>
+						<NavDropdown.Item href='/docs/horarios/tercero.pdf' target='_blank'>
+							<i className='bi bi-calendar-week'></i> Tercer Año
+						</NavDropdown.Item>
+						<NavDropdown.Item href='/docs/horarios/cuarto.pdf' target='_blank'>
+							<i className='bi bi-calendar-week'></i> Cuarto Año
+						</NavDropdown.Item>
+						<NavDropdown.Item href='/docs/horarios/quinto.pdf' target='_blank'>
+							<i className='bi bi-calendar-week'></i> Quinto Año
+						</NavDropdown.Item>
+						<NavDropdown.Divider />
+						<NavDropdown.Item href='/docs/horarios/seminario.pdf' target='_blank'>
+							<i className='bi bi-calendar-week'></i> Seminario
+						</NavDropdown.Item>
+					</NavDropdown>
+					{/* <li className='nav-item'>
 							<a className='nav-link' data-bs-toggle='offcanvas' href='#GuiaBotones' role='button' aria-controls='GuiaBotones'>
 								<i className='bi bi-question-circle-fill'></i> Guía Botones
 							</a>
 						</li> */}
-					</ul>
-					<form className='d-flex' role='search' onSubmit={buscarAsignatura}>
-						<input
-							className='form-control me-2'
-							type='search'
-							placeholder='Buscar Asignatura...'
-							aria-label='Buscar Asignatura'
-							onChange={(e) => setQuery(e.target.value)}
-							disabled={!user}
-						/>
-						<button className='btn btn-outline-primary' type='submit' disabled={!user}>
+					{(user?.uid == "qXjO3KvuJRca9ED7kwPJFvW0qbo1" || user?.uid == "MBW4S4gg2JfueKmOnpLPHFADR4k1") && (
+						<li className='nav-item'>
+							<NavLink to='/admin' className='nav-link'>
+								<i className='bi bi-tools'></i> Admin
+							</NavLink>
+						</li>
+					)}
+				</Nav>
+				<Form inline role='search' onSubmit={buscarAsignatura}>
+					<InputGroup>
+						<Form.Control type='search' placeholder='Buscar Asignatura...' aria-label='Buscar Asignatura' onChange={(e) => setQuery(e.target.value)} disabled={!user} />
+						<Button variant='outline-primary' type='submit' disabled={!user}>
 							<i className='bi bi-search'></i>
-						</button>
-					</form>
+						</Button>
+					</InputGroup>
+				</Form>
+				<Navbar.Text>
 					<Profile setAsignaturas={setAsignaturas} />
-				</div>
-			</div>
-		</nav>
+				</Navbar.Text>
+			</Navbar.Collapse>
+		</Navbar>
 	);
 }

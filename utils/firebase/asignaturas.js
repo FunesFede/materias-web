@@ -1,5 +1,5 @@
 import { db } from "/firebase/config"; // Asegúrate de importar 'db'
-import { doc, setDoc, arrayUnion, arrayRemove, onSnapshot, getDoc } from "firebase/firestore"; // Añado getDoc
+import { doc, setDoc, arrayUnion, arrayRemove, onSnapshot, getDoc, collection, getDocs } from "firebase/firestore"; // Añado getDoc
 import asignaturasData from "../../data/asignaturas.json";
 import { removeNota } from "./notas";
 
@@ -12,6 +12,10 @@ export const getAsignaturaDocRef = (userId) => {
 // ******************************************************
 // FUNCIONES DE LECTURA (READ)
 // ******************************************************
+export const getAll = async () => {
+	const docRef = collection(db, "users");
+	return await getDocs(docRef);
+};
 
 /**
  * Establece un listener en tiempo real para obtener los arrays de asignaturas.

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 
 import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router";
+import { Button, Container, FloatingLabel, Form, InputGroup } from "react-bootstrap";
 
 const FirebaseLogin = ({ onSignInSuccess, from }) => {
 	const [loading, setLoading] = useState(false);
@@ -50,65 +51,88 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 	};
 
 	return (
-		<>
-			<form onSubmit={handleSubmit(handleAuth)} className='container-fluid bg-dark-custom w-responsive rounded my-4 p-4 text-white'>
-				<div className='mb-3'>
-					<h3>
-						{" "}
-						<i className='bi bi-emoji-smile-fill'></i> ¡Hola! Que bueno tenerte de nuevo
-					</h3>
-					<h4>Por favor, iniciá sesión</h4>
-				</div>
-				<div className='mb-3 text-start'>
-					<label className='form-label' htmlFor='email'>
-						<i className='bi bi-envelope-at-fill'></i> Email
-					</label>
-					<input id='email' className='form-control' autoComplete='username' type='email' {...register("email", { required: true })} />
-					{errors.email && <span className='text-danger'>Un email es requerido</span>}
-				</div>
+		<Form onSubmit={handleSubmit(handleAuth)}>
+			<div className='mb-3'>
+				<h3>
+					{" "}
+					<i className='bi bi-emoji-smile-fill'></i> ¡Hola! Que bueno tenerte de nuevo
+				</h3>
+				<h4>Por favor, iniciá sesión</h4>
+			</div>
+			<Form.Group className='mb-3 text-start'>
+				{/* <Form.Label htmlFor='email'>
+					<i className='bi bi-envelope-at-fill'></i> Email
+				</Form.Label> */}
+				<FloatingLabel
+					label={
+						<>
+							<i className='bi bi-envelope-at-fill'></i> Email
+						</>
+					}
+				>
+					<Form.Control id='email' autoComplete='username' type='email' placeholder='mail@example.com' {...register("email", { required: true })} />
+				</FloatingLabel>
 
-				<div className='mb-3 text-start'>
-					<label className='form-label' htmlFor='pass'>
-						<i className='bi bi-eye-slash-fill'></i> Contraseña
-					</label>
+				{errors.email && <Form.Text className='text-danger'>Un email es requerido</Form.Text>}
+			</Form.Group>
 
-					<div class='input-group'>
-						<input autoComplete='current-password' id='pass' type={showPass ? "text" : "password"} class='form-control' {...register("password", { required: true })} />
-
-						<button
-							class='btn btn-outline-secondary'
-							type='button'
-							title={showPass ? "Ocultar contraseña" : "Mostrar contraseña"}
+			<Form.Group className='mb-3 text-start'>
+				<InputGroup>
+					<FloatingLabel
+						label={
+							<>
+								<i className='bi bi-eye-slash-fill'></i> Contraseña
+							</>
+						}
+					>
+						<Form.Control
+							placeholder='********'
 							autoComplete='current-password'
-							onClick={() => setShowPass(!showPass)}
-						>
-							{showPass ? <i class='bi bi-eye-slash-fill'></i> : <i class='bi bi-eye-fill'></i>}
-						</button>
-					</div>
+							id='pass'
+							type={showPass ? "text" : "password"}
+							{...register("password", { required: true })}
+						/>
+					</FloatingLabel>
 
-					{errors.password && <span className='text-danger'>Una contraseña es requerida</span>}
-				</div>
+					<Button
+						variant='outline-secondary'
+						type='button'
+						title={showPass ? "Ocultar contraseña" : "Mostrar contraseña"}
+						autoComplete='current-password'
+						onClick={() => setShowPass(!showPass)}
+					>
+						{showPass ? <i class='bi bi-eye-slash-fill'></i> : <i class='bi bi-eye-fill'></i>}
+					</Button>
+				</InputGroup>
 
-				<button type='submit' className='btn btn-primary' disabled={loading}>
-					{loading ? (
-						<>
-							<span className='spinner-border spinner-border-sm' aria-hidden='true'></span>
-							<span role='status'> Cargando...</span>
-						</>
-					) : (
-						<>
-							<i className='bi bi-box-arrow-in-right'></i> Iniciar Sesión
-						</>
-					)}
-				</button>
-				<p className='text-secondary mt-2 mb-0'>
-					¿Olvidaste tu contraseña? <NavLink to='/login/passwordreset'>Reestablecer contraseña</NavLink>
-				</p>
-				<p className='text-secondary mt-1'>
-					¿No tenés una cuenta? <NavLink to='/register'>Registrate</NavLink>
-				</p>
-			</form>
-		</>
+				{errors.password && <Form.Text className='text-danger'>Una contraseña es requerida</Form.Text>}
+			</Form.Group>
+
+			<Button variant='primary' type='submit' disabled={loading}>
+				{loading ? (
+					<>
+						<span className='spinner-border spinner-border-sm' aria-hidden='true'></span>
+						<span role='status'> Cargando...</span>
+					</>
+				) : (
+					<>
+						<i className='bi bi-box-arrow-in-right'></i> Iniciar Sesión
+					</>
+				)}
+			</Button>
+			<p className='text-secondary mt-2 mb-0'>
+				¿Olvidaste tu contraseña?{" "}
+				<NavLink className='link-underline link-underline-opacity-0' to='/login/passwordreset'>
+					Reestablecer contraseña
+				</NavLink>
+			</p>
+			<p className='text-secondary mt-1'>
+				¿No tenés una cuenta?{" "}
+				<NavLink className='link-underline link-underline-opacity-0' to='/register'>
+					Registrate
+				</NavLink>
+			</p>
+		</Form>
 	);
 };
 

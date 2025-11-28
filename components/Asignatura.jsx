@@ -1,18 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { Modal } from "bootstrap";
 
 import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
 import UserStateContext from "../utils/contexts/UserContext.js";
+import SetNotaModal from "./modals/SetNotaModal.jsx";
 
 import { esCursable, esHecha } from "../utils/asignaturasHelpers.js";
 
 import { addRegularizada, borrarAsignaturaRecursivo } from "../utils/firebase/asignaturas.js";
+import { Badge, Button, Card, Container } from "react-bootstrap";
 
 export default function Asignatura({ asignatura }) {
 	const navigate = useNavigate();
 	const asignaturas = useContext(AsignaturasContext);
 	const user = useContext(UserStateContext);
+	const [showModal, setShowModal] = useState(false);
 
 	const hecha = asignaturas ? esHecha(asignaturas, asignatura) : false;
 	const cursable = asignaturas ? esCursable(asignaturas, asignatura) : false;
@@ -28,16 +31,7 @@ export default function Asignatura({ asignatura }) {
 	};
 
 	const openModal = () => {
-		const modalEl = document.getElementById(asignatura.acronimo + "NotaModal");
-		const modal = Modal.getOrCreateInstance(modalEl);
-		modal.show();
-
-		// Wait before focus because .show() returns before the modal pops up
-		setTimeout(() => {
-			const input = document.getElementById("notaInput" + asignatura.acronimo);
-			console.log(input);
-			input.focus({ focusVisible: true });
-		}, 500);
+		setShowModal(true);
 	};
 
 	const eliminarAsignatura = () => {
@@ -48,60 +42,62 @@ export default function Asignatura({ asignatura }) {
 
 	return (
 		<>
-			<div className='asignatura-vertical mb-3 user-select-none'>
-				<div
-					className={
-						hecha
-							? asignaturas.aprobadas.includes(asignatura.acronimo)
-								? "card bg-success bg-gradient bg-opacity-50 text-white"
-								: "card bg-warning bg-gradient bg-opacity-50 text-white"
-							: cursable
-							? "card bg-secondary bg-gradient bg-opacity-75 text-white"
-							: "card bg-danger bg-gradient bg-opacity-75 text-white"
-					}
+			<Container className='asignatura-vertical mx-0 mb-3 user-select-none'>
+				<SetNotaModal show={showModal} setShow={setShowModal} userId={user.uid} asignatura={asignatura} key={asignatura.acronimo + "NotaModal"} />
+				<Card
+					bg={hecha ? (asignaturas.aprobadas.includes(asignatura.acronimo) ? "success" : "warning") : cursable ? "secondary" : "danger"}
+					className={"bg-gradient text-white bg-opacity-" + (hecha ? (asignaturas.aprobadas.includes(asignatura.acronimo) ? "50" : "50") : cursable ? "75" : "75")}
 				>
-					<div className='card-body'>
-						<h5 className='card-title'>
+					<Card.Body>
+						<Card.Title>
 							{handleIcono()}
 							<span className={aprobada ? "text-decoration-line-through" : ""}>{asignatura.nombre}</span>{" "}
-							{asignatura.tipo == "Electiva" && <span className='badge text-bg-success bg-gradient bg-opacity-75'>Electiva</span>}
-						</h5>
+							{asignatura.tipo == "Electiva" && (
+								<Badge bg='success' className='bg-gradient bg-opacity-75'>
+									Electiva
+								</Badge>
+							)}
+						</Card.Title>
 
-						<div className='botones-container'>
-							<button
+						<Container className='botones-container'>
+							<Button
+								variant='success'
+								size='sm'
 								title='Aprobar Asignatura'
 								disabled={!cursable || asignaturas.aprobadas.includes(asignatura.acronimo)}
-								className='btn btn-success btn-sm shadow me-2 text-white'
+								className='shadow me-2 text-white'
 								id={asignatura.acronimo + "btnNotaModal"}
 								onClick={openModal}
 							>
 								<i className='bi bi-check-lg'></i>
-							</button>
+							</Button>
 
-							<button
+							<Button
+								variant='warning'
+								size='sm'
 								title='Regularizar Asignatura'
 								disabled={!cursable || hecha}
-								className='btn btn-warning btn-sm me-2 shadow text-white'
+								className='me-2 shadow text-white'
 								onClick={() => addRegularizada(user.uid, asignatura.acronimo)}
 							>
 								<i className='bi bi-hourglass-split'></i>
-							</button>
+							</Button>
 
-							<button title='Ver Información' className='btn btn-primary btn-sm me-2 shadow' onClick={() => navigate(`/asignaturas/${asignatura.acronimo}`)}>
+							<Button variant='primary' size='sm' title='Ver Información' className='me-2 shadow' onClick={() => navigate(`/asignaturas/${asignatura.acronimo}`)}>
 								<i className='bi bi-info-lg'></i>
-							</button>
+							</Button>
 
 							{/* <button title='Ver Correlativas' className='btn btn-primary btn-sm me-2' data-bs-toggle='modal' data-bs-target={"#" + asignatura.acronimo + "modal"}>
 								<i className='bi bi-arrow-left-right'></i>
 							</button> */}
 
-							<button title='Eliminar Asignatura' disabled={!hecha} className='btn btn-danger btn-sm shadow' onClick={eliminarAsignatura}>
+							<Button variant='danger' size='sm' title='Eliminar Asignatura' disabled={!hecha} className='shadow' onClick={eliminarAsignatura}>
 								<i className='bi bi-trash3'></i>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
+							</Button>
+						</Container>
+					</Card.Body>
+				</Card>
+			</Container>
 		</>
 	);
 }

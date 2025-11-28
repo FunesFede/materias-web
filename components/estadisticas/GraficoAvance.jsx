@@ -8,6 +8,8 @@ import { Chart, ArcElement, Tooltip, Legend, Title } from "chart.js";
 import AsignaturasContext from "../../utils/contexts/AsignaturasContext.js";
 import asignaturasData from "../../data/asignaturas.json";
 
+import Container from "react-bootstrap/Container";
+
 Chart.register(ArcElement, Tooltip, Legend, Title, ChartDataLabels);
 Chart.defaults.color = "#fff";
 Chart.defaults.plugins.legend.position = "bottom";
@@ -69,16 +71,16 @@ export default function GraficoAvance() {
 	};
 
 	return (
-		<div className='container-rounded-dark p-3 text-white max-width-80 position-relative mx-auto' style={{ height: "510px" }}>
+		<Container className='container-rounded-dark p-3 text-white max-width-80 position-relative mx-auto' style={{ height: "510px" }}>
 			<Doughnut data={data} options={options} />
 
-			<div
+			<Container
 				className='position-absolute top-50 start-50 translate-middle text-center'
 				style={{ pointerEvents: "none" }} // Esto evita que bloquee el mouse
 			>
 				<h5 className='mb-0 text-secondary'>Total</h5>
 				<h2 className='mb-0 fw-bold'>{totalAsignaturas}</h2>
-			</div>
-		</div>
+			</Container>
+		</Container>
 	);
 }

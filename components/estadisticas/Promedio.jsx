@@ -4,11 +4,13 @@ import AsignaturasContext from "../../utils/contexts/AsignaturasContext";
 import NotasContext from "../../utils/contexts/NotasContext";
 import asignaturasData from "../../data/asignaturas.json";
 import { NavLink } from "react-router";
+import { Alert, Button, Card, Col, Collapse, Container, Form, Row, Table } from "react-bootstrap";
 
 export default function Promedio() {
 	const asignaturas = useContext(AsignaturasContext);
 	const notas = useContext(NotasContext);
 	const [aplazos, setAplazos] = useState(0);
+	const [openCollapse, setOpenCollapse] = useState(false);
 
 	const faltantes = (asignaturas.aprobadas || []).filter((acrom) => !(acrom in notas));
 
@@ -21,51 +23,51 @@ export default function Promedio() {
 
 	const notasDetalle = Object.entries(notas)
 		.map(([acrom, nota]) => {
-			const nombre = asignaturasData.find((a) => a.acronimo === acrom)?.nombre || acrom;
-			return { acrom, nombre, nota };
+			const asig = asignaturasData.find((a) => a.acronimo === acrom);
+			const nombre = asig?.nombre || acrom;
+			const anio = asig.anio || 0;
+			return { acrom, nombre, nota, anio };
 		})
 		.sort((a, b) => a.nombre.localeCompare(b.nombre));
 
-	console.log(notasDetalle);
-
 	return (
-		<div className='container-fluid'>
-			<div className='row g-3 p-2 mb-4 user-select-none'>
-				<div className='col-md-4 show-mobile'>
-					<div className='card bg-success bg-gradient text-white h-100'>
-						<div className='card-body text-center'>
+		<Container fluid>
+			<Row className='row g-3 p-2 mb-4 user-select-none'>
+				<Col md={4} className='show-mobile'>
+					<Card className='bg-success bg-gradient text-white h-100'>
+						<Card.Body className='text-center'>
 							<i className='bi bi-check-circle fs-1'></i>
 							<h3 className='mt-2 mb-0'>{cantidadNotas}</h3>
 							<p className='mb-0'>Asignaturas aprobadas</p>
-						</div>
-					</div>
-				</div>
+						</Card.Body>
+					</Card>
+				</Col>
 
-				<div className='col-md-4'>
-					<div className='card bg-primary bg-gradient text-white h-100'>
-						<div className='card-body text-center'>
+				<Col md={4}>
+					<Card className='bg-primary bg-gradient text-white h-100'>
+						<Card.Body className='text-center'>
 							<i className='bi bi-file-earmark-check-fill fs-1'></i>
 							<h3 className='mt-2 mb-0'>{promedio}</h3>
 							<p className='mb-0'>Promedio sin aplazos</p>
-						</div>
-					</div>
-				</div>
+						</Card.Body>
+					</Card>
+				</Col>
 
-				<div className='col-md-2'>
-					<div className='card bg-danger bg-gradient text-white h-100'>
-						<div className='card-body text-center'>
+				<Col md={2}>
+					<Card className='bg-danger bg-gradient text-white h-100'>
+						<Card.Body className='text-center'>
 							<i className='bi bi-file-earmark-excel-fill fs-1'></i>
 							<h3 className='mt-2 mb-0'>{aplazos != 0 ? promAplazos : "A Calcular"}</h3>
 							<p className='mb-0'>Promedio con aplazos</p>
-						</div>
-					</div>
-				</div>
+						</Card.Body>
+					</Card>
+				</Col>
 
-				<div className='col-md-2'>
-					<div className='card bg-secondary bg-gradient text-white h-100'>
-						<div className='card-body text-center'>
+				<Col md={2}>
+					<Card className='bg-secondary bg-gradient text-white h-100'>
+						<Card.Body className='text-center'>
 							<i className='bi bi-folder-x fs-1'></i>
-							<input
+							<Form.Control
 								id='inputAplazos'
 								defaultValue={0}
 								onChange={(e) => setAplazos(Number(e.target.value))}
@@ -74,51 +76,44 @@ export default function Promedio() {
 								min={0}
 							/>
 							<p className='mb-0'>Cantidad Aplazos</p>
-						</div>
-					</div>
-				</div>
+						</Card.Body>
+					</Card>
+				</Col>
 
-				<div className='col-md-4 hide-mobile'>
-					<div className='card bg-success bg-gradient text-white h-100'>
-						<div className='card-body text-center'>
+				<Col md={4} className='hide-mobile'>
+					<Card className='bg-success bg-gradient text-white h-100'>
+						<Card.Body className='text-center'>
 							<i className='bi bi-check-circle fs-1'></i>
 							<h3 className='mt-2 mb-0'>{cantidadNotas}</h3>
 							<p className='mb-0'>Asignaturas aprobadas</p>
-						</div>
-					</div>
-				</div>
-			</div>
+						</Card.Body>
+					</Card>
+				</Col>
+			</Row>
 
 			{asignaturas?.aprobadas.length != Object.values(notas).length && (
-				<div className='alert alert-danger mt-3' role='alert'>
+				<Alert variant='danger' className='mt-3'>
 					<i className='bi bi-exclamation-triangle-fill'></i> La cantidad de notas no es igual a la cantidad de aprobadas registradas.
 					<span className='fw-bold'> Esto afecta el cálculo de tu promedio</span>.
-				</div>
+				</Alert>
 			)}
 
-			<div className='container-rounded-dark rounded p-3'>
-				<div
-					className='d-flex justify-content-between align-items-center clickable'
-					data-bs-toggle='collapse'
-					href='#tableCollapse'
-					role='button'
-					aria-expanded='false'
-					aria-controls='tableCollapse'
-				>
+			<Container fluid className='container-rounded-dark p-3 m-1'>
+				<div className='d-flex justify-content-between align-items-center clickable' aria-expanded={openCollapse} onClick={() => setOpenCollapse(!openCollapse)}>
 					<h5 className='text-white mb-0'>
 						<i className='bi bi-list-check'></i> Detalle de Notas
 					</h5>
-					<button className='btn btn-link text-white text-decoration-none'>
-						<i className='bi bi-chevron-down'></i>
-					</button>
+					<Button variant='link' className='text-white text-decoration-none'>
+						<i className={openCollapse ? "bi bi-chevron-down" : "bi bi-chevron-left"}></i>
+					</Button>
 				</div>
 
-				<div className='collapse' id='tableCollapse'>
-					<hr className='text-white' />
-					<div className='table-responsive'>
-						<table className='table table-dark table-striped'>
+				<Collapse in={openCollapse} className='mt-2'>
+					<div>
+						<Table responsive striped>
 							<thead>
 								<tr>
+									<th>Año</th>
 									<th scope='col'>
 										<i className='bi bi-sort-alpha-down'></i> Asignatura
 									</th>
@@ -150,6 +145,7 @@ export default function Promedio() {
 								{notasDetalle.map((asig, index) => {
 									return (
 										<tr key={index}>
+											<td>{asig.anio}</td>
 											<td>{asig.nombre} </td>
 											<td>
 												<span className={`badge ${asig.nota >= 8 ? "bg-success" : asig.nota >= 6 ? "bg-warning" : "bg-danger"}`}>{asig.nota}</span>
@@ -165,15 +161,16 @@ export default function Promedio() {
 							</tbody>
 							<tfoot>
 								<tr className='fw-semibold'>
+									<td></td>
 									<td>Cantidad: {cantidadNotas}</td>
 									<td>Suma: {sumaNotas}</td>
 									<td></td>
 								</tr>
 							</tfoot>
-						</table>
+						</Table>
 					</div>
-				</div>
-			</div>
-		</div>
+				</Collapse>
+			</Container>
+		</Container>
 	);
 }

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { NavLink, useNavigate, useParams } from "react-router";
+import React, { useContext, useEffect, useState } from "react";
+import { NavLink, useNavigate, useParams, useSearchParams } from "react-router";
 
 import asignaturasData from "../data/asignaturas.json";
 import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
@@ -7,16 +7,25 @@ import UserStateContext from "../utils/contexts/UserContext.js";
 
 import { esCursable, esHecha } from "../utils/asignaturasHelpers.js";
 
-import { Modal } from "bootstrap";
-
 import SetNotaModal from "../components/modals/SetNotaModal.jsx";
 import NotasContext from "../utils/contexts/NotasContext.js";
-import { useSearchParams } from "react-router";
+
+import Breadcrumb from "react-bootstrap/Breadcrumb";
+import BreadcrumbItem from "react-bootstrap/BreadcrumbItem";
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import Button from "react-bootstrap/Button";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
 
 export default function AsignaturaInfo() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { acrom } = useParams();
 	const navigate = useNavigate();
+	const [showModal, setShowModal] = useState(false);
 
 	const asignaturas = useContext(AsignaturasContext);
 	const notas = useContext(NotasContext);
@@ -111,51 +120,37 @@ export default function AsignaturaInfo() {
 	};
 
 	const handleAddNota = () => {
-		const modalEl = document.getElementById(asignatura.acronimo + "NotaModal");
-		const modal = Modal.getOrCreateInstance(modalEl);
-		modal.show();
-
-		setTimeout(() => {
-			const input = document.getElementById("notaInput" + asignatura.acronimo);
-
-			if (input) {
-				input.focus({ focusVisible: true });
-			}
-		}, 500);
+		setShowModal(true);
 	};
 
 	return (
 		<>
-			<SetNotaModal aNota={nota} userId={user.uid} asignatura={asignatura} key={asignatura.acronimo + "NotaModal"} />
+			<SetNotaModal show={showModal} setShow={setShowModal} aNota={nota} userId={user.uid} asignatura={asignatura} key={asignatura.acronimo + "NotaModal"} />
 
-			<div className='container-fluid bg-dark text-white d-flex flex-column flex-grow-1 justify-content-center'>
-				<div className='container w-responsive'>
-					<nav aria-label='breadcrumb'>
-						<ol class='breadcrumb'>
-							<li class='breadcrumb-item'>
-								<NavLink to='/'>Home</NavLink>
-							</li>
-							<li class='breadcrumb-item'>Asignaturas</li>
-							<li class='breadcrumb-item active' aria-current='page'>
-								{asignatura.nombre}
-							</li>
-						</ol>
-					</nav>
+			<Container fluid className='d-flex flex-column flex-grow-1 justify-content-center'>
+				<Container fluid className='w-responsive'>
+					<Breadcrumb aria-label='breadcrumb'>
+						<BreadcrumbItem>
+							<NavLink to='/'>Home</NavLink>
+						</BreadcrumbItem>
+						<BreadcrumbItem active>Asignaturas</BreadcrumbItem>
+						<BreadcrumbItem active>{asignatura.nombre}</BreadcrumbItem>
+					</Breadcrumb>
 
-					<div className='card bg-dark-custom text-white'>
-						<div className='card-body container-dark-rounded rounded'>
-							<div className='card-title mb-0 pb-0'>
+					<Card className='bg-dark-custom'>
+						<Card.Body>
+							<Card.Title className='mb-0 pb-0'>
 								<h2>{asignatura.nombre}</h2>
-								<p className='card-subtitle mb-2'>
+								<Card.Subtitle>
 									<span className='fw-bold'>Año: </span> {handleAnio()},<span className='fw-bold'> Tipo: </span>
 									{asignatura.tipo},<span className='fw-bold'> Duración: </span>
 									{asignatura.duracion},<span className='fw-bold'> Acrónimo: </span>
 									{asignatura.acronimo}
-								</p>
-							</div>
-							<div className='card-text pt-0'>
-								<ul className='list-group list-group-flush pt-0'>
-									<li key='1' className='list-group-item pt-0 bg-dark-custom text-white'>
+								</Card.Subtitle>
+							</Card.Title>
+							<Card.Text className='mt-1'>
+								<ListGroup variant='flush'>
+									<ListGroupItem key='1' className='bg-dark-custom'>
 										<span className='fw-bold'>Estado:</span> {handleEstado()}{" "}
 										{nota ? (
 											<>
@@ -176,8 +171,8 @@ export default function AsignaturaInfo() {
 										) : (
 											""
 										)}
-									</li>
-									<li key='2' className='list-group-item bg-dark-custom text-white'>
+									</ListGroupItem>
+									<ListGroupItem key='2' className='bg-dark-custom'>
 										<div className='fw-bold'>
 											<span>
 												<i className='bi bi-arrow-left-right'></i> Correlativas
@@ -205,8 +200,8 @@ export default function AsignaturaInfo() {
 												  ))
 												: "No requiere asignaturas aprobadas"}
 										</div>
-									</li>
-									<li key='4' className='list-group-item bg-dark-custom text-white'>
+									</ListGroupItem>
+									<ListGroupItem key='4' className='bg-dark-custom'>
 										<div className='fw-bold'>
 											<span>
 												<i className='bi bi-link-45deg'></i> Dependiente En
@@ -234,17 +229,13 @@ export default function AsignaturaInfo() {
 												  ))
 												: "No es dependiente como aprobada"}
 										</div>
-									</li>
-									<br />
-								</ul>
-							</div>
-							<div className='card-text'>
-								<div className='row'>
-									<div className='col-md-6 mb-2 mb-md-0'>
-										<select
-											name=''
-											id=''
-											className='form-select'
+									</ListGroupItem>
+								</ListGroup>
+							</Card.Text>
+							<Card.Footer className='bg-dark-custom'>
+								<Row>
+									<Col md={6}>
+										<Form.Select
 											onChange={(e) => (e.target.value != "-1" ? navigate(`/asignaturas/${e.target.value}`) : "")}
 											disabled={asignAprobadas.length == 0 && asignRegularizadas.length == 0}
 											defaultValue='-1'
@@ -260,13 +251,10 @@ export default function AsignaturaInfo() {
 													{asign.nombre}
 												</option>
 											))}
-										</select>
-									</div>
-									<div className='col-md-6'>
-										<select
-											name=''
-											id=''
-											className='form-select'
+										</Form.Select>
+									</Col>
+									<Col md={6}>
+										<Form.Select
 											onChange={(e) => (e.target.value != "-1" ? navigate(`/asignaturas/${e.target.value}`) : "")}
 											disabled={correlativaFutura.length == 0}
 											defaultValue='-1'
@@ -277,17 +265,17 @@ export default function AsignaturaInfo() {
 													{asign.nombre}
 												</option>
 											))}
-										</select>
-									</div>
-								</div>
-								<button className='btn btn-primary me-3 mt-3' onClick={() => navigate(-1)}>
+										</Form.Select>
+									</Col>
+								</Row>
+								<Button variant='primary' className='me-3 mt-3' onClick={() => navigate(-1)}>
 									<i className='bi bi-arrow-left'></i> Volver
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+								</Button>
+							</Card.Footer>
+						</Card.Body>
+					</Card>
+				</Container>
+			</Container>
 		</>
 	);
 }
