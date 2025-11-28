@@ -8,4 +8,8 @@ export default defineConfig({
 	build: {
 		outDir: "dist",
 	},
+	define: {
+		"import.meta.env.VITE_CF_PAGES_COMMIT_SHA": JSON.stringify(process.env.CF_PAGES_COMMIT_SHA),
+		"import.meta.env.VITE_CF_PAGES_BRANCH": JSON.stringify(process.env.CF_PAGES_BRANCH),
+	},
 });
