@@ -16,7 +16,7 @@ export default function Estadisticas() {
 	return (
 		<>
 			<Container fluid className='py-4 bg-dark text-white d-flex flex-column flex-grow-1'>
-				<h3 className='text-start mx-3 mb-3'>
+				<h3 className='text-start mx-4 mb-3'>
 					<i className='bi bi-clipboard-data-fill'></i> Tus Estadísticas
 				</h3>
 				<Totales aprobadas={aprobadas} regularizadas={regularizadas} regularizadasYAprobadas={regularizadasYAprobadas} />

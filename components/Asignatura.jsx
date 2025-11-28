@@ -42,7 +42,7 @@ export default function Asignatura({ asignatura }) {
 
 	return (
 		<>
-			<Container className='asignatura-vertical mx-0 mb-3 user-select-none'>
+			<Container fluid className='mb-3 user-select-none'>
 				<SetNotaModal show={showModal} setShow={setShowModal} userId={user.uid} asignatura={asignatura} key={asignatura.acronimo + "NotaModal"} />
 				<Card
 					bg={hecha ? (asignaturas.aprobadas.includes(asignatura.acronimo) ? "success" : "warning") : cursable ? "secondary" : "danger"}

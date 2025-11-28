@@ -85,73 +85,53 @@ export default function Main() {
 		<>
 			<Container fluid className='py-4 bg-dark text-white d-flex flex-column flex-grow-1'>
 				<Container fluid>
-					<h3 className='text-start mb-3 mx-3'>
+					<h3 className='text-start mb-3 mx-2'>
 						{handleSaludo()}, {user?.displayName ? user.displayName + "." : "como estás hoy?"}
 					</h3>
 
 					<MobileIndex />
 
-					<Container fluid className='columnas-grid'>
-						<Container fluid key={1} className='columna py-3 px-1' id='primero'>
-							<Container>
-								<h3 className='titulo-columna'>Primer Año</h3>
-							</Container>
+					<Row className='gap-4 mx-2 justify-content-center'>
+						<Col xs={12} md className='bg-dark-custom rounded py-3 px-1' id='primero'>
+							<h3 className='titulo-columna'>Primer Año</h3>
 
-							<Container fluid className='px-0 asignaturas-container'>
-								{primerAnio.map((asig, index) => (
-									<Asignatura key={index} asignatura={asig}></Asignatura>
-								))}
-							</Container>
-						</Container>
+							{primerAnio.map((asig, index) => (
+								<Asignatura key={index} asignatura={asig}></Asignatura>
+							))}
+						</Col>
 
-						<Container fluid key={2} className='columna py-3 px-1' id='segundo'>
-							<Container>
-								<h3 className='titulo-columna'>Segundo Año</h3>
-							</Container>
+						<Col xs={12} md className='bg-dark-custom rounded py-3 px-1' id='segundo'>
+							<h3 className='titulo-columna'>Segundo Año</h3>
 
-							<Container fluid className='px-0 asignaturas-container'>
-								{segundoAnio.map((asig, index) => (
-									<Asignatura key={index} asignatura={asig}></Asignatura>
-								))}
-							</Container>
-						</Container>
+							{segundoAnio.map((asig, index) => (
+								<Asignatura key={index} asignatura={asig}></Asignatura>
+							))}
+						</Col>
 
-						<Container fluid key={3} className='columna py-3 px-1' id='tercero'>
-							<Container>
-								<h3 className='titulo-columna'>Tercer Año</h3>
-							</Container>
+						<Col xs={12} md className='bg-dark-custom rounded py-3 px-1' id='tercero'>
+							<h3 className='titulo-columna'>Tercer Año</h3>
 
-							<Container fluid className='px-0 asignaturas-container'>
-								{tercerAnio.map((asig, index) => (
-									<Asignatura key={index} asignatura={asig}></Asignatura>
-								))}
-							</Container>
-						</Container>
+							{tercerAnio.map((asig, index) => (
+								<Asignatura key={index} asignatura={asig}></Asignatura>
+							))}
+						</Col>
 
-						<Container fluid key={4} className='columna py-3 px-1' id='cuarto'>
-							<Container>
-								<h3 className='titulo-columna'>Cuarto Año</h3>
-							</Container>
+						<Col xs={12} md className='bg-dark-custom rounded py-3 px-1' id='cuarto'>
+							<h3 className='titulo-columna'>Cuarto Año</h3>
 
-							<Container fluid className='px-0 asignaturas-container'>
-								{cuartoAnio.map((asig, index) => (
-									<Asignatura key={index} asignatura={asig}></Asignatura>
-								))}
-							</Container>
-						</Container>
+							{cuartoAnio.map((asig, index) => (
+								<Asignatura key={index} asignatura={asig}></Asignatura>
+							))}
+						</Col>
 
-						<Container fluid key={5} className='columna py-3 px-1' id='cuarto'>
-							<Container>
-								<h3 className='titulo-columna'>Quinto Año</h3>
-							</Container>
+						<Col xs={12} md className='bg-dark-custom rounded py-3 px-1' id='quinto'>
+							<h3 className='titulo-columna'>Quinto Año</h3>
 
-							<Container fluid className='px-0 asignaturas-container'>
-								{quintoAnio.map((asig, index) => (
-									<Asignatura key={index} asignatura={asig}></Asignatura>
-								))}
-							</Container>
-						</Container>
-					</Container>
+							{quintoAnio.map((asig, index) => (
+								<Asignatura key={index} asignatura={asig}></Asignatura>
+							))}
+						</Col>
+					</Row>
 				</Container>
 			</Container>
 		</>

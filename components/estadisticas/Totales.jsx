@@ -7,8 +7,8 @@ import { Alert, Card, Col, Row } from "react-bootstrap";
 
 export default function EstadisticasC({ regularizadas, aprobadas, regularizadasYAprobadas }) {
 	return (
-		<Container fluid className='text-white max-width-80'>
-			<Alert variant='info' dismissible>
+		<Container fluid className='text-white'>
+			<Alert variant='info' dismissible className='mx-2'>
 				<div className='text-start'>
 					<i className='bi bi-info-circle-fill'></i> Los totales y porcentajes solo toman en cuenta 7 electivas.
 				</div>

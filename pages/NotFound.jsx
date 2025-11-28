@@ -8,8 +8,7 @@ export default function NotFound() {
 	return (
 		<Container className='py-3 bg-dark text-white d-flex flex-column flex-grow-1'>
 			<Container className='position-absolute top-50 start-50 translate-middle'>
-				<img src='https://http.cat/404' className='rounded' width={500} height={500} alt='404 HTTP Cat' />
-				{/* <h1 className='fw-bold'>
+				<h1 className='fw-bold'>
 					404: <span className='text-danger'>Not Found</span>
 				</h1>
 				<h2>
@@ -22,7 +21,7 @@ export default function NotFound() {
 						estamos perdidas
 					</a>
 					?
-				</h2> */}
+				</h2>
 				<br />
 				<Button variant='outline-danger' className='mt-2' onClick={() => navigate("/")}>
 					<i className='bi bi-arrow-left'></i> Volver
