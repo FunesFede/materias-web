@@ -39,8 +39,8 @@ export default function GraficoAvance() {
 			{
 				label: "Cantidad",
 				data: [aprobadasCount, regularizadasSoloCount, pendientesCount],
-				backgroundColor: ["rgba(25, 135, 84, 0.7)", "rgba(255, 193, 7, 0.7)", "rgba(108, 117, 125, 0.7)"],
-				borderColor: ["rgba(25, 135, 84, 1)", "rgba(255, 193, 7, 1)", "rgba(108, 117, 125, 1)"],
+				backgroundColor: ["#198754", "#ffc107", "#6c757d"],
+				borderColor: ["#198754", "#ffc107", "#6c757d"],
 				borderWidth: 1,
 			},
 		],
