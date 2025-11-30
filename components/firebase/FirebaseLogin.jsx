@@ -70,42 +70,38 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 						</>
 					}
 				>
-					<Form.Control id='email' autoComplete='username' type='email' placeholder='mail@example.com' {...register("email", { required: true })} />
-				</FloatingLabel>
+					<Form.Control
+						id='email'
+						isInvalid={errors.email}
+						autoComplete='username'
+						type='email'
+						placeholder='mail@example.com'
+						{...register("email", { required: true })}
+					/>
 
-				{errors.email && <Form.Text className='text-danger'>Un email es requerido</Form.Text>}
+					{errors.email && <Form.Control.Feedback type='invalid'>Un email es requerido</Form.Control.Feedback>}
+				</FloatingLabel>
 			</Form.Group>
 
 			<Form.Group className='mb-3 text-start'>
-				<InputGroup>
-					<FloatingLabel
-						label={
-							<>
-								<i className='bi bi-eye-slash-fill'></i> Contraseña
-							</>
-						}
-					>
-						<Form.Control
-							placeholder='********'
-							autoComplete='current-password'
-							id='pass'
-							type={showPass ? "text" : "password"}
-							{...register("password", { required: true })}
-						/>
-					</FloatingLabel>
-
-					<Button
-						variant='outline-secondary'
-						type='button'
-						title={showPass ? "Ocultar contraseña" : "Mostrar contraseña"}
+				<FloatingLabel
+					label={
+						<>
+							<i className='bi bi-eye-slash-fill'></i> Contraseña
+						</>
+					}
+				>
+					<Form.Control
+						isInvalid={errors.password}
+						placeholder='********'
 						autoComplete='current-password'
-						onClick={() => setShowPass(!showPass)}
-					>
-						{showPass ? <i class='bi bi-eye-slash-fill'></i> : <i class='bi bi-eye-fill'></i>}
-					</Button>
-				</InputGroup>
+						id='pass'
+						type={showPass ? "text" : "password"}
+						{...register("password", { required: true })}
+					/>
 
-				{errors.password && <Form.Text className='text-danger'>Una contraseña es requerida</Form.Text>}
+					{errors.password && <Form.Control.Feedback type='invalid'>Una contraseña es requerida</Form.Control.Feedback>}
+				</FloatingLabel>
 			</Form.Group>
 
 			<Button variant='primary' type='submit' disabled={loading}>

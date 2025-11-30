@@ -50,10 +50,18 @@ const FirebasePasswordReset = () => {
 						</>
 					}
 				>
-					<Form.Control placeholder='email@example.com' id='email' autoComplete='username' type='email' {...register("email", { required: true })} disabled={done} />
-				</FloatingLabel>
+					<Form.Control
+						isInvalid={errors.email}
+						placeholder='email@example.com'
+						id='email'
+						autoComplete='username'
+						type='email'
+						{...register("email", { required: true })}
+						disabled={done}
+					/>
 
-				{errors.email && <Form.Text className='text-danger'>Un email es requerido</Form.Text>}
+					{errors.email && <Form.Control.Feedback type='invalid'>Un email es requerido</Form.Control.Feedback>}
+				</FloatingLabel>
 			</Form.Group>
 			{!done ? (
 				<Button variant='primary' type='submit' disabled={loading}>

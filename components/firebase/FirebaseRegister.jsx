@@ -69,10 +69,10 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 						</>
 					}
 				>
-					<Form.Control placeholder='Gabriel' autoComplete='name' id='name' type='text' {...register("displayName", { required: true })} />
-				</FloatingLabel>
+					<Form.Control isInvalid={errors.displayName} placeholder='Gabriel' autoComplete='name' id='name' type='text' {...register("displayName", { required: true })} />
 
-				{errors.displayName && <Form.Text className='text-danger'>Un nombre es requerido</Form.Text>}
+					{errors.displayName && <Form.Control.Feedback type='invalid'>Un nombre es requerido</Form.Control.Feedback>}
+				</FloatingLabel>
 			</Form.Group>
 
 			<Form.Group className='mb-3 text-start'>
@@ -83,42 +83,29 @@ const FirebaseRegister = ({ onSignInSuccess }) => {
 						</>
 					}
 				>
-					<Form.Control placeholder='gabriel@example.com' autoComplete='username' type='email' {...register("email", { required: true })} />
+					<Form.Control isInvalid={errors.email} placeholder='gabriel@example.com' autoComplete='username' type='email' {...register("email", { required: true })} />
+					{errors.email && <Form.Control.Feedback type='invalid'>Un email es requerido</Form.Control.Feedback>}
 				</FloatingLabel>
-
-				{errors.email && <Form.Text className='text-danger'>Un email es requerido</Form.Text>}
 			</Form.Group>
 
 			<Form.Group className='mb-3 text-start'>
-				<InputGroup>
-					<FloatingLabel
-						label={
-							<>
-								<i className='bi bi-eye-slash-fill'></i> Contraseña
-							</>
-						}
-					>
-						<Form.Control
-							placeholder='*****'
-							id='pass'
-							autoComplete='current-password'
-							type={showPass ? "text" : "password"}
-							{...register("password", { required: true })}
-						/>
-					</FloatingLabel>
-
-					<Button
-						variant='outline-secondary'
-						type='button'
-						title={showPass ? "Ocultar contraseña" : "Mostrar contraseña"}
+				<FloatingLabel
+					label={
+						<>
+							<i className='bi bi-eye-slash-fill'></i> Contraseña
+						</>
+					}
+				>
+					<Form.Control
+						isInvalid={errors.password}
+						placeholder='*****'
+						id='pass'
 						autoComplete='current-password'
-						onClick={() => setShowPass(!showPass)}
-					>
-						{showPass ? <i class='bi bi-eye-slash-fill'></i> : <i class='bi bi-eye-fill'></i>}
-					</Button>
-				</InputGroup>
-
-				{errors.password && <Form.Text className='text-danger'>Una contraseña es requerida</Form.Text>}
+						type={showPass ? "text" : "password"}
+						{...register("password", { required: true })}
+					/>
+					{errors.password && <Form.Control.Feedback type='invalid'>Una contraseña es requerida</Form.Control.Feedback>}
+				</FloatingLabel>
 			</Form.Group>
 
 			<Button variant='primary' type='submit' disabled={loading}>

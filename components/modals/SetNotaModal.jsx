@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { addAprobada } from "../../utils/firebase/asignaturas";
+import { addAprobada, removeRegularizada } from "../../utils/firebase/asignaturas";
+import AsignaturasContext from "../../utils/contexts/AsignaturasContext.js";
 
 import { addNota } from "../../utils/firebase/notas";
 
@@ -12,8 +13,8 @@ import Form from "react-bootstrap/Form";
 
 export default function SetNotaModalR({ show, setShow, userId, asignatura, aNota }) {
 	const [loading, setLoading] = useState(false);
-	const modalRef = useRef(null);
-	const modalInstance = useRef(null);
+
+	const asignaturasContext = useContext(AsignaturasContext);
 
 	const {
 		register,
@@ -27,8 +28,13 @@ export default function SetNotaModalR({ show, setShow, userId, asignatura, aNota
 		const notaAdded = await addNota(userId, asignatura.acronimo, data.nota);
 		const aprobadaAdded = aNota ? true : await addAprobada(userId, asignatura.acronimo);
 
+		if (asignaturasContext.regularizadas.includes(asignatura.acronimo)) {
+			await removeRegularizada(userId, asignatura.acronimo);
+		}
+
 		if (!notaAdded || !aprobadaAdded) {
 			toast.error("Algo salió mal al intentar registrar la asignatura como aprobada. Intentá de nuevo.");
+			console.error("No fue posible aprobar " + asignatura.acronimo + ". Nota añadida: " + notaAdded + ", aprobada añadida: " + aprobadaAdded);
 		} else if (aNota) {
 			toast.success("Nota modificada correctamente");
 		}
@@ -63,8 +69,17 @@ export default function SetNotaModalR({ show, setShow, userId, asignatura, aNota
 						<Form.Label htmlFor={"notaInput" + asignatura.acronimo}>
 							<i className='bi bi-123'></i> Nota
 						</Form.Label>
-						<Form.Control autoFocus id={"notaInput" + asignatura.acronimo} type='number' min={6} max={10} {...register("nota", { required: true })} />
-						{errors.nota && <Form.Text className='text-danger'>Una nota es requerida</Form.Text>}
+						<Form.Control
+							autoFocus
+							id={"notaInput" + asignatura.acronimo}
+							isInvalid={errors.nota}
+							type='number'
+							min={6}
+							max={10}
+							{...register("nota", { required: "Una nota es requerida", min: 6, max: 10 })}
+						/>
+						{console.log(errors.nota)}
+						{errors.nota && <Form.Control.Feedback type='invalid'>{errors.nota.message || "La nota debe estar entre 6 y 10"}</Form.Control.Feedback>}
 					</Form.Group>
 				</Form>
 			</Modal.Body>
