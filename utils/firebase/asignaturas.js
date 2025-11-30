@@ -109,7 +109,7 @@ export const borrarAsignaturaRecursivo = async (userId, acronimo, allAsignaturas
 	}
 	visited.add(acronimoUpperCase);
 
-	console.log(`[BORRANDO] Procesando acrónimo: ${acronimoUpperCase}`);
+	console.debug(`[BORRANDO] Procesando acrónimo: ${acronimoUpperCase}`);
 
 	// 2. Borrar la asignatura actual de las listas del usuario
 	await Promise.all([removeRegularizada(userId, acronimoUpperCase), removeAprobada(userId, acronimoUpperCase)]);
@@ -127,7 +127,7 @@ export const borrarAsignaturaRecursivo = async (userId, acronimo, allAsignaturas
 		return dependsOnCurrent && userAsignaturas.includes(asignatura.acronimo.toUpperCase());
 	});
 
-	console.log(`[DEPENDENCIA] ${asignaturasAfectadas.length} asignaturas dependientes encontradas para ${acronimoUpperCase}.`);
+	console.debug(`[DEPENDENCIA] ${asignaturasAfectadas.length} asignaturas dependientes encontradas para ${acronimoUpperCase}.`);
 
 	// 5. Borrar recursivamente las asignaturas afectadas
 	const recursiveDeletions = asignaturasAfectadas.map((asignatura) => borrarAsignaturaRecursivo(userId, asignatura.acronimo, allAsignaturasData, visited));
@@ -135,7 +135,7 @@ export const borrarAsignaturaRecursivo = async (userId, acronimo, allAsignaturas
 	await Promise.all(recursiveDeletions);
 
 	// El listener (onSnapshot) en el componente React se encargará de actualizar la UI
-	console.log(`[COMPLETADO] Borrado recursivo terminado para ${acronimoUpperCase}.`);
+	console.debug(`[COMPLETADO] Borrado recursivo terminado para ${acronimoUpperCase}.`);
 };
 
 // ******************************************************
@@ -167,7 +167,7 @@ export const addRegularizada = async (userId, acronimo) => {
 			{ merge: true } // Mantiene los otros campos del documento (como 'aprobadas')
 		);
 
-		console.log(`Añadido ${acronimoUpperCase} a regularizadas.`);
+		console.debug(`Añadido ${acronimoUpperCase} a regularizadas.`);
 		return true;
 	} catch (error) {
 		console.error("Error al añadir regularizada:", error);
@@ -199,7 +199,7 @@ export const removeRegularizada = async (userId, acronimo) => {
 			{ merge: true }
 		);
 
-		console.log(`Removido ${acronimoUpperCase} de regularizadas.`);
+		console.debug(`Removido ${acronimoUpperCase} de regularizadas.`);
 		return true;
 	} catch (error) {
 		console.error("Error al quitar regularizada:", error);
@@ -228,7 +228,7 @@ export const addAprobada = async (userId, acronimo) => {
 			},
 			{ merge: true }
 		);
-		console.log(`Añadido ${acronimo.toUpperCase()} a aprobadas.`);
+		console.debug(`Añadido ${acronimo.toUpperCase()} a aprobadas.`);
 		return true;
 	} catch (error) {
 		console.error("Error al añadir aprobada:", error);
@@ -254,7 +254,7 @@ export const removeAprobada = async (userId, acronimo) => {
 			{ merge: true }
 		);
 		await removeNota(userId, acronimo);
-		console.log(`Removido ${acronimo.toUpperCase()} de aprobadas.`);
+		console.debug(`Removido ${acronimo.toUpperCase()} de aprobadas.`);
 		return true;
 	} catch (error) {
 		console.error("Error al quitar aprobada:", error);
