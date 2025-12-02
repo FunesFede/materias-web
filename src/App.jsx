@@ -25,6 +25,11 @@ import AsignaturasContext from "../utils/contexts/AsignaturasContext.js";
 import NotasContext from "../utils/contexts/NotasContext.js";
 import Profile from "../pages/Profile.jsx";
 import { getNotas } from "../utils/firebase/notas.js";
+import PasswordlessLogin from "../pages/auth/PasswordlessLoginPage.jsx";
+import PasswordlessLoginCallback from "../pages/auth/PasswordlessLoginCallback.jsx";
+import { getAlertas } from "../utils/firebase/alerts.js";
+import { Alert, Container } from "react-bootstrap";
+import Admin from "../pages/admin/Admin.jsx";
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -32,10 +37,25 @@ function App() {
 	const [notas, setNotas] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [authChecked, setAuthChecked] = useState(false);
+	const [alerts, setAlerts] = useState([]);
 
 	const handleSignInSuccess = (user) => {
 		setLoading(true);
 	};
+
+	useEffect(() => {
+		const unsubscribe = getAlertas(
+			(data) => {
+				setAlerts(data);
+			},
+			(error) => {
+				console.error("Error al obtener alertas:", error);
+			}
+		);
+
+		// Cleanup: detener el listener cuando el componente se desmonte
+		return () => unsubscribe();
+	}, []);
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -69,10 +89,36 @@ function App() {
 						<BrowserRouter>
 							<div className='d-flex flex-column min-vh-100'>
 								<Navbar setAsignaturas={setAsignaturas} />
+								<Container fluid className='m-0 mt-3'>
+									{alerts.length != 0 ? (
+										alerts.map((alert) => {
+											if (alert?.hide) {
+												return;
+											}
+											return (
+												<Alert dismissible={alert?.dismissable || false} key={alert.id} variant={alert?.type || "info"} className='mb-2 text-start'>
+													<Alert.Heading>
+														{alert?.type == "warning" || alert?.type == "danger" ? (
+															<i className='bi bi-exclamation-triangle'></i>
+														) : (
+															<i className='bi bi-info-circle'></i>
+														)}{" "}
+														{alert?.header || "Información Importante"}
+													</Alert.Heading>
+													<p className='mb-0'>{alert.content}</p>
+												</Alert>
+											);
+										})
+									) : (
+										<></>
+									)}
+								</Container>
 								<Routes>
 									<Route path='/login' element={<Login signInSuccessFunc={handleSignInSuccess} />} />
 									<Route path='/register' element={<Register signInSuccessFunc={handleSignInSuccess} />} />
 									<Route path='/login/passwordreset' element={<PasswordReset />} />
+									<Route path='/login/passwordless' element={<PasswordlessLogin />} />
+									<Route path='/login/passwordless/callback' element={<PasswordlessLoginCallback />} />
 
 									<Route
 										path='/'
@@ -105,6 +151,15 @@ function App() {
 										element={
 											<RequireAuth>
 												<Profile />
+											</RequireAuth>
+										}
+									/>
+
+									<Route
+										path='/admin'
+										element={
+											<RequireAuth>
+												<Admin />
 											</RequireAuth>
 										}
 									/>

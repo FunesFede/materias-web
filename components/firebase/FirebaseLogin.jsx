@@ -116,6 +116,11 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 					</>
 				)}
 			</Button>
+
+			<NavLink className='btn btn-outline-secondary mx-2' role='button' to='/login/passwordless'>
+				<i className='bi bi-key-fill'></i> Passwordless Login
+			</NavLink>
+
 			<p className='text-secondary mt-2 mb-0'>
 				¿Olvidaste tu contraseña?{" "}
 				<NavLink className='link-underline link-underline-opacity-0' to='/login/passwordreset'>

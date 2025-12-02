@@ -146,7 +146,7 @@ export default function NavbarR({ setAsignaturas }) {
 						</li>
 					)}
 				</Nav>
-				<Form inline role='search' onSubmit={buscarAsignatura}>
+				<Form role='search' onSubmit={buscarAsignatura}>
 					<InputGroup>
 						<Form.Control type='search' placeholder='Buscar Asignatura...' aria-label='Buscar Asignatura' onChange={(e) => setQuery(e.target.value)} disabled={!user} />
 						<Button variant='outline-primary' type='submit' disabled={!user}>

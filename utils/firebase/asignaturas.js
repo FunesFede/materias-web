@@ -1,17 +1,12 @@
-import { db } from "/firebase/config"; // Asegúrate de importar 'db'
-import { doc, setDoc, arrayUnion, arrayRemove, onSnapshot, getDoc, collection, getDocs } from "firebase/firestore"; // Añado getDoc
+import { db } from "/firebase/config";
+import { doc, setDoc, arrayUnion, arrayRemove, onSnapshot, getDoc, collection, getDocs } from "firebase/firestore";
 import asignaturasData from "../../data/asignaturas.json";
 import { removeNota } from "./notas";
 
-// Define el path base para el documento de arrays de asignaturas
 export const getAsignaturaDocRef = (userId) => {
-	// RUTA SOLICITADA: /users/{userId}/asignaturas/data
 	return doc(db, "users", userId, "asignaturas", "data");
 };
 
-// ******************************************************
-// FUNCIONES DE LECTURA (READ)
-// ******************************************************
 export const getAll = async () => {
 	const docRef = collection(db, "users");
 	return await getDocs(docRef);

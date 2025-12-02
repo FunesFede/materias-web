@@ -238,28 +238,27 @@ export default function AsignaturaInfo() {
 										<Form.Select
 											onChange={(e) => (e.target.value != "-1" ? navigate(`/asignaturas/${e.target.value}`) : "")}
 											disabled={asignAprobadas.length == 0 && asignRegularizadas.length == 0}
-											defaultValue='-1'
 										>
-											<option value='-1'>Visitar Correlativa</option>
-											{asignRegularizadas.map((asign, index) => (
-												<option key={index} value={asign.acronimo}>
-													{asign.nombre}
-												</option>
-											))}
-											{asignAprobadas.map((asign, index) => (
-												<option key={index * 5} value={asign.acronimo}>
-													{asign.nombre}
-												</option>
-											))}
+											<option selected hidden value='-1'>
+												{asignAprobadas.length == 0 && asignRegularizadas.length == 0 ? "No hay correlativas" : "Visitar correlativa"}
+											</option>
+											{[...asignRegularizadas, ...asignAprobadas]
+												.toSorted((a, b) => a.nombre.localeCompare(b.nombre))
+												.map((asign, index) => (
+													<option key={index} value={asign.acronimo}>
+														{asign.nombre}
+													</option>
+												))}
 										</Form.Select>
 									</Col>
 									<Col md={6}>
 										<Form.Select
 											onChange={(e) => (e.target.value != "-1" ? navigate(`/asignaturas/${e.target.value}`) : "")}
 											disabled={correlativaFutura.length == 0}
-											defaultValue='-1'
 										>
-											<option value='-1'>Visitar Dependiente</option>
+											<option selected hidden value='-1'>
+												{correlativaFutura.length == 0 ? "No hay dependientes" : "Visitar Dependiente"}
+											</option>
 											{correlativaFutura.map((asign, index) => (
 												<option key={index} value={asign.acronimo}>
 													{asign.nombre}

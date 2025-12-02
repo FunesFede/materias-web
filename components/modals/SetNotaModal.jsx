@@ -78,7 +78,6 @@ export default function SetNotaModalR({ show, setShow, userId, asignatura, aNota
 							max={10}
 							{...register("nota", { required: "Una nota es requerida", min: 6, max: 10 })}
 						/>
-						{console.log(errors.nota)}
 						{errors.nota && <Form.Control.Feedback type='invalid'>{errors.nota.message || "La nota debe estar entre 6 y 10"}</Form.Control.Feedback>}
 					</Form.Group>
 				</Form>
