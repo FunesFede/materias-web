@@ -40,25 +40,15 @@ export const getAlertas = (callback, onError) => {
 export const editAlerta = async (id, data) => {
 	const docRef = doc(db, "alerts", id);
 
-	try {
-		await setDoc(docRef, data, { merge: true });
-		return true;
-	} catch (error) {
-		console.error("editAlerta error: ", error);
-		return false;
-	}
+	await setDoc(docRef, data, { merge: true });
+	return true;
 };
 
 export const addAlerta = async (data) => {
 	const colRef = collection(db, "alerts");
 
-	try {
-		await addDoc(colRef, data);
-		return true;
-	} catch (error) {
-		console.error("addAlerta error: ", error);
-		return false;
-	}
+	await addDoc(colRef, data);
+	return true;
 };
 
 export const removeAlerta = async (id) => {

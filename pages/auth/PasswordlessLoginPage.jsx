@@ -8,7 +8,7 @@ import PasswordlessLogin from "../../components/firebase/PasswordlessLogin";
 export default function PasswordlessLoginPage({ signInSuccessFunc }) {
 	const location = useLocation();
 	return (
-		<Container fluid className='bg-dark text-white d-flex flex-column flex-grow-1 align-items-center justify-content-center'>
+		<Container fluid className='bg-dark text-white d-flex flex-column flex-grow-1 align-items-center justify-content-center my-4'>
 			<Row className='g-0 w-100' style={{ maxWidth: "1000px" }}>
 				<Col md={7} className='bg-dark-custom rounded-start px-4 py-5'>
 					<PasswordlessLogin signIn={false} onSignInSuccess={signInSuccessFunc} from={location.state?.from} />

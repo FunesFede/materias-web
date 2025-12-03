@@ -96,7 +96,7 @@ function App() {
 												return;
 											}
 											return (
-												<Alert dismissible={alert?.dismissable || false} key={alert.id} variant={alert?.type || "info"} className='mb-2 text-start'>
+												<Alert dismissible={alert?.dismissable || false} key={alert.id} variant={alert?.type || "info"} className='text-start m-0'>
 													<Alert.Heading>
 														{alert?.type == "warning" || alert?.type == "danger" ? (
 															<i className='bi bi-exclamation-triangle'></i>

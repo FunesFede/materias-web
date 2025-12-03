@@ -24,7 +24,6 @@ export default function Alerts() {
 
 	const handleEdit = (alert) => {
 		setSelectedAlert(alert);
-		console.log(selectedAlert);
 		setShowModal(true);
 	};
 
@@ -41,7 +40,6 @@ export default function Alerts() {
 						<th scope='col'>Contenido</th>
 						<th scope='col'>Dismissable</th>
 						<th scope='col'>Hidden</th>
-						<th scope='col'></th>
 					</tr>
 				</thead>
 				<tbody className='table-group-divider'>
@@ -55,26 +53,18 @@ export default function Alerts() {
 									<td>{alert.content}</td>
 									<td>{alert?.dismissable ? "Si" : "No"}</td>
 									<td>{alert?.hide ? "Si" : "No"}</td>
-									<td>
-										{/* <Button size='sm' variant='primary'>
-											<i className='bi bi-pen'></i>
-										</Button> */}
-										{/* <Button size='sm' variant='danger' onClick={() => removeAlerta(alert.id)}>
-											<i className='bi bi-trash'></i>
-										</Button> */}
-									</td>
 								</tr>
 							);
 						})
 					) : (
 						<tr>
-							<td colSpan={7}>No hay alertas</td>
+							<td colSpan={6}>No hay alertas</td>
 						</tr>
 					)}
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colSpan={7}>
+						<td colSpan={6}>
 							<span className='link-primary clickable' onClick={() => setShowCreate(true)}>
 								{" "}
 								<i className='bi bi-plus-lg'></i> Añadir Alerta
