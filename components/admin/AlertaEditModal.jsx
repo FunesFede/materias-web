@@ -52,7 +52,7 @@ export default function AlertaModal({ alert, show, setShow }) {
 			</Modal.Header>
 
 			<Modal.Body>
-				<Form onSubmit={handleSubmit(handleModal)} id='alertaForm'>
+				<Form onSubmit={handleSubmit(handleModal)} id='alertaEditForm'>
 					<Form.Group className='mb-3 text-start'>
 						<FloatingLabel
 							label={
@@ -108,7 +108,7 @@ export default function AlertaModal({ alert, show, setShow }) {
 				<Button variant='danger' disabled={loading} onClick={() => handleRemove()}>
 					<i className='bi bi-trash'></i> Eliminar
 				</Button>
-				<Button form={"alertaForm"} variant='primary' type='submit' disabled={loading || !isDirty}>
+				<Button form='alertaEditForm' variant='primary' type='submit' disabled={loading || !isDirty}>
 					<i className='bi bi-save-fill'></i> {loading ? "Guardando..." : "Guardar Alerta"}
 				</Button>
 			</Modal.Footer>

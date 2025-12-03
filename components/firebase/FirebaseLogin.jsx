@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router";
-import { Button, Container, FloatingLabel, Form, InputGroup } from "react-bootstrap";
+import { Button, Col, Container, FloatingLabel, Form, InputGroup, Row, Stack } from "react-bootstrap";
 
 const FirebaseLogin = ({ onSignInSuccess, from }) => {
 	const [loading, setLoading] = useState(false);
@@ -104,22 +104,24 @@ const FirebaseLogin = ({ onSignInSuccess, from }) => {
 				</FloatingLabel>
 			</Form.Group>
 
-			<Button variant='primary' type='submit' disabled={loading}>
-				{loading ? (
-					<>
-						<span className='spinner-border spinner-border-sm' aria-hidden='true'></span>
-						<span role='status'> Cargando...</span>
-					</>
-				) : (
-					<>
-						<i className='bi bi-box-arrow-in-right'></i> Iniciar Sesión
-					</>
-				)}
-			</Button>
+			<Stack gap={3}>
+				<Button variant='primary' type='submit' disabled={loading}>
+					{loading ? (
+						<>
+							<span className='spinner-border spinner-border-sm' aria-hidden='true'></span>
+							<span role='status'> Cargando...</span>
+						</>
+					) : (
+						<>
+							<i className='bi bi-box-arrow-in-right'></i> Iniciar Sesión
+						</>
+					)}
+				</Button>
 
-			<NavLink className='btn btn-outline-secondary mx-2' role='button' to='/login/passwordless'>
-				<i className='bi bi-key-fill'></i> Passwordless Login
-			</NavLink>
+				<NavLink className='btn btn-outline-secondary' role='button' to='/login/passwordless'>
+					<i className='bi bi-key-fill'></i> Passwordless Login
+				</NavLink>
+			</Stack>
 
 			<p className='text-secondary mt-2 mb-0'>
 				¿Olvidaste tu contraseña?{" "}

@@ -39,7 +39,7 @@ export default function AlertCreateModal({ show, setShow }) {
 			</Modal.Header>
 
 			<Modal.Body>
-				<Form onSubmit={handleSubmit(handleModal)} id='alertaForm'>
+				<Form onSubmit={handleSubmit(handleModal)} id='alertaCreateForm'>
 					<Form.Group className='mb-3 text-start'>
 						<FloatingLabel
 							label={
@@ -92,7 +92,7 @@ export default function AlertCreateModal({ show, setShow }) {
 				<Button variant='danger' disabled={loading} onClick={cerrarModal}>
 					<i className='bi bi-x-lg'></i> Cancelar
 				</Button>
-				<Button form={"alertaForm"} variant='primary' type='submit' disabled={loading || !isDirty}>
+				<Button form='alertaCreateForm' variant='primary' type='submit' disabled={loading || !isDirty}>
 					<i className='bi bi-plus-lg'></i> {loading ? "Guardando..." : "Crear Alerta"}
 				</Button>
 			</Modal.Footer>
